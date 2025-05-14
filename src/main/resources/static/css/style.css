@@ -71,3 +71,8 @@ main {
 .error-message{
 	color: red;
 }
+
+/* テストコミット用 */
+.test {
+	color: red;
+}
