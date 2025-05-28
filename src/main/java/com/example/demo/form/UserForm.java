@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+
 import lombok.Data;
 
 @Data
@@ -77,6 +78,15 @@ public class UserForm implements ValidationGroups {
             return olnJp != null && !olnJp.isEmpty();
         }
         return true;
+    }
+    
+    //社員番号とパスワードの組み合わせが正しくありません。
+    @AssertTrue(message = "社員番号とパスワードの組み合わせが正しくありません")
+    public boolean isEmployeNomberMatching() {
+        if (employeeNo == null || password == null) {
+            return true;
+        }
+        return employeeNo.equals(password);
     }
 
 }
