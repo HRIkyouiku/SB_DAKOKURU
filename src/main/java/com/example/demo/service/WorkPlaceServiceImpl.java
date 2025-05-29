@@ -14,23 +14,23 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WorkPlaceServiceImpl implements WorkPlaceService {
 
-	private final WorkPlaceRepository workPlaceRepository;
+    private final WorkPlaceRepository workPlaceRepository;
 
-	@Override
-	public List<WorkPlace> findAll() {
+    @Override
+    public List<WorkPlace> findAll() {
 
-		List<WorkPlace> list = workPlaceRepository.findAll();
+        List<WorkPlace> list = workPlaceRepository.findAll();
 
-		return list;
-	}
+        return list;
+    }
 
-	@Override
-	public void save(WorkPlace workPlace) {
-		workPlaceRepository.save(workPlace);
-	}
+    @Override
+    public void save(WorkPlace workPlace) {
+        workPlaceRepository.save(workPlace);
+    }
 
-	@Override
-	public Optional<WorkPlace> findById(Long workPlaceId) {
-		return workPlaceRepository.findById(workPlaceId);
-	}
+    @Override
+    public Optional<WorkPlace> findById(Long workPlaceId) {
+        return workPlaceRepository.findById(workPlaceId);
+    }
 }

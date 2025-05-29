@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,29 +22,28 @@ import lombok.Setter;
 @Setter
 public class Timestamp {
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-	@Column(name="user_id")
-	private Long userId;
+    @Column(name = "user_id")
+    private Long userId;
 
-	@Column(name = "date", nullable = false)
+    @Column(name = "date", nullable = false)
     private LocalDate date;
 
-	@Column(name = "time")
+    @Column(name = "time")
     private LocalTime time;
 
-	private Byte type;
+    private Byte type;
 
-	@Column(name = "work_place_id")
-	private Long workPlaceId;
+    @Column(name = "work_place_id")
+    private Long workPlaceId;
 
+    private String remark;
+    private boolean approved;
 
-	private String remark;
-	private boolean approved;
-
-	@Column(name = "created_at", nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)
@@ -63,8 +63,8 @@ public class Timestamp {
         updatedAt = LocalDateTime.now();
     }
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name="user_id")
-//    @JsonBackReference
-//    private User user;
+    //    @ManyToOne(fetch = FetchType.LAZY)
+    //    @JoinColumn(name="user_id")
+    //    @JsonBackReference
+    //    private User user;
 }

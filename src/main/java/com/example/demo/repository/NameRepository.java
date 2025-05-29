@@ -10,14 +10,14 @@ import com.example.demo.entity.Name;
 
 public interface NameRepository extends JpaRepository<Name, Long> {
 
-	Name findByUserId(Long userId);
+    Name findByUserId(Long userId);
 
     @Query("""
-            SELECT n.userId FROM Name n WHERE
-            n.fnJp LIKE :keyword OR n.fnJpHira LIKE :keyword OR n.fnJpKata LIKE :keyword OR n.fnEn LIKE :keyword OR
-            n.lnJp LIKE :keyword OR n.lnJpHira LIKE :keyword OR n.lnJpKata LIKE :keyword OR n.lnEn LIKE :keyword OR
-            n.olnJp LIKE :keyword OR n.olnJpHira LIKE :keyword OR n.olnJpKata LIKE :keyword OR n.olnEn LIKE :keyword OR
-            n.mnJp LIKE :keyword OR n.mnJpHira LIKE :keyword OR n.mnJpKata LIKE :keyword OR n.mnEn LIKE :keyword
-        """)
+                SELECT n.userId FROM Name n WHERE
+                n.fnJp LIKE :keyword OR n.fnJpHira LIKE :keyword OR n.fnJpKata LIKE :keyword OR n.fnEn LIKE :keyword OR
+                n.lnJp LIKE :keyword OR n.lnJpHira LIKE :keyword OR n.lnJpKata LIKE :keyword OR n.lnEn LIKE :keyword OR
+                n.olnJp LIKE :keyword OR n.olnJpHira LIKE :keyword OR n.olnJpKata LIKE :keyword OR n.olnEn LIKE :keyword OR
+                n.mnJp LIKE :keyword OR n.mnJpHira LIKE :keyword OR n.mnJpKata LIKE :keyword OR n.mnEn LIKE :keyword
+            """)
     List<Long> searchByKeyword(@Param("keyword") String keyword);
 }

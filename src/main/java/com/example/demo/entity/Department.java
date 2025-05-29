@@ -13,6 +13,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,15 +23,15 @@ import lombok.Setter;
 @Setter
 public class Department {
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-	@Column(name = "name_jp")
-	private String nameJp;
+    @Column(name = "name_jp")
+    private String nameJp;
 
-	@Column(name = "name_en")
-	private String nameEn;
+    @Column(name = "name_en")
+    private String nameEn;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;

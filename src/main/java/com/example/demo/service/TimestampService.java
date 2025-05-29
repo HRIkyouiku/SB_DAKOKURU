@@ -6,6 +6,7 @@ import com.example.demo.entity.Timestamp;
 
 public interface TimestampService {
 
-	public List<Timestamp> findAllByUserIdOrderByCreatedAtDesc(Long userId);
-	public void save(Timestamp timestamp);
+    public List<Timestamp> findAllByUserIdOrderByCreatedAtDesc(Long userId);
+
+    public void save(Timestamp timestamp);
 }

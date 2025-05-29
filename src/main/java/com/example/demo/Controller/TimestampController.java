@@ -36,37 +36,34 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TimestampController {
 
-	private final WorkPlaceService workPlaceService;
-	private final TimestampService timestampService;
-	private final NameService nameService;
-	private final UserService userService;
+    private final WorkPlaceService workPlaceService;
+    private final TimestampService timestampService;
+    private final NameService nameService;
+    private final UserService userService;
 
-	@GetMapping("/timestamp/create")
-	public String timeline(Model model,
-			@AuthenticationPrincipal CustomUserDetails userDetails) {
+    @GetMapping("/timestamp/create")
+    public String timeline(Model model, @AuthenticationPrincipal CustomUserDetails userDetails) {
 
-	    if (!model.containsAttribute("timestampForm")) {
-	        model.addAttribute("timestampForm", new TimestampForm());
-	    }
+        if (!model.containsAttribute("timestampForm")) {
+            model.addAttribute("timestampForm", new TimestampForm());
+        }
 
-		List<WorkPlace> places = workPlaceService.findAll();
-		model.addAttribute("places", places);
+        List<WorkPlace> places = workPlaceService.findAll();
+        model.addAttribute("places", places);
 
-		List<Timestamp> timestampHistories = timestampService.findAllByUserIdOrderByCreatedAtDesc(userDetails.getId());
-		model.addAttribute("timestampHistories", timestampHistories);
-		System.out.println(timestampHistories);
+        List<Timestamp> timestampHistories = timestampService.findAllByUserIdOrderByCreatedAtDesc(userDetails.getId());
+        model.addAttribute("timestampHistories", timestampHistories);
+        System.out.println(timestampHistories);
 
         return "timestamps/create";
     }
 
-	@PostMapping("/timestamp/store")
-	public String store(@Validated @ModelAttribute("timestampForm") TimestampForm form,
-            BindingResult result,
-            RedirectAttributes ra,
+    @PostMapping("/timestamp/store")
+    public String store(@Validated @ModelAttribute("timestampForm") TimestampForm form,
+            BindingResult result, RedirectAttributes ra,
             @AuthenticationPrincipal CustomUserDetails userDetails) {
 
         if (result.hasErrors()) {
-
             ra.addFlashAttribute("org.springframework.validation.BindingResult.timestampForm", result);
             ra.addFlashAttribute("timestampForm", form);
             return "redirect:/timestamp/create";
@@ -91,8 +88,8 @@ public class TimestampController {
         timestamp.setTime(currentTime);
         timestamp.setType(form.getType());
         timestamp.setWorkPlaceId(form.getWorkPlaceId());
-        timestamp.setRemark(null);  // 備考は未使用
-        timestamp.setApproved(false);   // 未承認で固定
+        timestamp.setRemark(null); // 備考は未使用
+        timestamp.setApproved(false); // 未承認で固定
 
         // データベースに保存
         timestampService.save(timestamp);
@@ -101,13 +98,13 @@ public class TimestampController {
         ra.addFlashAttribute("successMessage", "打刻が登録されました。");
 
         return "redirect:/timestamp/create";
-	}
+    }
 
-	@GetMapping("/users_daily_timestamps/{period}")
-	public String getDailyTimestampByUsers(@PathVariable("period") String period,
-			Model model,
-			@ModelAttribute("timestampForm") UserTimestampForm form) {
-		// "yyyy-MM" 形式のパラメータを YearMonth に変換
+    @GetMapping("/users_daily_timestamps/{period}")
+    public String getDailyTimestampByUsers(@PathVariable("period") String period,
+            Model model, @ModelAttribute("timestampForm") UserTimestampForm form) {
+
+        // "yyyy-MM" 形式のパラメータを YearMonth に変換
         YearMonth ym = YearMonth.parse(period, DateTimeFormatter.ofPattern("yyyy-MM"));
 
         // 月初・月末を取得
@@ -134,15 +131,14 @@ public class TimestampController {
         List<Object[]> timestamps = userService.getDailyTimestamps(userIds, firstDay, lastDay);
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-			String json = objectMapper.writeValueAsString(timestamps);
-			System.out.println(json);
-		} catch (JsonProcessingException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
+            String json = objectMapper.writeValueAsString(timestamps);
+            System.out.println(json);
+        } catch (JsonProcessingException e) {
+            // TODO 自動生成された catch ブロック
+            e.printStackTrace();
+        }
         model.addAttribute("timestamps", timestamps);
 
-
-		return "timestamps/users_daily_timestamps";
-	}
+        return "timestamps/users_daily_timestamps";
+    }
 }

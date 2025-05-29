@@ -7,9 +7,9 @@ body {
 }
 
 .login {
-	width: 600px;
-	height: 400px;
-	margin: 0 auto;
+    width: 600px;
+    height: 400px;
+    margin: 0 auto;
     text-align: center;
     margin-top: 50px;  /* 外側の余白 */
 }
@@ -18,18 +18,18 @@ body {
     width: 300px;  /* 幅 */
     height: 40px; /* 高さ */
     margin: 10px;  /* 外側の余白 */
-	padding: 10px; /* 内側の余白 */
-	box-sizing: border-box;
+    padding: 10px; /* 内側の余白 */
+    box-sizing: border-box;
 }
 
 .btn {
     width: 300px;  /* 幅 */
-	height: 40px; /* 高さ */
+    height: 40px; /* 高さ */
     padding: 10px; /* 内側の余白 */
-	margin: 10px;  /* 外側の余白 */
-	box-sizing: border-box;
+    margin: 10px;  /* 外側の余白 */
+    box-sizing: border-box;
     text-align: left;  /* 文字位置 */
-	border: 1px solid #000000;
+    border: 1px solid #000000;
     background: #999999;  /*  背景色 */
     color: #ffffff;  /* 文字色 */
 }
@@ -40,12 +40,12 @@ body {
 }
 
 header{
-	background-color: #f8f9fa;
+    background-color: #f8f9fa;
     border-bottom: 1px solid #ddd;
 }
 
 .navbar {
-	width: 80vw;
+    width: 80vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -65,7 +65,7 @@ header{
 }
 
 #navigation {
-	position: relative;
+    position: relative;
 }
 
 nav ul {
@@ -103,7 +103,7 @@ main {
 }
 
 .error-message{
-	color: red;
-	display: inline-block;
-	margin: 20px;  /* 外側の余白 */
+    color: red;
+    display: inline-block;
+    margin: 20px;  /* 外側の余白 */
 }

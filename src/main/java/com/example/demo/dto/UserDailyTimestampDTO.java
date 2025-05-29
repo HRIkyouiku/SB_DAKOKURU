@@ -9,5 +9,4 @@ public class UserDailyTimestampDTO {
     private String lnJp;
     private String departmentName;
     private String dailyTimestamps;
-
 }
