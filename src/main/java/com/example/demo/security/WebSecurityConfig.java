@@ -21,7 +21,7 @@ public class WebSecurityConfig {
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
-        		.loginProcessingUrl("/login")
+                .loginProcessingUrl("/login")
                 .loginPage("/login")
                 .usernameParameter("employee_no")
                 .passwordParameter("password")
