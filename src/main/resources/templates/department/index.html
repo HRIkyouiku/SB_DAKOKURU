@@ -9,7 +9,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
     <!-- 各ページのコンテンツがここに入る -->
     <body>
         <h2>部署一覧</h2>
-        <a th:href="@{/create}">新規部署追加</a>
+        <a th:href="@{/department/create}">新規部署追加</a>
         <!--検索フォーム-->
         <form th:action="@{/depertment/index}" th:method="post">
                 <input type="text" name="searchName">

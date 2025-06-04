@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">html>
+<head>
+    <meta charset="UTF-8">
+    <title>新規部署登録</title>
+</head>
+<main layout:fragment="content">
+    <!-- 各ページのコンテンツがここに入る -->
+    <body>
+        <h2>新規部署登録</h2>
+        <!--登録フォーム-->
+        <form th:action="@{/department/store}" th:method="post" th:object="${departmentForm}">
+            <div>
+                <label> 作成する部署名<input type="text" name="nameJp"></label>
+            </div>
+            <div>
+                <label> 部署名（英語）<input type="text" name="nameEn"></label>
+            </div>
+            <button>登録(未実装)</button>
+        </form>
+        <div>
+        <a th:href="@{/department/index}">部署一覧へ戻る</a>
+        </div>
+    </body>
+</main>
+</html>

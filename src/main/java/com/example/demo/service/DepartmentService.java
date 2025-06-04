@@ -8,5 +8,9 @@ public interface DepartmentService {
 	
     //部署データのリスト取得
     List<Department> departmentfindAll();
-	
+
+    //部署新規登録機能
+    //Departmentエンティティのインスタンス「createDepartment」(フォームに入力された部署名)を渡す
+    void createDepartment(Department createDepartment);
+
 }

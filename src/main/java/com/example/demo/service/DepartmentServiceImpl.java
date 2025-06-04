@@ -22,4 +22,12 @@ public class DepartmentServiceImpl implements DepartmentService {
         return departmentRepository.findAll();
         
     }
+
+    @Override
+    //部署新規登録機能(departmentRepositoryのsaveメソッド)
+    public void createDepartment(Department createDepartment) {
+        departmentRepository.save(createDepartment);
+        
+    }
+
 }
