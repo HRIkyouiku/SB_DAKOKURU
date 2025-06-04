@@ -1,12 +1,45 @@
 @charset "UTF-8";
-
 body {
+    background-color: #f8f9fa;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
 
-header {
+.login {
+    width: 600px;
+    height: 400px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 50px;  /* 外側の余白 */
+}
+
+.textbox {
+    width: 300px;  /* 幅 */
+    height: 40px; /* 高さ */
+    margin: 10px;  /* 外側の余白 */
+    padding: 10px; /* 内側の余白 */
+    box-sizing: border-box;
+}
+
+.btn {
+    width: 300px;  /* 幅 */
+    height: 40px; /* 高さ */
+    padding: 10px; /* 内側の余白 */
+    margin: 10px;  /* 外側の余白 */
+    box-sizing: border-box;
+    text-align: left;  /* 文字位置 */
+    border: 1px solid #000000;
+    background: #999999;  /*  背景色 */
+    color: #ffffff;  /* 文字色 */
+}
+
+.info{
+    text-align: center;
+    margin-top: 50px;
+}
+
+header{
     background-color: #f8f9fa;
     border-bottom: 1px solid #ddd;
 }
@@ -52,14 +85,14 @@ nav ul li a {
     font-weight: bold;
 }
 
-#slide-line {
+#slide-line{
     position: absolute;
     bottom: 0;
     height: 2px;
-    background-color: #EF682C;
+    background-color:#EF682C;
     -webkit-transition: all .3s ease;
     transition: all .3s ease;
-}
+  }
 
 .user-info {
     font-weight: bold;
@@ -69,6 +102,8 @@ main {
     padding: 20px;
 }
 
-.error-message {
+.error-message{
     color: red;
+    display: inline-block;
+    margin: 20px;  /* 外側の余白 */
 }
