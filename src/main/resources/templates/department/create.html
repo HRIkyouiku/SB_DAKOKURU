@@ -10,14 +10,20 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
     <body>
         <h2>新規部署登録</h2>
         <!--登録フォーム-->
-        <form th:action="@{/department/store}" th:method="post" th:object="${departmentForm}">
+        <form th:action="@{/department/store}" th:method="post" th:object="${departmentForm}" onclick="return confirm('登録します。宜しいですか？')">
             <div>
-                <label> 作成する部署名<input type="text" name="nameJp"></label>
+                <label> 作成する部署名</label>
+                <input type="text" name="nameJp"  th:field="*{nameJp}" placeholder="新しい部署名" >
+                <!--バリデーションエラーメッセージ表示-->
+                <div th:if="${#fields.hasErrors('nameJp')}" th:errors="*{nameJp}" style="color:red;"></div>
             </div>
             <div>
-                <label> 部署名（英語）<input type="text" name="nameEn"></label>
+                <label> 部署名（英語）</label>
+                <input type="text" name="nameEn" th:field="*{nameEn}" placeholder="新しい部署名（英語）">
+                <!--バリデーションエラーメッセージ表示-->
+                <div th:if="${#fields.hasErrors('nameEn')}" th:errors="*{nameEn}" style="color:red;"></div>
             </div>
-            <button>登録(未実装)</button>
+            <button>登録</button>
         </form>
         <div>
         <a th:href="@{/department/index}">部署一覧へ戻る</a>

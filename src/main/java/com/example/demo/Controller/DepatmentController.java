@@ -2,6 +2,8 @@ package com.example.demo.Controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +32,7 @@ public class DepatmentController {
         
     //部署登録画面 
     @GetMapping ("/department/create")
-    public String create () {
+    public String create (@ModelAttribute("departmentForm") DepartmentForm form) {
         //部署登録画面の表示
         return  "/department/create";
         
@@ -39,8 +41,16 @@ public class DepatmentController {
     //部署新規登録機能
     @PostMapping("/department/store")
     public String store (Model model,
-            @ModelAttribute("departmentForm") DepartmentForm form) {
+            @Validated @ModelAttribute("departmentForm") DepartmentForm form,
+            BindingResult result) {
+        //バリデーションエラーがあった場合
+        //再度 create テンプレートを表示
+         if (result.hasErrors()) {
+             return "/department/create";
+             
+         }
 
+        //バリデーションエラーがなかった場合
         //Departmentエンティティのインスタンス「createDepartment」を作成
         Department createDepartment= new Department();	
         //createDepartmentに、DepartmentFormから取得したnameJpとnameEnをセット
@@ -51,7 +61,7 @@ public class DepatmentController {
         //「createDepartment」インスタンス(フォームに入力された部署名)を渡す
         departmentService.createDepartment(createDepartment);
         
-        // リダイレクト先：department/index
+        // リダイレクト先：/department/index
         return  "redirect:/department/index";
     }
 }
