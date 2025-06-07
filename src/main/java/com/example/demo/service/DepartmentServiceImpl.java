@@ -1,6 +1,9 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Optional;
+
+import jakarta.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
@@ -29,5 +32,30 @@ public class DepartmentServiceImpl implements DepartmentService {
         departmentRepository.save(createDepartment);
         
     }
+    
+    @Override
+    //部署編集・削除画面
+    public Optional<Department> editDepartmentById(Long departmentId) {
+    	return departmentRepository.findById(departmentId);
+    }
+    
+    @Transactional
+    //部署編集機能
+    public void updateDepartment(Department updateDepartment) {
+    	departmentRepository.save(updateDepartment);
+    }
+    
+    @Override
+    //部署削除機能
+    public void deleteDepartment(Long departmentId) {
+    	departmentRepository.deleteById(departmentId);
+    }
+    
+    
+    //部署検索機能
+    public List <Department> departmentfindList(String searchName) {
+    
+    return departmentRepository.findByNameJpLike("%" + searchName  + "%");   
+}
 
 }

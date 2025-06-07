@@ -11,13 +11,12 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
         <h2>部署一覧</h2>
         <a th:href="@{/department/create}">新規部署追加</a>
         <!--検索フォーム-->
-        <form th:action="@{/depertment/index}" th:method="post">
+        <form th:action="@{/depertment/search}" th:method="post">
                 <input type="text" name="searchName">
                 <button type="submit">検索(未実装)</button>
                 <button type="reset">クリア</button>
         </form>
         検索結果○件<br>
-
         <!--部署一覧・編集-->
         <table>
             <tr th:each="department : ${departmentList}">
@@ -25,7 +24,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
                 <td th:text="*{department.nameJp}"></td>
                 <td>
                     <a th:href="@{/depertment/edit/{id}(id=${department.id})}">
-                        <button >編集(未実装)</button>
+                        <button >編集</button>
                     </a>
                 </td>
             </tr>

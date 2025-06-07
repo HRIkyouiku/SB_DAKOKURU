@@ -13,4 +13,7 @@ public interface ValidationGroups {
 
 	public interface GroupAuthorityCreateGroup {}
 	public interface GroupAuthorityUpdateGroup {}
-}
+
+	//部署用バリデーション
+	public interface DepartmentCreateGroup {}
+	public interface DepartmentUpdateGroup {}}
