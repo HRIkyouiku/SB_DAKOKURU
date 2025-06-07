@@ -53,9 +53,9 @@ public class DepartmentServiceImpl implements DepartmentService {
     
     
     //部署検索機能
-    public List <Department> departmentfindList(String searchName) {
+    public List <Department> departmentfindList(String searchName, String searchName2) {
     
-    return departmentRepository.findByNameJpLike("%" + searchName  + "%");   
+    return departmentRepository.findByNameJpOrNameEnLike("%" + searchName  + "%","%" + searchName2  + "%");   
 }
 
 }

@@ -1,5 +1,7 @@
 package com.example.demo.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,5 +11,8 @@ import com.example.demo.entity.Department;
 
 //JpaRepositoryの継承 <Departmentエンティティ, 主キーLong型>
 public interface DepartmentRepository extends JpaRepository<Department, Long>{
+
+	//検索メソッド(部署名)
+	List<Department> findByNameJpOrNameEnLike(String searchName, String searchName2);
 
 }

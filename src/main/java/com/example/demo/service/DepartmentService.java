@@ -24,5 +24,5 @@ public interface DepartmentService {
     void deleteDepartment(Long departmentId);
     
     //部署検索機能
-    List<Department> departmentfindList(String searchName);
+    List<Department> departmentfindList(String searchName, String searchName2);
 }

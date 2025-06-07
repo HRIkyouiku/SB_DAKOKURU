@@ -122,9 +122,12 @@ public class DepatmentController {
     //部署検索
     @PostMapping("/depertment/search")
     private String searchDepartmentList( Model model,
-    		@RequestParam("searchName") String searchName) {
+            @RequestParam("searchName") String searchName) {
+
+        //部署名（英語）用変数
+        String searchName2 = searchName;
         //部署データをリスト取得(departmentServiceのdepartmentfindListメソッド)
-        model.addAttribute("departmentList", departmentService.departmentfindList(searchName));
+        model.addAttribute("departmentList", departmentService.departmentfindList(searchName,searchName2));
             return  "/department/index";
     }
 }
