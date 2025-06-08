@@ -5,6 +5,9 @@
     </head>
     <body>
         <form th:action="@{/login}" method="post">
+			<div th:if="${param.error}">
+				<span th:text="${session.SPRING_SECURITY_LAST_EXCEPTION?.message ?: '社員番号とパスワードの組み合わせが正しくありません。'}"></span>
+			</div>	
             <div>
                 <label> 社員番号: <input type="text" name="employee_no"/></label>
             </div>
