@@ -2,19 +2,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
     <head>
         <title>Spring Security Example </title>
+		<link th:href="@{/css/style.css}" rel="stylesheet">
     </head>
     <body>
+		<img th:src="@{/images/DAKOKURU.jpg}" alt="ロゴ画像" /><h1>Dakoku-Ru</h1>
         <form th:action="@{/login}" method="post" th:object="${userForm}">
+			<div class="body">
 			<div th:if="${param.error}" class="alert alert-danger">
 				社員番号とパスワードの組み合わせが正しくありません。
-			<div>
+			</div>
             <div>
-                <label> 社員番号: <input type="text" name="employee_no"/></label>
+                <label> <input type="text" name="employee_no" placeholder="社員番号"/></label>
             </div>
             <div>
-                <label> パスワード: <input type="password" name="password"/></label>
+                <label><input type="password" name="password" placeholder="パスワード"/></label>
             </div>
-                <input type="submit" value="ログイン"/>
+                <input type="submit" value="Log-In"/>
             </div>
         </form>
     </body>

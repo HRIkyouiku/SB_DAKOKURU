@@ -1,5 +1,11 @@
 @charset "UTF-8";
+
+h1 {
+	text-align:center;
+}
+
 body {
+	text-align:center;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
