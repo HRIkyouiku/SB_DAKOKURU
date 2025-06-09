@@ -13,6 +13,6 @@ import com.example.demo.entity.Department;
 public interface DepartmentRepository extends JpaRepository<Department, Long>{
 
 	//検索メソッド(部署名)
-	List<Department> findByNameJpOrNameEnLike(String searchName, String searchName2);
+	List<Department> findByNameJpLikeOrNameEnLikeOrderByNameJpDesc(String searchName, String searchName2);
 
 }

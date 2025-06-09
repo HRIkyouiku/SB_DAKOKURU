@@ -30,6 +30,7 @@ public class DepatmentController {
     //部署一覧画面
     @GetMapping ("/department/index")
     public String index (@ModelAttribute("message") String message, Model model) {
+        
         //部署データをリスト取得(departmentServiceのdepartmentfindAllメソッド)
         model.addAttribute("departmentList", departmentService.departmentfindAll());
         
@@ -38,7 +39,6 @@ public class DepatmentController {
         
         //部署一覧画面の表示
         return  "/department/index";
-        
     }
         
     //部署登録画面表示
@@ -47,7 +47,6 @@ public class DepatmentController {
         
         //部署登録画面の表示
         return  "/department/create";
-        
     }
     
     //部署新規登録機能
@@ -61,6 +60,7 @@ public class DepatmentController {
         if (result.hasErrors()) {
             return "/department/create";
             }
+
         //バリデーションエラーがなかった場合
         //Departmentエンティティのインスタンス「createDepartment」を作成
         Department createDepartment= new Department();	
@@ -77,20 +77,21 @@ public class DepatmentController {
         
         // リダイレクト先：/department/index
         return  "redirect:/department/index";
-        }
+    }
     
     //部署名編集・削除画面表示
     @GetMapping("/depertment/edit/{departmentId}") 
     private String editDepartment(Model model,
             @PathVariable("departmentId") Long departmentId,
             @ModelAttribute("departmentForm") DepartmentForm form) {
+        
         //department.idをdepartmentServiceに渡してレコード取得
         Optional<Department> department = departmentService.editDepartmentById(departmentId);
         model.addAttribute("department", department.get());
 
         // リダイレクト先：/department/index
         return "/department/edit";
-        }
+    }
     
     //部署名編集機能
     @PostMapping("/department/update/{departmentId}")
@@ -107,6 +108,7 @@ public class DepatmentController {
             return "/department/edit";
             }
 
+        //バリデーションエラーがなかった場合
         //Departmentエンティティのインスタンス「updateDepartment」を作成
         Department updateDepartment= new Department();	
         //updateDepartmentに、DepartmentFormから取得したIdとnameJpとnameEnをセット
@@ -119,7 +121,7 @@ public class DepatmentController {
 
         // リダイレクト先：/department/index
         return  "redirect:/department/index";
-        }
+    }
     
     //部署削除機能
     @PostMapping("/post/delete/{departmentId}")
@@ -147,4 +149,5 @@ public class DepatmentController {
         // リダイレクト先：/department/index
         return  "/department/index";
     }
+
 }
