@@ -9,14 +9,16 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
     <!-- 各ページのコンテンツがここに入る -->
     <body>
         <h2>部署一覧</h2>
-        <a th:href="@{/department/create}">新規部署追加</a>
+        <a th:href="@{/department/create}" >新規部署追加</a>
         <!--検索フォーム-->
         <form th:action="@{/depertment/search}" th:method="post">
-                <input type="text" name="searchName">
-                <button type="submit">検索(未実装)</button>
-                <button type="reset">クリア</button>
+            <label> キーワード</label>
+            <input type="text" name="searchName" placeholder="検索したい部署名を入力" >
+            <button type="submit">検索</button>
+            <button type="reset">クリア</button>
         </form>
         検索結果○件<br>
+		<p th:text="${message}" style="color:blue;"> </p> <!-- メッセージを表示 -->
         <!--部署一覧・編集-->
         <table>
             <tr th:each="department : ${departmentList}">

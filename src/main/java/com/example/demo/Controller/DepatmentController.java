@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.entity.Department;
 import com.example.demo.form.DepartmentForm;
@@ -28,9 +29,13 @@ public class DepatmentController {
 	
     //部署一覧画面
     @GetMapping ("/department/index")
-    public String index (Model model) {
+    public String index (@ModelAttribute("message") String message, Model model) {
         //部署データをリスト取得(departmentServiceのdepartmentfindAllメソッド)
         model.addAttribute("departmentList", departmentService.departmentfindAll());
+        
+        //完了メッセージ
+        model.addAttribute("message", message);
+        
         //部署一覧画面の表示
         return  "/department/index";
         
@@ -39,6 +44,7 @@ public class DepatmentController {
     //部署登録画面表示
     @GetMapping ("/department/create")
     public String create (@ModelAttribute("departmentForm") DepartmentForm form) {
+        
         //部署登録画面の表示
         return  "/department/create";
         
@@ -47,8 +53,9 @@ public class DepatmentController {
     //部署新規登録機能
     @PostMapping("/department/store")
     public String store (Model model,
-            @Validated(DepartmentCreateGroup.class) @ModelAttribute("departmentForm") DepartmentForm form,
-            BindingResult result) {
+            @Validated(DepartmentCreateGroup.class)
+                @ModelAttribute("departmentForm") DepartmentForm form,
+                BindingResult result, RedirectAttributes redirectAttributes) {
         //バリデーションエラーがあった場合
         //再度 create テンプレートを表示
         if (result.hasErrors()) {
@@ -65,6 +72,9 @@ public class DepatmentController {
         //「createDepartment」インスタンス(フォームに入力された部署名)を渡す
         departmentService.createDepartment(createDepartment);
         
+        //処理完了メッセージ
+        redirectAttributes.addFlashAttribute("message", "登録が完了しました。");
+        
         // リダイレクト先：/department/index
         return  "redirect:/department/index";
         }
@@ -78,6 +88,7 @@ public class DepatmentController {
         Optional<Department> department = departmentService.editDepartmentById(departmentId);
         model.addAttribute("department", department.get());
 
+        // リダイレクト先：/department/index
         return "/department/edit";
         }
     
@@ -86,11 +97,12 @@ public class DepatmentController {
     public String updateDepartment (Model model,
             @PathVariable("departmentId") Long departmentId,
             @Validated(DepartmentUpdateGroup.class) @ModelAttribute("departmentForm") DepartmentForm form,
-            BindingResult result) {
+            BindingResult result,RedirectAttributes redirectAttributes) {
         //バリデーションエラーがあった場合
         if (result.hasErrors()) {
-        	Optional<Department> department = departmentService.editDepartmentById(departmentId);
+            Optional<Department> department = departmentService.editDepartmentById(departmentId);
             model.addAttribute("department", department.get());
+            
             //再度 edit テンプレートを表示
             return "/department/edit";
             }
@@ -104,17 +116,21 @@ public class DepatmentController {
  
         //更新内容を渡す
         departmentService.updateDepartment(updateDepartment);
+
         // リダイレクト先：/department/index
         return  "redirect:/department/index";
         }
     
     //部署削除機能
     @PostMapping("/post/delete/{departmentId}")
-    private String postDelete(
-    	//@PathVariable: URLパスの中のプレースホルダー{departmentId}の値を取得
-        @PathVariable("departmentId") Long departmentId) {
-    	//postServiceのdeletePostメソッドに、postIdを渡す
+    private String postDelete(@PathVariable("departmentId") Long departmentId,
+            RedirectAttributes redirectAttributes) {
+        //postServiceのdeletePostメソッドに、postIdを渡す
         departmentService.deleteDepartment(departmentId);
+        
+        //削除完了メッセージ
+        redirectAttributes.addFlashAttribute("message", "削除が完了しました。");
+        
         // リダイレクト先：/department/index
         return  "redirect:/department/index";
     }
@@ -123,11 +139,12 @@ public class DepatmentController {
     @PostMapping("/depertment/search")
     private String searchDepartmentList( Model model,
             @RequestParam("searchName") String searchName) {
-
         //部署名（英語）用変数
         String searchName2 = searchName;
         //部署データをリスト取得(departmentServiceのdepartmentfindListメソッド)
         model.addAttribute("departmentList", departmentService.departmentfindList(searchName,searchName2));
-            return  "/department/index";
+        
+        // リダイレクト先：/department/index
+        return  "/department/index";
     }
 }
