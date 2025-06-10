@@ -83,17 +83,21 @@ public class DepatmentController {
     @GetMapping("/depertment/edit/{departmentId}") 
     private String editDepartment(Model model,
             @PathVariable("departmentId") Long departmentId,
-            @ModelAttribute("departmentForm") DepartmentForm form) {
+            @ModelAttribute("departmentForm") DepartmentForm form,
+            @ModelAttribute("message") String message) {
         
         //department.idをdepartmentServiceに渡してレコード取得
         Optional<Department> department = departmentService.editDepartmentById(departmentId);
         model.addAttribute("department", department.get());
 
+        //完了メッセージ
+        model.addAttribute("message", message);
+        
         // リダイレクト先：/department/index
         return "/department/edit";
     }
     
-    //部署名編集機能
+    //部署名更新機能
     @PostMapping("/department/update/{departmentId}")
     public String updateDepartment (Model model,
             @PathVariable("departmentId") Long departmentId,
@@ -118,9 +122,12 @@ public class DepatmentController {
  
         //更新内容を渡す
         departmentService.updateDepartment(updateDepartment);
+        
+        //処理完了メッセージ
+        redirectAttributes.addFlashAttribute("message", "更新が完了しました。");
 
-        // リダイレクト先：/department/index
-        return  "redirect:/department/index";
+        // リダイレクト先：/department/edit
+        return  "redirect:/depertment/edit/{departmentId}";
     }
     
     //部署削除機能
@@ -139,13 +146,12 @@ public class DepatmentController {
     
     //部署検索
     @PostMapping("/depertment/search")
-    private String searchDepartmentList( Model model,
+    private String findDepartmentList( Model model,
             @RequestParam("searchName") String searchName) {
         //部署名（英語）用変数
         String searchName2 = searchName;
         //部署データをリスト取得(departmentServiceのdepartmentfindListメソッド)
         model.addAttribute("departmentList", departmentService.departmentfindList(searchName,searchName2));
-        
         // リダイレクト先：/department/index
         return  "/department/index";
     }
