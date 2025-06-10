@@ -22,6 +22,7 @@ public class WebSecurityConfig {
             )
             .formLogin(form -> form
                 .loginPage("/login")
+                .failureUrl("/login?error")
                 .usernameParameter("employee_no")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/timestamp/create", true)

@@ -21,10 +21,10 @@ public class CustomUserDetailsService implements UserDetailsService {
         try {
             int employeeNo = Integer.parseInt(employeeNoStr);
             User user = customUserRepository.findByEmployeeNo(employeeNo)
-                    .orElseThrow(() -> new UsernameNotFoundException("User not found with employee_no: " + employeeNo));
+                    .orElseThrow(() -> new UsernameNotFoundException("社員番号が正しくありません。" + employeeNo));
             return new CustomUserDetails(user);
         } catch (NumberFormatException e) {
-            throw new UsernameNotFoundException("Invalid employee number format: " + employeeNoStr);
+            throw new UsernameNotFoundException("パスワードが正しくありません。" + employeeNoStr);
         }
     }
 }

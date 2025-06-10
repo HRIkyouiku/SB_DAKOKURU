@@ -5,7 +5,10 @@
     </head>
     <body>
         <form th:action="@{/login}" method="post">
-            <div>
+			<div th:if="${param.error}">
+	        	<span th:text="社員番号かパスワードが正しくありません。" style="color: red;"></span>
+		 	</div>
+			<div>
                 <label> 社員番号: <input type="text" name="employee_no"/></label>
             </div>
             <div>
