@@ -12,6 +12,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
         <!--部署編集フォーム-->
         <div>
             <div>
+                <!-- 完了メッセージを表示 -->
+                <p th:text="${message}" style="color:blue;"> </p> 
                 変更前
                 <!--	部署名-->
                 <input type="text" name="nameJp" th:value="${department.nameJp}">
