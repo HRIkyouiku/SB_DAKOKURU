@@ -5,9 +5,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Map;
 
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -19,6 +16,10 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,11 +29,11 @@ import lombok.Setter;
 @Setter
 public class EmploymentStatus {
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-	@Column(name = "contract_start_date", nullable = false)
+    @Column(name = "contract_start_date", nullable = false)
     private LocalDate contractStartDate;
 
     @Column(name = "contract_end_date", nullable = false)
@@ -94,6 +95,6 @@ public class EmploymentStatus {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 }

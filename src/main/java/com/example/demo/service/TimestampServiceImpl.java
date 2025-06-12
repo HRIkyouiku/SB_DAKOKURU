@@ -13,18 +13,18 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TimestampServiceImpl implements TimestampService {
 
-	private final TimestampRepository timestampRepository;
+    private final TimestampRepository timestampRepository;
 
-	@Override
+    @Override
     public List<Timestamp> findAllByUserIdOrderByCreatedAtDesc(Long userId) {
 
-    	List<Timestamp> result = timestampRepository.findAllByUserIdOrderByCreatedAtDesc(userId);
+        List<Timestamp> result = timestampRepository.findAllByUserIdOrderByCreatedAtDesc(userId);
 
         return result;
     }
 
-	@Override
-	public void save(Timestamp timestamp) {
-		timestampRepository.save(timestamp);
-	}
+    @Override
+    public void save(Timestamp timestamp) {
+        timestampRepository.save(timestamp);
+    }
 }

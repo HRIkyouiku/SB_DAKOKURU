@@ -1,17 +1,18 @@
 @charset "UTF-8";
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
 
-header{
-	background-color: #f8f9fa;
+header {
+    background-color: #f8f9fa;
     border-bottom: 1px solid #ddd;
 }
 
 .navbar {
-	width: 80vw;
+    width: 80vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -31,7 +32,7 @@ header{
 }
 
 #navigation {
-	position: relative;
+    position: relative;
 }
 
 nav ul {
@@ -51,14 +52,14 @@ nav ul li a {
     font-weight: bold;
 }
 
-#slide-line{
+#slide-line {
     position: absolute;
     bottom: 0;
     height: 2px;
-    background-color:#EF682C;
+    background-color: #EF682C;
     -webkit-transition: all .3s ease;
     transition: all .3s ease;
-  }
+}
 
 .user-info {
     font-weight: bold;
@@ -68,6 +69,6 @@ main {
     padding: 20px;
 }
 
-.error-message{
-	color: red;
+.error-message {
+    color: red;
 }

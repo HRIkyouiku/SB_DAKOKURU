@@ -8,6 +8,6 @@ import com.example.demo.entity.Timestamp;
 
 public interface TimestampRepository extends JpaRepository<Timestamp, Long> {
 
-	List<Timestamp> findAllByUserIdOrderByCreatedAtDesc(Long userId);
+    List<Timestamp> findAllByUserIdOrderByCreatedAtDesc(Long userId);
 
 }
