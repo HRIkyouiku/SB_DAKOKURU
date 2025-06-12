@@ -147,7 +147,9 @@ public class DepatmentController {
     //部署検索
     @PostMapping("/depertment/search")
     private String findDepartmentList( Model model,
-            @RequestParam("searchName") String searchName) {
+            @RequestParam(value="searchName") String searchName) {
+        //検索ワード
+        model.addAttribute("searchName", searchName);
         //部署名（英語）用変数
         String searchName2 = searchName;
         //部署データをリスト取得(departmentServiceのdepartmentfindListメソッド)

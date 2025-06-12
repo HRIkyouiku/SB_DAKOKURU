@@ -13,9 +13,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
         <!--検索フォーム-->
         <form th:action="@{/depertment/search}" th:method="post">
             <label> キーワード</label>
-            <input type="text" name="searchName"  placeholder="検索したい部署名を入力" >
+            <input type="text" name="searchName"  th:value=${searchName} placeholder="検索したい部署名を入力" >
             <button type="submit">検索</button>
-            <button type="reset">クリア</button>
+        </form>
+		<!--検索条件クリア-->
+        <form th:action="@{/depertment/search}" th:method="post">
+            <input type="hidden" name="searchName" value="">
+            <button type="submit">クリア</button>
         </form>
         検索結果○件<br>
         <!-- メッセージを表示 -->
