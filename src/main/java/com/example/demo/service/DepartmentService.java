@@ -30,6 +30,10 @@ public interface DepartmentService {
     //部署検索機能
     List<Department> departmentfindList(String searchName, String searchName2);
     
+    //部署全件数取得
+    long departmentCountall();
     
+    //部署名検索件数取得
+    long departmentCount(String searchName, String searchName2);
     
 }

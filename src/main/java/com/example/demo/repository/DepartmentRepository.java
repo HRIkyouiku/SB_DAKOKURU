@@ -18,4 +18,8 @@ public interface DepartmentRepository extends JpaRepository<Department, Long>{
     //部署存在チェック
     boolean existsByNameJp(String nameJp); 
     boolean existsByNameEn(String nameEn); 
+    
+    //部署名検索件数取得
+    long countByNameJpLikeOrNameEnLike(String searchName, String searchName2); 
+    
 }

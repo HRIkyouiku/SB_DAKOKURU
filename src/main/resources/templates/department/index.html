@@ -16,18 +16,20 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
             <input type="text" name="searchName"  th:value=${searchName} placeholder="検索したい部署名を入力" >
             <button type="submit">検索</button>
         </form>
-		<!--検索条件クリア-->
+        <!--検索条件クリア-->
         <form th:action="@{/depertment/search}" th:method="post">
             <input type="hidden" name="searchName" value="">
             <button type="submit">クリア</button>
-        </form>
-        検索結果○件<br>
-        <!-- メッセージを表示 -->
+        </form>        
+        <!--${countall}=全件数  ${count}=検索結果件数-->
+        <!--	一致していない場合のみ件数表示する-->
+        <p th:if="${countall} != ${count}" th:text="'検索結果：'+  ${count} + '件'"> </p>
+        <!-- 処理完了メッセージを表示 -->
         <p th:text="${message}" style="color:blue;"> </p> 
         <!--部署一覧・編集-->
         <table>
             <tr th:each="department : ${departmentList}">
-                <!--	部署名-->
+                <!--	取得した部署名表示-->
                 <td th:text="*{department.nameJp}"></td>
                 <td>
                     <a th:href="@{/depertment/edit/{id}(id=${department.id})}">

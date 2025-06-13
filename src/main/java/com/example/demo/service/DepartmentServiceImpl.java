@@ -77,4 +77,13 @@ public class DepartmentServiceImpl implements DepartmentService {
         return departmentRepository.existsByNameEn(nameEn); 
     }
     
+    //部署全件数取得
+    public long departmentCountall() {
+        return departmentRepository.count();
+    }
+    
+    //部署名検索件数取得
+    public long departmentCount(String searchName, String searchName2) {
+        return departmentRepository.countByNameJpLikeOrNameEnLike( "%" + searchName  + "%", "%" + searchName2  + "%");
+    }
 }

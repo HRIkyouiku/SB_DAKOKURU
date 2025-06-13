@@ -100,7 +100,7 @@ public class DepatmentController {
         Optional<Department> department = departmentService.editDepartmentById(departmentId);
         model.addAttribute("department", department.get());
 
-        //完了メッセージ
+        //処理完了メッセージ(表示用)
         model.addAttribute("message", message);
         
         // リダイレクト先：/department/index
@@ -113,10 +113,10 @@ public class DepatmentController {
             @PathVariable("departmentId") Long departmentId,
             @Validated(DepartmentUpdateGroup.class) @ModelAttribute("departmentForm") DepartmentForm form,
             BindingResult result,RedirectAttributes redirectAttributes) {
-    	
-    	Optional<Department> department = departmentService.editDepartmentById(departmentId);
+        
+        Optional<Department> department = departmentService.editDepartmentById(departmentId);
         model.addAttribute("department", department.get());
-    	
+        
         //バリデーションエラーがあった場合
         if (result.hasErrors()) {
             
@@ -175,7 +175,13 @@ public class DepatmentController {
         //部署名（英語）用変数
         String searchName2 = searchName;
         //部署データをリスト取得(departmentServiceのdepartmentfindListメソッド)
-        model.addAttribute("departmentList", departmentService.departmentfindList(searchName,searchName2));
+        model.addAttribute("departmentList",
+                departmentService.departmentfindList(searchName, searchName2));
+        
+        //全件
+        model.addAttribute("countall", departmentService.departmentCountall());
+        //検索件数
+        model.addAttribute("count", departmentService.departmentCount(searchName, searchName2));
         // リダイレクト先：/department/index
         return  "/department/index";
     }
