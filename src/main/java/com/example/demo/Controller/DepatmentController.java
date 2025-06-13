@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.entity.Department;
 import com.example.demo.form.DepartmentForm;
+import com.example.demo.form.SearchForm;
 import com.example.demo.form.ValidationGroups.DepartmentCreateGroup;
 import com.example.demo.form.ValidationGroups.DepartmentUpdateGroup;
 import com.example.demo.service.DepartmentService;
@@ -29,7 +29,8 @@ public class DepatmentController {
 	
     //部署一覧画面
     @GetMapping ("/department/index")
-    public String index (@ModelAttribute("message") String message, Model model) {
+    public String index (@ModelAttribute("message") String message, Model model,
+    		@ModelAttribute("searchForm") SearchForm form) {
         
         //部署データをリスト取得(departmentServiceのdepartmentfindAllメソッド)
         model.addAttribute("departmentList", departmentService.departmentfindAll());
@@ -100,7 +101,7 @@ public class DepatmentController {
         Optional<Department> department = departmentService.editDepartmentById(departmentId);
         model.addAttribute("department", department.get());
 
-        //処理完了メッセージ(表示用)
+        //完了メッセージ
         model.addAttribute("message", message);
         
         // リダイレクト先：/department/index
@@ -111,7 +112,8 @@ public class DepatmentController {
     @PostMapping("/department/update/{departmentId}")
     public String updateDepartment (Model model,
             @PathVariable("departmentId") Long departmentId,
-            @Validated(DepartmentUpdateGroup.class) @ModelAttribute("departmentForm") DepartmentForm form,
+            @Validated(DepartmentUpdateGroup.class)
+            @ModelAttribute("departmentForm") DepartmentForm form,
             BindingResult result,RedirectAttributes redirectAttributes) {
         
         Optional<Department> department = departmentService.editDepartmentById(departmentId);
@@ -119,21 +121,21 @@ public class DepatmentController {
         
         //バリデーションエラーがあった場合
         if (result.hasErrors()) {
-            
             //再度 edit テンプレートを表示
             return "/department/edit";
-            }        
+            }
         //バリデーションエラーがなかった場合
         //部署名存在チェック
         if(departmentService.isnamejpExists(form.getNameJp())) {
-        model.addAttribute("existsmessage_jp", "部署名は既に存在しています。");
-        return "/department/edit";
-        }
+            model.addAttribute("existsmessage_jp", "部署名は既に存在しています。");
+            return "/department/edit";
+            }
         //部署名（英語）存在チェック 
         else if(departmentService.isnameenExists(form.getNameEn())) {
-        model.addAttribute("existsmessage_en", "部署名（英語）は既に存在しています。");
-        return "/department/edit";
-        }
+            model.addAttribute("existsmessage_en", "部署名（英語）は既に存在しています。");
+            return "/department/edit";
+            }
+        
         //部署名が存在しない場合
         //Departmentエンティティのインスタンス「updateDepartment」を作成
         Department updateDepartment= new Department();	
@@ -169,19 +171,31 @@ public class DepatmentController {
     //部署検索
     @PostMapping("/depertment/search")
     private String findDepartmentList( Model model,
-            @RequestParam(value="searchName") String searchName) {
+            @Validated @ModelAttribute("searchForm") SearchForm form,
+            BindingResult result) {
+        //検索ワードバリデーション
+        if (result.hasErrors()) {            
+            //再度 searchテンプレートを表示
+            return "/department/index";
+        }
+        
         //検索ワード
+        String searchName = form.getSearchName();
         model.addAttribute("searchName", searchName);
+        
         //部署名（英語）用変数
         String searchName2 = searchName;
+        
         //部署データをリスト取得(departmentServiceのdepartmentfindListメソッド)
         model.addAttribute("departmentList",
-                departmentService.departmentfindList(searchName, searchName2));
+            departmentService.departmentfindList(searchName, searchName2));
         
-        //全件
+        //レコード全件数
         model.addAttribute("countall", departmentService.departmentCountall());
+        
         //検索件数
         model.addAttribute("count", departmentService.departmentCount(searchName, searchName2));
+        
         // リダイレクト先：/department/index
         return  "/department/index";
     }

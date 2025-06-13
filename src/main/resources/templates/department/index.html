@@ -11,10 +11,12 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
         <h2>部署一覧</h2>
         <a th:href="@{/department/create}" >新規部署追加</a>
         <!--検索フォーム-->
-        <form th:action="@{/depertment/search}" th:method="post">
+        <form th:action="@{/depertment/search}" th:method="post" th:object="${searchForm}">
             <label> キーワード</label>
-            <input type="text" name="searchName"  th:value=${searchName} placeholder="検索したい部署名を入力" >
+            <input type="text" name="searchName"  th:value=${searchName}  th:field="*{searchName}" placeholder="検索したい部署名を入力" >
             <button type="submit">検索</button>
+			<!-- バリデーションエラーメッセージを表示 -->
+			<div th:if="${#fields.hasErrors('searchName')}" th:errors="*{searchName}" style="color:red;"></div>
         </form>
         <!--検索条件クリア-->
         <form th:action="@{/depertment/search}" th:method="post">
