@@ -12,7 +12,10 @@ import com.example.demo.entity.Department;
 //JpaRepositoryの継承 <Departmentエンティティ, 主キーLong型>
 public interface DepartmentRepository extends JpaRepository<Department, Long>{
 
-	//検索メソッド(部署名)
-	List<Department> findByNameJpLikeOrNameEnLikeOrderByNameJpDesc(String searchName, String searchName2);
+    //検索メソッド(部署名)
+    List<Department> findByNameJpLikeOrNameEnLikeOrderByNameJpDesc(String searchName, String searchName2);
 
+    //部署存在チェック
+    boolean existsByNameJp(String nameJp); 
+    boolean existsByNameEn(String nameEn); 
 }

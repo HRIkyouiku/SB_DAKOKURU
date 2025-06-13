@@ -19,10 +19,17 @@ public interface DepartmentService {
     
     //部署更新機能
     void updateDepartment(Department updateDepartment);
-    
+
+    //部署存在チェック
+    boolean isnamejpExists(String nameJp);
+    boolean isnameenExists(String nameEn);
+
     //部署削除機能
     void deleteDepartment(Long departmentId);
     
     //部署検索機能
     List<Department> departmentfindList(String searchName, String searchName2);
+    
+    
+    
 }

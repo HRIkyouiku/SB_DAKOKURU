@@ -26,11 +26,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
                     <label> 変更後</label>
                     <input type="text" name="nameJp"  th:field="*{nameJp}">
                     <div th:if="${#fields.hasErrors('nameJp')}" th:errors="*{nameJp}" style="color:red;"></div>
+					<p th:text="${existsmessage_jp}" style="color:red;"> </p> 
                 </div>
                 <div>
                     <label> 変更後（英語）</label>
                     <input type="text" name="nameEn" th:field="*{nameEn}" >
                     <div th:if="${#fields.hasErrors('nameEn')}" th:errors="*{nameEn}" style="color:red;"></div>
+					<p th:text="${existsmessage_en}" style="color:red;"> </p> 
                 </div>
                 <div>
                 <button type="submit" onclick="return confirm('更新します。宜しいですか？')">更新</button>

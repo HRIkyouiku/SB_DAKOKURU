@@ -62,6 +62,16 @@ public class DepatmentController {
             }
 
         //バリデーションエラーがなかった場合
+        //部署名存在チェック
+        if(departmentService.isnamejpExists(form.getNameJp())) {
+        model.addAttribute("existsmessage_jp", "部署名は既に存在しています。");
+        return "/department/create";
+        }
+        //部署名（英語）存在チェック 
+        else if(departmentService.isnameenExists(form.getNameEn())) {
+        model.addAttribute("existsmessage_en", "部署名（英語）は既に存在しています。");
+        return "/department/create";
+        }
         //Departmentエンティティのインスタンス「createDepartment」を作成
         Department createDepartment= new Department();	
         //createDepartmentに、DepartmentFormから取得したnameJpとnameEnをセット
@@ -103,16 +113,28 @@ public class DepatmentController {
             @PathVariable("departmentId") Long departmentId,
             @Validated(DepartmentUpdateGroup.class) @ModelAttribute("departmentForm") DepartmentForm form,
             BindingResult result,RedirectAttributes redirectAttributes) {
+    	
+    	Optional<Department> department = departmentService.editDepartmentById(departmentId);
+        model.addAttribute("department", department.get());
+    	
         //バリデーションエラーがあった場合
         if (result.hasErrors()) {
-            Optional<Department> department = departmentService.editDepartmentById(departmentId);
-            model.addAttribute("department", department.get());
             
             //再度 edit テンプレートを表示
             return "/department/edit";
-            }
-
+            }        
         //バリデーションエラーがなかった場合
+        //部署名存在チェック
+        if(departmentService.isnamejpExists(form.getNameJp())) {
+        model.addAttribute("existsmessage_jp", "部署名は既に存在しています。");
+        return "/department/edit";
+        }
+        //部署名（英語）存在チェック 
+        else if(departmentService.isnameenExists(form.getNameEn())) {
+        model.addAttribute("existsmessage_en", "部署名（英語）は既に存在しています。");
+        return "/department/edit";
+        }
+        //部署名が存在しない場合
         //Departmentエンティティのインスタンス「updateDepartment」を作成
         Department updateDepartment= new Department();	
         //updateDepartmentに、DepartmentFormから取得したIdとnameJpとnameEnをセット

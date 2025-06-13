@@ -65,7 +65,16 @@ public class DepartmentServiceImpl implements DepartmentService {
         
         //部署検索(nameJp,nameEnであいまい検索、nameJpの降順で取得)
         return departmentRepository.findByNameJpLikeOrNameEnLikeOrderByNameJpDesc(
-            "%" + searchName  + "%", "%" + searchName2  + "%");
+            "%" + searchName  + "%", "%" + searchName2  + "%");        
     }
-
+    
+    //部署存在チェック
+    public boolean isnamejpExists(String nameJp) {
+        return departmentRepository.existsByNameJp(nameJp); 
+    }
+    
+    public boolean isnameenExists(String nameEn) {
+        return departmentRepository.existsByNameEn(nameEn); 
+    }
+    
 }
