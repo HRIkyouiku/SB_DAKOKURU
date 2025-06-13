@@ -16,14 +16,14 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
                 <input type="text" name="nameJp"  th:field="*{nameJp}" placeholder="新しい部署名" >
                 <!--バリデーションエラーメッセージ表示-->
                 <div th:if="${#fields.hasErrors('nameJp')}" th:errors="*{nameJp}" style="color:red;"></div>
-				<p th:text="${existsmessage_jp}" style="color:red;"> </p> 
+                <p th:text="${existsmessage_jp}" style="color:red;"> </p> 
             </div>
             <div>
                 <label> 部署名（英語）</label>
                 <input type="text" name="nameEn" th:field="*{nameEn}" placeholder="新しい部署名（英語）">
                 <!--バリデーションエラーメッセージ表示-->
                 <div th:if="${#fields.hasErrors('nameEn')}" th:errors="*{nameEn}" style="color:red;"></div>
-				<p th:text="${existsmessage_en}" style="color:red;"> </p> 
+                <p th:text="${existsmessage_en}" style="color:red;"> </p> 
             </div>
             <button onclick="return confirm('登録します。宜しいですか？')">登録</button>
         </form>
