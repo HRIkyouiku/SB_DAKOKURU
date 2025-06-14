@@ -28,6 +28,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
         <p th:if="${countall} != ${count}" th:text="'検索結果：'+  ${count} + '件'"> </p>
         <!-- 処理完了メッセージを表示 -->
         <p th:text="${message}" style="color:blue;"> </p> 
+		<p th:text="${error}" style="color:red;"> </p> 
         <!--部署一覧・編集-->
         <table>
             <tr th:each="department : ${departmentList}">

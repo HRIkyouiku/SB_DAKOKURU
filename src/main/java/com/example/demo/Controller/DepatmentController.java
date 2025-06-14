@@ -30,14 +30,16 @@ public class DepatmentController {
     //部署一覧画面
     @GetMapping ("/department/index")
     public String index (@ModelAttribute("message") String message, Model model,
-    		@ModelAttribute("searchForm") SearchForm form) {
-        
+            @ModelAttribute("searchForm") SearchForm form,
+            @ModelAttribute("error") String error) {
+
+        model.addAttribute("SearchForm", new SearchForm());
         //部署データをリスト取得(departmentServiceのdepartmentfindAllメソッド)
         model.addAttribute("departmentList", departmentService.departmentfindAll());
-        
+
         //完了メッセージ
         model.addAttribute("message", message);
-        
+        model.addAttribute("error",error);
         //部署一覧画面の表示
         return  "/department/index";
     }
@@ -54,8 +56,7 @@ public class DepatmentController {
     @PostMapping("/department/store")
     public String store (Model model,
             @Validated(DepartmentCreateGroup.class)
-                @ModelAttribute("departmentForm") DepartmentForm form,
-                BindingResult result, RedirectAttributes redirectAttributes) {
+            @ModelAttribute("departmentForm") DepartmentForm form,BindingResult result, RedirectAttributes redirectAttributes) {
         //バリデーションエラーがあった場合
         //再度 create テンプレートを表示
         if (result.hasErrors()) {
@@ -156,14 +157,20 @@ public class DepatmentController {
     
     //部署削除機能
     @PostMapping("/post/delete/{departmentId}")
-    private String postDelete(@PathVariable("departmentId") Long departmentId,
-            RedirectAttributes redirectAttributes) {
+    private String postDelete(Model model, @PathVariable("departmentId") Long departmentId,
+            RedirectAttributes redirectAttributes,@ModelAttribute("searchForm") SearchForm form) {
+        try {
         //postServiceのdeletePostメソッドに、postIdを渡す
         departmentService.deleteDepartment(departmentId);
-        
         //削除完了メッセージ
         redirectAttributes.addFlashAttribute("message", "削除が完了しました。");
-        
+        }
+        catch(NullPointerException e) {
+            //例外処理
+            model.addAttribute("error", "削除が失敗しました。");
+            return  "/department/index";
+        }
+
         // リダイレクト先：/department/index
         return  "redirect:/department/index";
     }
