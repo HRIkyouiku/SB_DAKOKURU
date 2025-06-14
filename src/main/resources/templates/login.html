@@ -1,24 +1,36 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
-    <head>
-        <title>Spring Security Example </title>
-		<link th:href="@{/css/style.css}" rel="stylesheet">
-    </head>
-    <body>
-		<img th:src="@{/images/DAKOKURU.jpg}" alt="ロゴ画像" /><h1>Dakoku-Ru</h1>
-        <form th:action="@{/login}" method="post" th:object="${userForm}">
-			<div class="body">
-			<div th:if="${param.error}" class="alert alert-danger">
+
+<head>
+	<title>Spring Security Example </title>
+	<link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+
+<body>
+	<div class="navbar">
+		<div class="logo">
+			<img class="logo img" th:src="@{/images/DAKOKURU.jpg}" alt="ロゴ画像" />
+		</div>
+		<h1>Dakoku-Ru</h1>
+	</div>
+	<form th:action="@{/login}" method="post" th:object="${userForm}">
+		<div class="body">
+			<div th:if="${param.error}" class="error-message">
 				社員番号とパスワードの組み合わせが正しくありません。
 			</div>
-            <div>
-                <label> <input type="text" name="employee_no" placeholder="社員番号"/></label>
-            </div>
-            <div>
-                <label><input type="password" name="password" placeholder="パスワード"/></label>
-            </div>
-                <input type="submit" value="Log-In"/>
-            </div>
-        </form>
-    </body>
+			<div class="form-container">
+				<div class="form-area">
+					<label> <input type="text" name="employee_no" placeholder="社員番号" /></label>
+				</div>
+				<div class="form-area">
+					<label><input type="password" name="password" placeholder="パスワード" /></label>
+				</div>
+				<div class="form-area">
+				<input type="submit" value="Log-In" />
+				</div>
+			</div>
+		</div>
+	</form>
+</body>
+
 </html>

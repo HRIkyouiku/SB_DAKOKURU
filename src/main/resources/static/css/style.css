@@ -16,8 +16,13 @@ header{
     border-bottom: 1px solid #ddd;
 }
 
+.heder logo{
+	justify-content:center;
+	
+}
+
 .navbar {
-	width: 80vw;
+	width: 20vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -32,8 +37,21 @@ header{
 }
 
 .logo img {
-    height: 30px;
+    height: 60px;
+	width: 80px;
     margin-right: 10px;
+}
+
+.form-container {
+	display: block;
+	margin: auto;
+	width: 300px;
+}
+
+.form-area {
+	text-align: center;
+	padding: 10px 20px;
+	width: 100%;
 }
 
 #navigation {
