@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
-    <head>
-        <title>Spring Security Example </title>
-    </head>
-    <body>
+<head>
+	<title>Spring Security Example </title>
+</head>
+<body>
+	<form th:action="@{/login}" method="post">
 		<div th:if="${param.error}" class="alert alert-danger">
-		    社員番号またはパスワードが正しくありません。
+			社員番号またはパスワードが正しくありません。
 		</div>
-        <form th:action="@{/login}" method="post">
-            <div>
-                <label> 社員番号: <input type="text" name="employee_no"/></label>
-            </div>
-            <div>
-                <label> パスワード: <input type="password" name="password"/></label>
-            </div>
-            <div>
-                <input type="submit" value="ログイン"/>
-            </div>
-        </form>
-    </body>
+		<div>
+			<label> 社員番号: <input type="text" name="employee_no" /></label>
+		</div>
+		<div>
+			<label> パスワード: <input type="password" name="password" /></label>
+		</div>
+		<div>
+			<input type="submit" value="ログイン" />
+		</div>
+	</form>
+</body>
 </html>
