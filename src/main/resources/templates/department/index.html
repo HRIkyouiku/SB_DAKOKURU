@@ -15,8 +15,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
             <label> キーワード</label>
             <input type="text" name="searchName"  th:value=${searchName}  th:field="*{searchName}" placeholder="検索したい部署名を入力" >
             <button type="submit">検索</button>
-			<!-- バリデーションエラーメッセージを表示 -->
-			<div th:if="${#fields.hasErrors('searchName')}" th:errors="*{searchName}" style="color:red;"></div>
+            <!-- バリデーションエラーメッセージを表示 -->
+            <div th:if="${#fields.hasErrors('searchName')}" th:errors="*{searchName}" style="color:red;"></div>
         </form>
         <!--検索条件クリア-->
         <form th:action="@{/depertment/search}" th:method="post">
@@ -28,7 +28,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
         <p th:if="${countall} != ${count}" th:text="'検索結果：'+  ${count} + '件'"> </p>
         <!-- 処理完了メッセージを表示 -->
         <p th:text="${message}" style="color:blue;"> </p> 
-		<p th:text="${error}" style="color:red;"> </p> 
+        <p th:text="${error}" style="color:red;"> </p> 
         <!--部署一覧・編集-->
         <table>
             <tr th:each="department : ${departmentList}">

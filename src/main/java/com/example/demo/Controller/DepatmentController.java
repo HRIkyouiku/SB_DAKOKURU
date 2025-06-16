@@ -24,15 +24,15 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 public class DepatmentController {
-	
-	private final DepartmentService departmentService;
-	
+    
+    private final DepartmentService departmentService;
+    
     //部署一覧画面
     @GetMapping ("/department/index")
     public String index (@ModelAttribute("message") String message, Model model,
             @ModelAttribute("searchForm") SearchForm form,
             @ModelAttribute("error") String error) {
-
+        
         model.addAttribute("SearchForm", new SearchForm());
         //部署データをリスト取得(departmentServiceのdepartmentfindAllメソッド)
         model.addAttribute("departmentList", departmentService.departmentfindAll());
@@ -40,6 +40,7 @@ public class DepatmentController {
         //完了メッセージ
         model.addAttribute("message", message);
         model.addAttribute("error",error);
+        
         //部署一覧画面の表示
         return  "/department/index";
     }
@@ -62,7 +63,6 @@ public class DepatmentController {
         if (result.hasErrors()) {
             return "/department/create";
             }
-
         //バリデーションエラーがなかった場合
         //部署名存在チェック
         if(departmentService.isnamejpExists(form.getNameJp())) {
@@ -74,18 +74,26 @@ public class DepatmentController {
         model.addAttribute("existsmessage_en", "部署名（英語）は既に存在しています。");
         return "/department/create";
         }
+        
         //Departmentエンティティのインスタンス「createDepartment」を作成
         Department createDepartment= new Department();	
         //createDepartmentに、DepartmentFormから取得したnameJpとnameEnをセット
         createDepartment.setNameJp(form.getNameJp());
         createDepartment.setNameEn(form.getNameEn());
 
-        //departmentServiceのcreateDepertmentメソッドに、
-        //「createDepartment」インスタンス(フォームに入力された部署名)を渡す
-        departmentService.createDepartment(createDepartment);
-        
-        //処理完了メッセージ
-        redirectAttributes.addFlashAttribute("message", "登録が完了しました。");
+        try {
+            //departmentServiceのcreateDepertmentメソッドに、
+            //「createDepartment」インスタンス(フォームに入力された部署名)を渡す
+            departmentService.createDepartment(createDepartment);
+            
+            //処理完了メッセージ
+            redirectAttributes.addFlashAttribute("message", "登録が完了しました。");
+            }
+        catch(NullPointerException e) {
+            //例外が起きた場合のメッセージ
+            redirectAttributes.addFlashAttribute("error", "登録が失敗しました");
+            return  "redirect:/department/index";
+            }
         
         // リダイレクト先：/department/index
         return  "redirect:/department/index";
@@ -116,7 +124,8 @@ public class DepatmentController {
             @Validated(DepartmentUpdateGroup.class)
             @ModelAttribute("departmentForm") DepartmentForm form,
             BindingResult result,RedirectAttributes redirectAttributes) {
-        
+
+        //更新する部署取得
         Optional<Department> department = departmentService.editDepartmentById(departmentId);
         model.addAttribute("department", department.get());
         
@@ -145,12 +154,18 @@ public class DepatmentController {
         updateDepartment.setNameJp(form.getNameJp());
         updateDepartment.setNameEn(form.getNameEn());
  
-        //更新内容を渡す
-        departmentService.updateDepartment(updateDepartment);
+        try {
+            //更新内容を渡す
+            departmentService.updateDepartment(updateDepartment);
+            //処理完了メッセージ
+            redirectAttributes.addFlashAttribute("message", "更新が完了しました。");
+            }
+        catch(NullPointerException e) {
+            //例外が起きた場合のメッセージ
+            redirectAttributes.addFlashAttribute("error", "更新が失敗しました");
+            return  "redirect:/department/index";
+            }
         
-        //処理完了メッセージ
-        redirectAttributes.addFlashAttribute("message", "更新が完了しました。");
-
         // リダイレクト先：/department/edit
         return  "redirect:/depertment/edit/{departmentId}";
     }
@@ -158,19 +173,19 @@ public class DepatmentController {
     //部署削除機能
     @PostMapping("/post/delete/{departmentId}")
     private String postDelete(Model model, @PathVariable("departmentId") Long departmentId,
-            RedirectAttributes redirectAttributes,@ModelAttribute("searchForm") SearchForm form) {
+            RedirectAttributes redirectAttributes) {
         try {
-        //postServiceのdeletePostメソッドに、postIdを渡す
-        departmentService.deleteDepartment(departmentId);
-        //削除完了メッセージ
-        redirectAttributes.addFlashAttribute("message", "削除が完了しました。");
-        }
+            //postServiceのdeletePostメソッドに、postIdを渡す
+            departmentService.deleteDepartment(departmentId);
+            //削除完了メッセージ
+            redirectAttributes.addFlashAttribute("message", "削除が完了しました。");
+            }
         catch(NullPointerException e) {
-            //例外処理
-            model.addAttribute("error", "削除が失敗しました。");
-            return  "/department/index";
-        }
-
+            //例外が起きた場合のメッセージ
+            redirectAttributes.addFlashAttribute("error", "削除が失敗しました");
+            return  "redirect:/department/index";
+            }
+        
         // リダイレクト先：/department/index
         return  "redirect:/department/index";
     }
@@ -179,29 +194,37 @@ public class DepatmentController {
     @PostMapping("/depertment/search")
     private String findDepartmentList( Model model,
             @Validated @ModelAttribute("searchForm") SearchForm form,
-            BindingResult result) {
-        //検索ワードバリデーション
-        if (result.hasErrors()) {            
+            BindingResult result,RedirectAttributes redirectAttributes) {
+
+        try{
+            //検索ワードバリデーション
+            if (result.hasErrors()) {            
             //再度 searchテンプレートを表示
             return "/department/index";
-        }
+            }
+
+            //検索ワード
+            String searchName = form.getSearchName();
+            model.addAttribute("searchName", searchName);
         
-        //検索ワード
-        String searchName = form.getSearchName();
-        model.addAttribute("searchName", searchName);
-        
-        //部署名（英語）用変数
-        String searchName2 = searchName;
-        
-        //部署データをリスト取得(departmentServiceのdepartmentfindListメソッド)
-        model.addAttribute("departmentList",
+            //部署名（英語）用変数
+            String searchName2 = searchName;
+            
+            //部署データをリスト取得(departmentServiceのdepartmentfindListメソッド)
+            model.addAttribute("departmentList",
             departmentService.departmentfindList(searchName, searchName2));
-        
-        //レコード全件数
-        model.addAttribute("countall", departmentService.departmentCountall());
-        
-        //検索件数
-        model.addAttribute("count", departmentService.departmentCount(searchName, searchName2));
+            
+            //レコード全件数
+            model.addAttribute("countall", departmentService.departmentCountall());
+            
+            //検索件数
+            model.addAttribute("count", departmentService.departmentCount(searchName, searchName2));
+            }
+        catch(NullPointerException e) {
+            //例外が起きた場合のメッセージ
+            redirectAttributes.addFlashAttribute("error", "データの取得に失敗しました。");
+            return  "redirect:/department/index";
+            }
         
         // リダイレクト先：/department/index
         return  "/department/index";
