@@ -146,6 +146,17 @@ public class DepatmentController {
         
         //変更前と変更後の部署名比較(片方のみの変更・もしくは両方に変更がない場合は更新処理を行う)
         if(oldnameJp.equals(newnameJp) || oldnameEn.equals(newnameEn)){
+            //部署名存在チェック(※更新する部署は存在チェックしないようにしたい)
+            if(departmentService.isnamejpExists(form.getNameJp())) {
+                model.addAttribute("existsmessage_jp", "部署名は既に存在しています。");
+                return "/department/edit";
+                }
+            //部署名（英語）存在チェック (※更新する部署は存在チェックしないようにしたい)
+            else if(departmentService.isnameenExists(form.getNameEn())) {
+                model.addAttribute("existsmessage_en", "部署名（英語）は既に存在しています。");
+                return "/department/edit";
+                }
+            
             try {
                 //Departmentエンティティのインスタンス「updateDepartment」を作成
                 Department updateDepartment= new Department();	
