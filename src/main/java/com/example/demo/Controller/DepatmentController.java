@@ -124,48 +124,75 @@ public class DepatmentController {
             @Validated(DepartmentUpdateGroup.class)
             @ModelAttribute("departmentForm") DepartmentForm form,
             BindingResult result,RedirectAttributes redirectAttributes) {
-
+    
         //更新する部署取得
         Optional<Department> department = departmentService.editDepartmentById(departmentId);
         model.addAttribute("department", department.get());
         
+        //変更前の部署名
+       Department olddepartment= department.get();
+       String oldnameJp = olddepartment.getNameJp();
+       String oldnameEn = olddepartment.getNameEn();
+       
+       //変更後の部署名
+       String newnameJp=form.getNameJp();
+       String newnameEn=form.getNameEn();
+     
         //バリデーションエラーがあった場合
         if (result.hasErrors()) {
             //再度 edit テンプレートを表示
             return "/department/edit";
             }
-        //バリデーションエラーがなかった場合
-        //部署名存在チェック
-        if(departmentService.isnamejpExists(form.getNameJp())) {
-            model.addAttribute("existsmessage_jp", "部署名は既に存在しています。");
-            return "/department/edit";
-            }
-        //部署名（英語）存在チェック 
-        else if(departmentService.isnameenExists(form.getNameEn())) {
-            model.addAttribute("existsmessage_en", "部署名（英語）は既に存在しています。");
-            return "/department/edit";
-            }
         
-        //部署名が存在しない場合
-        //Departmentエンティティのインスタンス「updateDepartment」を作成
-        Department updateDepartment= new Department();	
-        //updateDepartmentに、DepartmentFormから取得したIdとnameJpとnameEnをセット
-        updateDepartment.setId(form.getId());
-        updateDepartment.setNameJp(form.getNameJp());
-        updateDepartment.setNameEn(form.getNameEn());
- 
-        try {
-            //更新内容を渡す
-            departmentService.updateDepartment(updateDepartment);
-            //処理完了メッセージ
-            redirectAttributes.addFlashAttribute("message", "更新が完了しました。");
+        //変更前と変更後の部署名比較(片方のみの変更・もしくは両方に変更がない場合は更新処理を行う)
+        if(oldnameJp.equals(newnameJp) || oldnameEn.equals(newnameEn)){
+            try {
+                //Departmentエンティティのインスタンス「updateDepartment」を作成
+                Department updateDepartment= new Department();	
+                //updateDepartmentに、DepartmentFormから取得したIdとnameJpとnameEnをセット
+                updateDepartment.setId(form.getId());
+                updateDepartment.setNameJp(form.getNameJp());
+                updateDepartment.setNameEn(form.getNameEn());
+
+                //更新内容を渡す
+                departmentService.updateDepartment(updateDepartment);
+                //処理完了メッセージ
+                redirectAttributes.addFlashAttribute("message", "更新が完了しました。");
+                }
+            catch(NullPointerException e) {
+                //例外が起きた場合のメッセージ
+                redirectAttributes.addFlashAttribute("error", "更新が失敗しました");
+                return  "redirect:/department/index";
+                }
+        }
+        else {
+            //部署名存在チェック
+            if(departmentService.isnamejpExists(form.getNameJp())) {
+                model.addAttribute("existsmessage_jp", "部署名は既に存在しています。");
+                return "/department/edit";
+                }
+            //部署名（英語）存在チェック 
+            else if(departmentService.isnameenExists(form.getNameEn())) {
+                model.addAttribute("existsmessage_en", "部署名（英語）は既に存在しています。");
+                return "/department/edit";
+                }
+            else {
+            Department updateDepartment= new Department();	
+            //updateDepartmentに、DepartmentFormから取得したIdとnameJpとnameEnをセット
+            updateDepartment.setId(form.getId());
+            updateDepartment.setNameJp(form.getNameJp());
+            updateDepartment.setNameEn(form.getNameEn());
+            
+            try {
+                //更新内容を渡す
+                departmentService.updateDepartment(updateDepartment);
+                }
+            catch(NullPointerException e) {
+                //処理完了メッセージ
+                redirectAttributes.addFlashAttribute("message", "更新が完了しました。");
+                }
             }
-        catch(NullPointerException e) {
-            //例外が起きた場合のメッセージ
-            redirectAttributes.addFlashAttribute("error", "更新が失敗しました");
-            return  "redirect:/department/index";
-            }
-        
+        }
         // リダイレクト先：/department/edit
         return  "redirect:/depertment/edit/{departmentId}";
     }
