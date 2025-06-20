@@ -130,13 +130,13 @@ public class DepatmentController {
         model.addAttribute("department", department.get());
         
         //変更前の部署名
-       Department olddepartment= department.get();
-       String oldnameJp = olddepartment.getNameJp();
-       String oldnameEn = olddepartment.getNameEn();
+       Department oldDepartment= department.get();
+       String oldNameJp = oldDepartment.getNameJp();
+       String oldNameEn = oldDepartment.getNameEn();
        
        //変更後の部署名
-       String newnameJp=form.getNameJp();
-       String newnameEn=form.getNameEn();
+       String newNameJp=form.getNameJp();
+       String newNameEn=form.getNameEn();
      
         //バリデーションエラーがあった場合
         if (result.hasErrors()) {
@@ -144,19 +144,20 @@ public class DepatmentController {
             return "/department/edit";
             }
         
-        //変更前と変更後の部署名比較(片方のみの変更・もしくは両方に変更がない場合は更新処理を行う)
-        if(oldnameJp.equals(newnameJp) || oldnameEn.equals(newnameEn)){
-            //部署名存在チェック(※更新する部署は存在チェックしないようにしたい)
-            if(departmentService.isnamejpExists(form.getNameJp())) {
-                model.addAttribute("existsmessage_jp", "部署名は既に存在しています。");
-                return "/department/edit";
-                }
-            //部署名（英語）存在チェック (※更新する部署は存在チェックしないようにしたい)
-            else if(departmentService.isnameenExists(form.getNameEn())) {
-                model.addAttribute("existsmessage_en", "部署名（英語）は既に存在しています。");
-                return "/department/edit";
-                }
-            
+        //変更前と変更後の部署名の変更があり、変更後の部署名がDBに既に存在している場合
+        if(!oldNameJp.equals(newNameJp) &&departmentService.isnamejpExists(form.getNameJp())){
+            //メッセージを返す
+            model.addAttribute("existsmessage_jp", "部署名は既に存在しています。");
+            return "/department/edit";
+            }
+        //変更前と変更後の部署名(英語)の変更があり、変更後の部署名(英語)がDBに既に存在している場合
+        else if(!oldNameEn.equals(newNameEn) &&departmentService.isnameenExists(form.getNameEn())){
+            //メッセージを返す
+            model.addAttribute("existsmessage_en", "部署名（英語）は既に存在しています。");
+            return "/department/edit";
+            }
+        //条件分岐に該当しない場合、更新処理を行う
+        else {
             try {
                 //Departmentエンティティのインスタンス「updateDepartment」を作成
                 Department updateDepartment= new Department();	
@@ -164,7 +165,7 @@ public class DepatmentController {
                 updateDepartment.setId(form.getId());
                 updateDepartment.setNameJp(form.getNameJp());
                 updateDepartment.setNameEn(form.getNameEn());
-
+                
                 //更新内容を渡す
                 departmentService.updateDepartment(updateDepartment);
                 //処理完了メッセージ
@@ -175,34 +176,6 @@ public class DepatmentController {
                 redirectAttributes.addFlashAttribute("error", "更新が失敗しました");
                 return  "redirect:/department/index";
                 }
-        }
-        else {
-            //部署名存在チェック
-            if(departmentService.isnamejpExists(form.getNameJp())) {
-                model.addAttribute("existsmessage_jp", "部署名は既に存在しています。");
-                return "/department/edit";
-                }
-            //部署名（英語）存在チェック 
-            else if(departmentService.isnameenExists(form.getNameEn())) {
-                model.addAttribute("existsmessage_en", "部署名（英語）は既に存在しています。");
-                return "/department/edit";
-                }
-            else {
-            Department updateDepartment= new Department();	
-            //updateDepartmentに、DepartmentFormから取得したIdとnameJpとnameEnをセット
-            updateDepartment.setId(form.getId());
-            updateDepartment.setNameJp(form.getNameJp());
-            updateDepartment.setNameEn(form.getNameEn());
-            
-            try {
-                //更新内容を渡す
-                departmentService.updateDepartment(updateDepartment);
-                }
-            catch(NullPointerException e) {
-                //処理完了メッセージ
-                redirectAttributes.addFlashAttribute("message", "更新が完了しました。");
-                }
-            }
         }
         // リダイレクト先：/department/edit
         return  "redirect:/depertment/edit/{departmentId}";
