@@ -80,13 +80,5 @@ public class UserForm implements ValidationGroups {
         return true;
     }
     
-    //社員番号とパスワードの組み合わせが正しくありません。
-    @AssertTrue(message = "社員番号とパスワードの組み合わせが正しくありません")
-    public boolean isEmployeNomberMatching() {
-        if (employeeNo == null || password == null) {
-            return true;
-        }
-        return employeeNo.equals(password);
-    }
 
 }

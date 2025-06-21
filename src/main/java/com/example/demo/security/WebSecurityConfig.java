@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 public class WebSecurityConfig {
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http, CustomAuthenticationFailureHandler failureHandler) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/register", "/login").permitAll()
@@ -24,6 +24,7 @@ public class WebSecurityConfig {
                 .loginPage("/login")
                 .usernameParameter("employee_no")
                 .passwordParameter("password")
+                .failureHandler(failureHandler) // カスタムハンドラーを設定
                 .defaultSuccessUrl("/timestamp/create", true)
                 .permitAll()
             )
