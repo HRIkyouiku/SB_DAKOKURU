@@ -11,7 +11,7 @@ public class LoginController {
     @GetMapping("/login")
     public String showLoginPage(@RequestParam(value = "error", required = false) String error, Model model) {
         if (error != null) {
-            model.addAttribute("errorMessage", "メールアドレスまたはパスワードが正しくありません。");
+            model.addAttribute("errorMessage", "社員番号とパスワードの組み合わせが正しくありません。");
         }
         return "login";
     }

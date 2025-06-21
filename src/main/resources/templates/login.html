@@ -6,8 +6,8 @@
     <body>
         <form th:action="@{/login}" method="post">
 			<div th:if="${errorMessage}" style="color: red;">
-			    <p th:text="${errorMessage}"></p>
-			</div>			
+				<p th:text="${errorMessage}"></p>
+			</div>
             <div>
                 <label> 社員番号: <input type="text" name="employee_no"/></label>					
             </div>
