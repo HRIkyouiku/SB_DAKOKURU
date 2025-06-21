@@ -71,3 +71,48 @@ main {
 .error-message{
 	color: red;
 }
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.login-logo {
+    display: flex;
+    align-items: center;
+    width: 300px;
+}
+
+.login-logo img {
+    height: 50px;
+    margin-right: 10px;
+}
+
+.login-form {
+    width: 300px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+input[type="text"],
+input[type="password"] {
+    padding: 8px;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+input[type="submit"] {
+    padding: 10px;
+    background-color: #555;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: left;
+}
