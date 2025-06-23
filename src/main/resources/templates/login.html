@@ -5,18 +5,18 @@
     </head>
     <body>
 		<div th:if="${param.error}">
-		    <p>社員番号とパスワードの組み合わせが正しくありません。</p>
+		  <p>社員番号とパスワードの組み合わせが正しくありません。</p>
 		</div>
         <form th:action="@{/login}" method="post">
-            <div>
-                <label> 社員番号: <input type="text" name="employee_no"/></label>
-            </div>
-            <div>
-                <label> パスワード: <input type="password" name="password"/></label>
-            </div>
-            <div>
-                <input type="submit" value="ログイン"/>
-            </div>
+          <div>
+            <label> 社員番号: <input type="text" name="employee_no"/></label>
+          </div>
+          <div>
+            <label> パスワード: <input type="password" name="password"/></label>
+          </div>
+          <div>
+            <input type="submit" value="ログイン"/>
+          </div>
         </form>
     </body>
 </html>
