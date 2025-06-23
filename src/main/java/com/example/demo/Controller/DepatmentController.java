@@ -145,13 +145,13 @@ public class DepatmentController {
             }
         
         //変更前と変更後の部署名の変更があり、変更後の部署名がDBに既に存在している場合
-        if(!oldNameJp.equals(newNameJp) &&departmentService.isnamejpExists(form.getNameJp())){
+        if(!oldNameJp.equals(newNameJp) && departmentService.isnamejpExists(form.getNameJp())){
             //メッセージを返す
             model.addAttribute("existsmessage_jp", "部署名は既に存在しています。");
             return "/department/edit";
             }
         //変更前と変更後の部署名(英語)の変更があり、変更後の部署名(英語)がDBに既に存在している場合
-        else if(!oldNameEn.equals(newNameEn) &&departmentService.isnameenExists(form.getNameEn())){
+        else if(!oldNameEn.equals(newNameEn) && departmentService.isnameenExists(form.getNameEn())){
             //メッセージを返す
             model.addAttribute("existsmessage_en", "部署名（英語）は既に存在しています。");
             return "/department/edit";
@@ -165,7 +165,6 @@ public class DepatmentController {
                 updateDepartment.setId(form.getId());
                 updateDepartment.setNameJp(form.getNameJp());
                 updateDepartment.setNameEn(form.getNameEn());
-                
                 //更新内容を渡す
                 departmentService.updateDepartment(updateDepartment);
                 //処理完了メッセージ
