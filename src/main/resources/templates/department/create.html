@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+<main layout:fragment="content">
+
+    <h2>新規部署登録</h2>
+    <form th:action="@{/department/store}" method="post" enctype="multipart/form-data" th:object="${departmentForm}">
+        <label>作成する部署名</label>
+        <input type="text" name="name_jp" th:value="${departmentForm.name_jp}">
+        <div th:if="${#fields.hasErrors('name_jp')}" th:errors="*{name_jp}" style="color:red;"></div>
+        <div th:if="${nameJpError}" th:text="${nameJpError}" style="color:red;"></div>
+
+        <label>部署名(英語)</label>
+        <input type="text" name="name_en" th:value="${departmentForm.name_en}">
+        <div th:if="${#fields.hasErrors('name_en')}" th:errors="*{name_en}" style="color:red;"></div>
+        <div th:if="${nameEnError}" th:text="${nameEnError}" style="color:red;"></div>
+
+        <input type="submit" value="登録" onclick="return confirm('登録します。宜しいですか？')"> 
+    </form>
+    <a th:href="@{/department/index}">部署一覧へ戻る</a>
+</main>
+</html>

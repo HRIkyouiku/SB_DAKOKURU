@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+<main layout:fragment="content">
+	<h2>部署編集・削除</h2>
+        <form id="departmentForm" th:action="@{/department/index/edit}" method="post" enctype="multipart/form-data" th:object="${departmentForm}">
+            <input id="departmentId" type="hidden" name="departmentsId" th:value="${departmentId}">
+			<!-- メッセージ表示 -->
+            <div th:if="${updateSuccessMsg}" th:text="${updateSuccessMsg}" style="color:red;"></div>
+            <div th:if="${failMsg}" th:text="${failMsg}" style="color:red;"></div>
+
+            <label>変更前</label>
+            <input type="text" th:value="${departmentName.nameJp}" readonly>
+            <input type="text" th:value="${departmentName.nameEn}" readonly>
+
+            <label>変更後</label>
+            <input type="text" name="name_jp" th:value="${departmentForm.name_jp}">
+            <div th:if="${#fields.hasErrors('name_jp')}" th:errors="*{name_jp}" style="color:red;"></div>
+            <div th:if="${nameJpError}" th:text="${nameJpError}" style="color:red;"></div>
+            <label>変更後(英語)</label>
+            <input type="text" name="name_en" th:value="${departmentForm.name_en}">
+            <div th:if="${#fields.hasErrors('name_en')}" th:errors="*{name_en}" style="color:red;"></div>
+            <div th:if="${nameEnError}" th:text="${nameEnError}" style="color:red;"></div>
+
+            <!-- jsで送信先を切り替える -->
+            <input type="submit" value="変更" onclick="return handleSubmit('update')">
+            <input type="submit" value="削除" onclick="return handleSubmit('delete')">
+        </form>
+        <a th:href="@{/department/index}">戻る</a>
+</main>
+</html>
