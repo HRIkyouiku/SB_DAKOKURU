@@ -1,5 +1,9 @@
 package com.example.demo.service;
 
-public interface DepartmentService {
+import java.util.List;
 
+import com.example.demo.entity.Department;
+
+public interface DepartmentService {
+    public List<Department> userList(Long userId);
 }
