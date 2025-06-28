@@ -32,15 +32,19 @@ public class UserController {
 
     @GetMapping("/user/create")
     public String create(Model model) {
+
+
         if (!model.containsAttribute("userForm")) {
             model.addAttribute("userForm", new UserForm());
         }
         return "users/create";
     }
 
+
     @PostMapping("/user/store")
     public String store(@Validated @ModelAttribute("userForm") UserForm form,
-            BindingResult result, RedirectAttributes ra) {
+            BindingResult result,
+            RedirectAttributes ra) {
 
         User existingEmail = userService.findByEmail(form.getEmail());
         if (existingEmail != null) {
@@ -92,15 +96,24 @@ public class UserController {
     }
 
     @GetMapping("/user/show/{userId}")
-    public String show(Model model, @PathVariable("userId") Long userId) {
+
+    public String show(Model model,
+        @PathVariable("userId") Long userId) {
 
         User user = userService.findById(userId).orElse(new User());
         model.addAttribute("user", user);
+
         return "users/show";
     }
 
+
     @GetMapping("/user/edit/{userId}")
-    public String edit(Model model, @PathVariable("userId") Long userId) {
+    public String edit(Model model,
+            @PathVariable("userId") Long userId) {
+
+        if (!model.containsAttribute("userForm")) {
+            model.addAttribute("userForm", new UserForm());
+        }
 
         if (!model.containsAttribute("userForm")) {
             model.addAttribute("userForm", new UserForm());
@@ -111,19 +124,24 @@ public class UserController {
         return "users/edit";
     }
 
+
     @PostMapping("/user/update")
     public String update(@Validated @ModelAttribute("userForm") UserForm form,
-            BindingResult result, RedirectAttributes ra) {
+            BindingResult result,
+            RedirectAttributes ra) {
+
 
         User existingEmail = userService.findByEmail(form.getEmail());
         if (existingEmail != null && !existingEmail.getId().equals(form.getId())) {
             result.rejectValue("email", "duplicate.email", "メールアドレスは既に存在しています。");
         }
-
+        
         User existingEmployeeNo = userService.findByEmployeeNo(form.getEmployeeNo());
         if (existingEmployeeNo != null && !existingEmployeeNo.getId().equals(form.getId())) {
             result.rejectValue("employeeNo", "duplicate.employeeNo", "社員番号が既に存在しています。");
         }
+        
+
 
         if (result.hasErrors()) {
             ra.addFlashAttribute("org.springframework.validation.BindingResult.userForm", result);
@@ -167,6 +185,7 @@ public class UserController {
         ra.addFlashAttribute("successMessage", "ユーザーの更新に成功しました。");
 
         return "redirect:/user/index";
+
     }
 
     @PostMapping("/user/destroy")
@@ -175,3 +194,4 @@ public class UserController {
         return "redirect:/user/index";
     }
 }
+
