@@ -13,4 +13,8 @@ public interface ValidationGroups {
 
 	public interface GroupAuthorityCreateGroup {}
 	public interface GroupAuthorityUpdateGroup {}
+
+	public interface DepartmentSearchGroup {}
+	public interface DepartmentCreateGroup {}
+
 }

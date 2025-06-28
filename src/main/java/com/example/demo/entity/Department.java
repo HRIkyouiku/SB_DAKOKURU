@@ -13,6 +13,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,10 +27,10 @@ public class Department {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-	@Column(name = "name_jp")
+	@Column(name = "name_jp", unique = true)
 	private String nameJp;
 
-	@Column(name = "name_en")
+	@Column(name = "name_en", unique = true)
 	private String nameEn;
 
     @Column(name = "created_at", nullable = false, updatable = false)
