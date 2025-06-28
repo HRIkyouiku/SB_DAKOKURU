@@ -13,7 +13,7 @@ import lombok.Data;
 @Data
 public class UserForm implements ValidationGroups {
 
-	private Long id;
+    private Long id;
 
     @NotBlank(message = "名前(正式表示)を入力してください。")
     private String fnJp;
@@ -73,8 +73,8 @@ public class UserForm implements ValidationGroups {
     @AssertTrue(message = "旧姓の名前(正式表示)を入力してください。")
     public boolean isOldNameValid() {
         if ((olnJpHira != null && !olnJpHira.isEmpty()) ||
-            (olnJpKata != null && !olnJpKata.isEmpty()) ||
-            (olnEn != null && !olnEn.isEmpty())) {
+                (olnJpKata != null && !olnJpKata.isEmpty()) ||
+                (olnEn != null && !olnEn.isEmpty())) {
             return olnJp != null && !olnJp.isEmpty();
         }
         return true;

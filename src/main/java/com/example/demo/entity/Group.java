@@ -15,6 +15,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,7 +30,7 @@ public class Group {
     private Long id;
     private String name;
 
-    @Column(name= "user_id")
+    @Column(name = "user_id")
     private Long userId;
 
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -56,10 +57,7 @@ public class Group {
     private Set<User> users = new HashSet<>();
 
     @ManyToMany
-    @JoinTable(
-        name = "group_authorities",
-        joinColumns = @JoinColumn(name = "group_id"),
-        inverseJoinColumns = @JoinColumn(name = "target_group_id")
-    )
+    @JoinTable(name = "group_authorities", joinColumns = @JoinColumn(name = "group_id"),
+        inverseJoinColumns = @JoinColumn(name = "target_group_id"))
     private Set<Group> targetGroups = new HashSet<>();
 }

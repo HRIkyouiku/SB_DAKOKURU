@@ -33,29 +33,30 @@ public class UserController {
     @GetMapping("/user/create")
     public String create(Model model) {
 
+
         if (!model.containsAttribute("userForm")) {
             model.addAttribute("userForm", new UserForm());
-            }
-        return "users/create";
         }
+        return "users/create";
+    }
+
 
     @PostMapping("/user/store")
     public String store(@Validated @ModelAttribute("userForm") UserForm form,
             BindingResult result,
             RedirectAttributes ra) {
 
-    User existingEmail = userService.findByEmail(form.getEmail());
+        User existingEmail = userService.findByEmail(form.getEmail());
         if (existingEmail != null) {
-        result.rejectValue("email", "duplicate.email", "メールアドレスは既に存在しています。");
+            result.rejectValue("email", "duplicate.email", "メールアドレスは既に存在しています。");
         }
 
-    User existingEmployeeNo = userService.findByEmployeeNo(form.getEmployeeNo());
+        User existingEmployeeNo = userService.findByEmployeeNo(form.getEmployeeNo());
         if (existingEmployeeNo != null) {
-        result.rejectValue("employeeNo", "duplicate.employeeNo", "社員番号が既に存在しています。");
+            result.rejectValue("employeeNo", "duplicate.employeeNo", "社員番号が既に存在しています。");
         }
 
         if (result.hasErrors()) {
-
             ra.addFlashAttribute("org.springframework.validation.BindingResult.userForm", result);
             ra.addFlashAttribute("userForm", form);
             return "redirect:/user/create";
@@ -95,14 +96,16 @@ public class UserController {
     }
 
     @GetMapping("/user/show/{userId}")
+
     public String show(Model model,
         @PathVariable("userId") Long userId) {
 
-    User user = userService.findById(userId).orElse(new User());
+        User user = userService.findById(userId).orElse(new User());
         model.addAttribute("user", user);
 
         return "users/show";
     }
+
 
     @GetMapping("/user/edit/{userId}")
     public String edit(Model model,
@@ -110,14 +113,17 @@ public class UserController {
 
         if (!model.containsAttribute("userForm")) {
             model.addAttribute("userForm", new UserForm());
-            }
+        }
+
+        if (!model.containsAttribute("userForm")) {
+            model.addAttribute("userForm", new UserForm());
+        }
 
         User user = userService.findById(userId).orElse(new User());
-        
         model.addAttribute("user", user);
-
         return "users/edit";
-        }
+    }
+
 
     @PostMapping("/user/update")
     public String update(@Validated @ModelAttribute("userForm") UserForm form,
@@ -128,15 +134,16 @@ public class UserController {
         User existingEmail = userService.findByEmail(form.getEmail());
         if (existingEmail != null && !existingEmail.getId().equals(form.getId())) {
             result.rejectValue("email", "duplicate.email", "メールアドレスは既に存在しています。");
-            }
+        }
         
         User existingEmployeeNo = userService.findByEmployeeNo(form.getEmployeeNo());
         if (existingEmployeeNo != null && !existingEmployeeNo.getId().equals(form.getId())) {
             result.rejectValue("employeeNo", "duplicate.employeeNo", "社員番号が既に存在しています。");
-            }
+        }
         
-        if (result.hasErrors()) {
 
+
+        if (result.hasErrors()) {
             ra.addFlashAttribute("org.springframework.validation.BindingResult.userForm", result);
             ra.addFlashAttribute("userForm", form);
 
@@ -146,6 +153,7 @@ public class UserController {
                     .toUriString();
             return "redirect:" + redirectUrl;
         }
+
         System.out.println(form.getId());
         User user = userService.findById(form.getId()).orElse(new User());
         user.setEmail(form.getEmail());
@@ -177,11 +185,13 @@ public class UserController {
         ra.addFlashAttribute("successMessage", "ユーザーの更新に成功しました。");
 
         return "redirect:/user/index";
-        }
-    
+
+    }
+
     @PostMapping("/user/destroy")
     public String destroy(@ModelAttribute("userForm") UserForm form) {
         userService.deleteById(form.getId());
         return "redirect:/user/index";
-        }
     }
+}
+

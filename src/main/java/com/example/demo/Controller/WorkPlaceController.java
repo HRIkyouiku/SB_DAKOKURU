@@ -21,24 +21,21 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WorkPlaceController {
 
-	private final WorkPlaceService workPlaceService;
+    private final WorkPlaceService workPlaceService;
 
-	@GetMapping("/workPlace/create")
-	public String create(Model model) {
+    @GetMapping("/workPlace/create")
+    public String create(Model model) {
+        if (!model.containsAttribute("workPlaceForm")) {
+            model.addAttribute("workPlaceForm", new WorkPlaceForm());
+        }
+        return "worlkPlaces/create";
+    }
 
-		if (!model.containsAttribute("workPlaceForm")) {
-	        model.addAttribute("workPlaceForm", new WorkPlaceForm());
-	    }
-		return "worlkPlaces/create";
-	}
-
-	@PostMapping("/workPlace/store")
-	public String store(@Validated @ModelAttribute("workPlaceForm") WorkPlaceForm form,
-            BindingResult result,
-            RedirectAttributes ra) {
+    @PostMapping("/workPlace/store")
+    public String store(@Validated @ModelAttribute("workPlaceForm") WorkPlaceForm form,
+            BindingResult result, RedirectAttributes ra) {
 
         if (result.hasErrors()) {
-
             ra.addFlashAttribute("org.springframework.validation.BindingResult.workPlaceForm", result);
             ra.addFlashAttribute("workPlaceForm", form);
             return "redirect:/workPlace/create";
@@ -54,26 +51,24 @@ public class WorkPlaceController {
         ra.addFlashAttribute("successMessage", "新しい勤務場所が登録されました。");
 
         return "redirect:/workPlace/create";
-	}
+    }
 
-	@GetMapping("/workPlace/edit/{workPlaceId}")
-	public String edit(Model model,
-			@PathVariable("workPlaceId") Long workPlaceId) {
+    @GetMapping("/workPlace/edit/{workPlaceId}")
+    public String edit(Model model, @PathVariable("workPlaceId") Long workPlaceId) {
 
-		if (!model.containsAttribute("workPlaceForm")) {
-	        model.addAttribute("workPlaceForm", new WorkPlaceForm());
-	    }
+        if (!model.containsAttribute("workPlaceForm")) {
+            model.addAttribute("workPlaceForm", new WorkPlaceForm());
+        }
 
-		WorkPlace workPlace = workPlaceService.findById(workPlaceId).orElse(new WorkPlace());
-		model.addAttribute("workPlace", workPlace);
+        WorkPlace workPlace = workPlaceService.findById(workPlaceId).orElse(new WorkPlace());
+        model.addAttribute("workPlace", workPlace);
 
-		return "worlkPlaces/edit";
-	}
+        return "worlkPlaces/edit";
+    }
 
-	@PostMapping("/workPlace/update")
-	public String update(@Validated @ModelAttribute("workPlaceForm") WorkPlaceForm form,
-            BindingResult result,
-            RedirectAttributes ra) {
+    @PostMapping("/workPlace/update")
+    public String update(@Validated @ModelAttribute("workPlaceForm") WorkPlaceForm form,
+            BindingResult result, RedirectAttributes ra) {
 
         if (result.hasErrors()) {
 
@@ -97,5 +92,5 @@ public class WorkPlaceController {
         ra.addFlashAttribute("successMessage", "勤務場所名が更新されました。");
 
         return "redirect:/workPlace/list";
-	}
+    }
 }

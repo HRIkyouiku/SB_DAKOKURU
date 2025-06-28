@@ -22,9 +22,9 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Table(name = "users")
@@ -70,10 +70,8 @@ public class User {
     private Name name;
 
     @ManyToMany
-    @JoinTable(
-    name = "group_affiliations",
-    joinColumns = @JoinColumn(name = "user_id"),
-    inverseJoinColumns = @JoinColumn(name = "group_id"))
+    @JoinTable(name = "group_affiliations", joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "group_id"))
     private Set<Group> groups = new HashSet<>();
 
     @OneToMany()
@@ -81,13 +79,11 @@ public class User {
     private List<EmploymentStatus> employStatuses = new ArrayList<>();
 
     @ManyToMany
-    @JoinTable(
-    name = "department_affiliations",
-    joinColumns = @JoinColumn(name = "user_id"),
-    inverseJoinColumns = @JoinColumn(name = "department_id"))
+    @JoinTable(name = "department_affiliations", joinColumns = @JoinColumn(name = "user_id"), 
+        inverseJoinColumns = @JoinColumn(name = "department_id"))
     private Set<Department> departments = new HashSet<>();
 
-//    @OneToMany()
-//    @JoinColumn(name = "user_id")
-//    private List<Timestamp> timestamp = new ArrayList<>();
+    //    @OneToMany()
+    //    @JoinColumn(name = "user_id")
+    //    private List<Timestamp> timestamp = new ArrayList<>();
 }

@@ -1,58 +1,59 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
-	<main layout:fragment="content">
-		<h2>社員情報詳細</h2>
-		<div>
-			<div>
-				<label>名前(正式表示)</label>
-				<p th:text="${user.name.fnJp}"></p>
-				<label>名前(ひらがな)</label>
-				<p th:text="${user.name.fnJpHira}"></p>
-				<label>名前(カタカナ)</label>
-				<p th:text="${user.name.fnJpKata}"></p>
-				<label>名前(英語)</label>
-				<p th:text="${user.name.fnEn}"></p>
-				<label>姓(正式表示)</label>
-				<p th:text="${user.name.lnJp}"></p>
-				<label>姓(ひらがな)</label>
-				<p th:text="${user.name.lnJpHira}"></p>
-				<label>姓(カタカナ)</label>
-				<p th:text="${user.name.lnJpKata}"></p>
-				<label>姓(英語)</label>
-				<p th:text="${user.name.lnEn}"></p>
-				<label>旧姓(正式表示)</label>
-				<p th:text="${user.name.olnJp}"></p>
-				<label>旧姓(ひらがな)</label>
-				<p th:text="${user.name.olnJpHira}"></p>
-				<label>旧姓(カタカナ)</label>
-				<p th:text="${user.name.olnJpKata}"></p>
-				<label>旧姓(英語)</label>
-				<p th:text="${user.name.olnEn}"></p>
-				<label>ミドルネーム(正式表示)</label>
-				<p th:text="${user.name.mnJp}"></p>
-				<label>ミドルネーム(ひらがな)</label>
-				<p th:text="${user.name.mnJpHira}"></p>
-				<label>ミドルネーム(カタカナ)</label>
-				<p th:text="${user.name.mnJpKata}"></p>
-				<label>ミドルネーム(英語)</label>
-				<p th:text="${user.name.mnEn}"></p>
-				<label>メールアドレス</label>
-				<p th:text="${user.email}">
-				<label>社員番号</label>
-				<p th:text="${user.employeeNo}">
-				<label>入社日</label>
-				<p th:text="${user.joiningDate}">
-				<div>
-				<a th:href="@{/user/edit/{userId}(userId=${user.id})}">編集</a>
-				<form th:action="@{/user/destroy}" th:method="post" onclick="return confirm('こちらのユーザーを削除します。よろしいでしょうか？')">
-					<input type="hidden" name="id" th:value="${user.id}">
-					<button>削除</button>
-				</form>
-			</div>
-		</div>
-		<div>
-			<a th:href="@{/user/index}">ユーザー一覧へ戻る</a>
-		</div>
-	</main>
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+    <main layout:fragment="content">
+        <h2>社員情報詳細</h2>
+        <div>
+            <div>
+                <label>名前(正式表示)</label>
+                <p th:text="${user.name.fnJp}"></p>
+                <label>名前(ひらがな)</label>
+                <p th:text="${user.name.fnJpHira}"></p>
+                <label>名前(カタカナ)</label>
+                <p th:text="${user.name.fnJpKata}"></p>
+                <label>名前(英語)</label>
+                <p th:text="${user.name.fnEn}"></p>
+                <label>姓(正式表示)</label>
+                <p th:text="${user.name.lnJp}"></p>
+                <label>姓(ひらがな)</label>
+                <p th:text="${user.name.lnJpHira}"></p>
+                <label>姓(カタカナ)</label>
+                <p th:text="${user.name.lnJpKata}"></p>
+                <label>姓(英語)</label>
+                <p th:text="${user.name.lnEn}"></p>
+                <label>旧姓(正式表示)</label>
+                <p th:text="${user.name.olnJp}"></p>
+                <label>旧姓(ひらがな)</label>
+                <p th:text="${user.name.olnJpHira}"></p>
+                <label>旧姓(カタカナ)</label>
+                <p th:text="${user.name.olnJpKata}"></p>
+                <label>旧姓(英語)</label>
+                <p th:text="${user.name.olnEn}"></p>
+                <label>ミドルネーム(正式表示)</label>
+                <p th:text="${user.name.mnJp}"></p>
+                <label>ミドルネーム(ひらがな)</label>
+                <p th:text="${user.name.mnJpHira}"></p>
+                <label>ミドルネーム(カタカナ)</label>
+                <p th:text="${user.name.mnJpKata}"></p>
+                <label>ミドルネーム(英語)</label>
+                <p th:text="${user.name.mnEn}"></p>
+                <label>メールアドレス</label>
+                <p th:text="${user.email}">
+                <label>社員番号</label>
+                <p th:text="${user.employeeNo}">
+                <label>入社日</label>
+                <p th:text="${user.joiningDate}">
+                <div>
+                    <a th:href="@{/user/edit/{userId}(userId=${user.id})}">編集</a>
+                    <form th:action="@{/user/destroy}" th:method="post" onclick="return confirm('こちらのユーザーを削除します。よろしいでしょうか？')">
+                        <input type="hidden" name="id" th:value="${user.id}">
+                        <button>削除</button>
+                    </form>
+                </div>
+             </div>
+        </div>
+        <div>
+            <a th:href="@{/user/index}">ユーザー一覧へ戻る</a>
+        </div>
+    </main>
 </html>
