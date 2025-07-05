@@ -5,7 +5,7 @@ body {
     padding: 0;
 }
 
-header{
+header {
 	background-color: #f8f9fa;
     border-bottom: 1px solid #ddd;
 }
@@ -32,7 +32,7 @@ header{
     margin-right: 10px;
 }
 
-.logo-title{
+.logo-title {
 	display: flex;
 	align-items:center;
 	justify-content: center;
@@ -40,7 +40,7 @@ header{
 	margin-bottom:20px;
 }
 
-label{
+label {
 	display: block;
 	text-align: left;
 	margin-bottom:5px;
@@ -55,7 +55,7 @@ label{
   transform: translate(-50%, -50%);
 }
 
-.login-form{
+.login-form {
 	background: #fff;
 	padding: 2em;
 	border-radius: 8px;
@@ -107,7 +107,7 @@ nav ul li a {
     font-weight: bold;
 }
 
-#slide-line{
+#slide-line {
     position: absolute;
     bottom: 0;
     height: 2px;
@@ -124,6 +124,6 @@ main {
     padding: 20px;
 }
 
-.error-message{
+.error-message {
 	color: red;
 }

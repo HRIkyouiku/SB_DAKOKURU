@@ -5,23 +5,23 @@
         <title>Spring Security Example </title>
     </head>
     <body>
-		<div class="login-container">
-        <form th:action="@{/login}" method="post" class="login-form">
-			<div class="logo-title">
-			    <img th:src="@{/images/DAKOKURU.jpg}" alt="DAKOKURU" class="logo">
-				<h1>DAKOKURU</h1>
-			</div>
-			<div th:if="${param.error}" class="error-message"><p>ログインに失敗しました。</p></div>
-	            <div>
-	                <label><input type="text" name="employee_no"placeholder="社員番号"/></label>
-	            </div>
-	            <div>
-	                <label><input type="password" name="password" placeholder="パスワード"/></label>
-	            </div>
-	            <div>
-	                <input type="submit" value="Log-in"/>
-	            </div>
-        </form>
+	    <div class="login-container">
+            <form th:action="@{/login}" method="post" class="login-form">
+				<div class="logo-title">
+					<img th:src="@{/images/DAKOKURU.jpg}" alt="DAKOKURU" class="logo">
+					<h1>DAKOKURU</h1>
+				</div>
+				<div th:if="${param.error}" class="error-message"><p>ログインに失敗しました。</p></div>
+				<div>
+					<label><input type="text" name="employee_no"placeholder="社員番号"/></label>
+				</div>
+				<div>
+					<label><input type="password" name="password" placeholder="パスワード"/></label>
+				</div>
+				<div>
+					<input type="submit" value="Log-in"/>
+				</div>
+			</form>
 		</div>
     </body>
 </html>
