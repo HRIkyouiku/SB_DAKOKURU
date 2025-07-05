@@ -21,14 +21,70 @@ header{
 }
 
 .logo {
-    display: flex;
-    align-items: center;
+	width: 60px;
+	height: 60px;
+	object-fit: contain;
+	margin-bottom: 10px;
 }
 
 .logo img {
     height: 30px;
     margin-right: 10px;
 }
+
+.logo-title{
+	display: flex;
+	align-items:center;
+	justify-content: center;
+	gap:0.5em;
+	margin-bottom:20px;
+}
+
+label{
+	display: block;
+	text-align: left;
+	margin-bottom:5px;
+}
+
+/* ログインページ はじまり*/
+
+.login-container {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.login-form{
+	background: #fff;
+	padding: 2em;
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+	text-align: center;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="submit"] {
+  width: 100%;
+  padding: 0.6em;
+  font-size: 1em;
+  box-sizing: border-box;
+  margin-bottom: 1em;
+}
+
+input[type="submit"] {
+  background: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+input[type="submit"]:hover {
+  background: #555;
+}
+/* ログインページ おわり*/
 
 #navigation {
 	position: relative;
