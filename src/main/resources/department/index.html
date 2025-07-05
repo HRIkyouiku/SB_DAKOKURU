@@ -18,6 +18,9 @@
 		<h3>検索結果</h3>
 		
 		<div>
+			<ul>
+			        <li th:each="department : ${departments}" th:text="${department.name_jp}"></li>
+			</ul>
 			<h2>Career Designチーム</h2>
 			<a>編集</a>
 		</div>

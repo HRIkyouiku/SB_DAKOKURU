@@ -18,7 +18,7 @@ public class DepartmentController {
     
     @GetMapping("/department/index")
     private String DepartmentList(Model model){
-         model.addAttribute("Departmens", departmentService.getAllUsers());
+         model.addAttribute("departmens", departmentService.getAllDepartments());
          return "/department/index";
     }
 }
