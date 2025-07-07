@@ -1,6 +1,5 @@
 package com.example.demo.Controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,12 +12,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DepartmentController {
     
-    @Autowired
-    private DepartmentService departmentService;
+    private final DepartmentService departmentService;
     
     @GetMapping("/department/index")
     private String DepartmentList(Model model){
-         model.addAttribute("departmens", departmentService.getAllDepartments());
+         model.addAttribute("departments", departmentService.departmentList());
          return "/department/index";
     }
 }
