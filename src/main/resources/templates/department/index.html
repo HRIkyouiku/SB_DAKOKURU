@@ -11,7 +11,15 @@
 		<h1>部署一覧</h1>	
 		<div>
 			<h2>キーワード</h2>
-			<a>検索</a>
+			<form method="get" action="/search">
+				<input type="text" name="keyword" placeholder="検索したい部署名を入力">
+				<button type="submit">検索</button>
+			</form>
+			<table>
+				<tr th:each="department : ${departments}">
+					<td th:text="${department.nameJp}"></td>
+				</tr>
+			</table>
 			<a>クリア</a>
 			<a>部署新規追加</a>
 		</div>
