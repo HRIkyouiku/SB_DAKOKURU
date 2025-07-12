@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+	<title>Spring Security Example </title>
+</head>
+
+<body>
+	<form th:action="@{/department/create}"  th:method="post" th:object="${departmentForm}">
+	<h1>新規部署登録画面</h1>
+	<div>
+		<label>作成する部署名</label>
+		<input type="text" name="departmentname_jp" placeholder="新しい部署名" th:field="*{departmentname_jp}">
+		<div th:if="${#fields.hasErrors('departmentname_jp')}" th:errors="*{departmentname_jp}" style="color:red;"></div>
+	</div>
+	<div>
+			<label>部署名（英語）</label>
+			<input type="text" name="departmentname_en" placeholder="新しい部署名（英語）" th:field="*{departmentname_en}">
+			<div th:if="${#fields.hasErrors('departmentname_en')}" th:errors="*{departmentname_en}" style="color:red;"></div>
+		</div>
+	
+		<button class="btn btn-primary" type="submit">登録</button>
+		
+		<div>
+			<a th:href="@{/department/index}">部署一覧へ戻る</a>
+		 </div>
+	
+</body>
+
+</html>
