@@ -5,6 +5,11 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
     <h2>
         打刻トップ
     </h2>
+    
+    <div>
+        <div id="date"></div>
+        <div id="time"></div>
+    </div>
 
     <div>
         <form method="post" th:action="@{/timestamp/store}" th:object="${timestampForm}">
