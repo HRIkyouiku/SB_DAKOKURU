@@ -3,8 +3,8 @@ package com.example.demo.service;
 import com.example.demo.entity.Department;
 import com.example.demo.repository.DepartmentRepository;
 
-
 public class DepartmentServiceImpl implements DepartmentService {
+
 	private final DepartmentRepository departmentRepository;
 
 	@Override
