@@ -69,6 +69,90 @@ main {
     padding: 20px;
 }
 
+.box {
+	margin: 50px;
+}
+
+.department-list-box {
+	margin: 10px auto auto 90px
+}
+
 .error-message {
     color: red;
+}
+
+.container {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	margin: 10px auto auto 60px;
+	margin-bottom: 20px;
+}
+
+.search-box {
+	flex-grow: 1;
+	
+}
+
+.search-box {
+	width: 100%;
+}
+
+.button {
+	padding: 2px 10px;
+	background-color: lightgray;
+	outline-color: #333;
+}
+
+.department-row {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	margin-bottom: 8px;
+}
+
+.department-name {
+	width:200px;
+}
+
+.edit-button {
+	min-width: 60px;
+	text-align: center;
+}
+
+.create-button {
+	margin-left: 300px;
+}
+
+.form-row {
+	display: flex;
+	align-items: center;
+	margin-bottom: 60px;
+}
+
+.form-row label {
+	flex: 0 0 120px;
+	padding-right: 20px;
+}
+
+.form-row input {
+	box-sizing: border-box;
+	border-color: #333;
+	padding: 12px;
+	height: 10px;
+	width: 500px;
+}
+
+.store-button {
+	width: 200px;
+}
+.delete-button {
+	width: 200px;
+}
+.return-index {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	margin: 90px auto auto 150px;
+	margin-bottom: 20px;
 }

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <meta charset="UTF-8">
+    <title>部署編集・削除画面</title>
+</head>
+<body>
+    <div class="box">
+        <h1>部署編集・削除</h1>
+        <form th:action="@{/department/update/{departmentId}(departmentId=${departmentId})}"
+            th:object="${departmentForm}" method="POST">
+            <div th:if="${successMessage}" th:text="${successMessage}" class="success-message"></div>
+            <div class="form-row">
+                <label for="nameJp">変更前</label>
+                <input type="text" th:value="${department.nameJp}" readonly>
+                <input type="text" th:value="${department.nameEn}" readonly>
+            </div>
+            <div class="form-row">
+                <label for="nameJp">変更後</label>
+                <input type="text" th:field="*{nameJp}">
+            </div>
+            <div th:if="${#fields.hasErrors('nameJp')}" th:text="${#fields.errors('*{nameJp}')[0]}"
+                class="error-message"></div>
+            <div class="form-row">
+                <label for="nameEn">変更後(英語)</label>
+                <input type="text" th:field="*{nameEn}">
+            </div>
+            <div th:if="${#fields.hasErrors('nameEn')}" th:text="${#fields.errors('*{nameEn}')[0]}"
+                class="error-message"></div>
+            <button class="button delete-button" type="submit" value="変更"
+                onclick="return confirm('更新します。宜しいですか？')">変更</button>
+        </form>
+        <form th:action="@{/department/delete/{departmentId}(departmentId=${department.id})}" th:method="DELETE"
+            onclick="return confirm('削除します。よろしいですか？')">
+            <button class="button delete-button" type="submit" value="削除">削除</button>
+        </form>
+        <a th:href="@{/department/index}">戻る</a>
+    </div>
+</body>
+</html>

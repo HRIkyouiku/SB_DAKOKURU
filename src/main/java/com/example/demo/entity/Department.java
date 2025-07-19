@@ -13,7 +13,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
-
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +21,7 @@ import lombok.Setter;
 @Table(name = "departments")
 @Getter
 @Setter
+@Data
 public class Department {
 
     @Id
@@ -55,4 +56,7 @@ public class Department {
 
     @ManyToMany(mappedBy = "departments")
     private Set<User> users = new HashSet<>();
+
+//	private String departmentName;
+//	private String departmentNameEn;
 }
