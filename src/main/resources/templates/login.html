@@ -1,19 +1,39 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
     <head>
+        <meta charset="UTF-8">
         <title>Spring Security Example </title>
+        <link rel="stylesheet" th:href="@{/css/style.css}">
     </head>
     <body>
+        <div class="login-container">
+            <div class="login-logo">
+                <img th:src="@{/images/DAKOKURU.jpg}" alt="DAKOKURU" title="DAKOKURU">
+                <h1>DAKOKURU</h1>
+            </div>
+            <div class="login-error" th:if="${param.error}"
+                th:text="#{validation.nonMatch.EmployeNomberAndPassword}">
+                error message
+            </div>
         <form th:action="@{/login}" method="post">
+                <div>
+                    <!-- <label> 社員番号: --> 
+                    <input type="text" name="employee_no" placeholder="社員番号" 
+                        required pattern="[0-9]{1,9}"/>
+                    <!-- </label> -->
+                </div>
+                <div>
+                    <!-- <label> パスワード:  -->
+                    <input type="password" name="password" placeholder="パスワード" required/>
+                </div>
+                    <!--     </label> -->
+                <div>
+                    <input type="submit" th:value="#{login.bottun}"/>
+                </div>
+            </form>
             <div>
-                <label> 社員番号: <input type="text" name="employee_no"/></label>
+                <p>お問い合わせは<a href="">こちら</a></p>
             </div>
-            <div>
-                <label> パスワード: <input type="password" name="password"/></label>
-            </div>
-            <div>
-                <input type="submit" value="ログイン"/>
-            </div>
-        </form>
+        </div>
     </body>
 </html>
