@@ -11,7 +11,5 @@ public interface DepartmentRepository extends JpaRepository<Department, Long>{
     List<Department> findAll();
     //検索機能----------------------------
     List<Department> findByNameJpContaining(String keyword);
-    }
-    
-
+}
 

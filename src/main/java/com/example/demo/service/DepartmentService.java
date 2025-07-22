@@ -11,5 +11,7 @@ public interface DepartmentService {
     List<Department> departmentList();
     //検索機能----------------------------
     List<Department> searchUsersByKeyword(String keyword);
+    //新規登録機能-------------------------
+    void saveDepartment(Department departments);
 
 }

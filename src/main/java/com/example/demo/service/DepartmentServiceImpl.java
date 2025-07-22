@@ -25,4 +25,9 @@ public class DepartmentServiceImpl implements DepartmentService{
     public List<Department> searchUsersByKeyword(String keyword) {
         return departmentRepository.findByNameJpContaining(keyword);
     }
+    
+    @Override
+    public void saveDepartment(Department departments) {
+        departmentRepository.save(departments);
+    }
 }
