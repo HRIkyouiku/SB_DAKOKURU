@@ -15,7 +15,7 @@
                 th:text="#{validation.nonMatch.EmployeNomberAndPassword}">
                 error message
             </div>
-        <form th:action="@{/login}" method="post">
+            <form th:action="@{/login}" method="post">
                 <div>
                     <!-- <label> 社員番号: --> 
                     <input type="text" name="employee_no" placeholder="社員番号" 
@@ -25,8 +25,8 @@
                 <div>
                     <!-- <label> パスワード:  -->
                     <input type="password" name="password" placeholder="パスワード" required/>
-                </div>
                     <!--     </label> -->
+                </div>
                 <div>
                     <input type="submit" th:value="#{login.bottun}"/>
                 </div>
