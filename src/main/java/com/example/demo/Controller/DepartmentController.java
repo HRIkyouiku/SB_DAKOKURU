@@ -36,7 +36,7 @@ public class DepartmentController {
     //新規登録画面表示-------------------------
     @GetMapping("/department/create")
     public String createDepartment(Model model) {
-        model.addAttribute("create", new Department());
+        model.addAttribute("department", new Department());
         return "/department/create";
     }
     //新規登録処理-------------------------
