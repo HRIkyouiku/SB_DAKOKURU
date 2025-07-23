@@ -25,9 +25,14 @@ public class DepartmentServiceImpl implements DepartmentService{
     public List<Department> searchUsersByKeyword(String keyword) {
         return departmentRepository.findByNameJpContaining(keyword);
     }
-    
+    //新規部署登録機能----------------------
     @Override
     public void saveDepartment(Department departments) {
         departmentRepository.save(departments);
+    }
+    
+    @Override
+    public Department findById(Long id) {
+        return departmentRepository.findById(id).orElse(null);
     }
 }

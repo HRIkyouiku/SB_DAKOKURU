@@ -24,7 +24,12 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
 		</table>
 		<div>
 			<ul>
-			      <li th:each="department : ${departments}" th:text="${department.nameJp}"></li>
+				<li th:each="department : ${departments}">
+					<span th:text="${department.nameJp}"></span>
+					<a href="@{/department/edit/{id}(id=${departments.id})}">
+						<button type="button">編集</button>
+					</a>
+				</li>
 			</ul>
 		</div>
 	</body>

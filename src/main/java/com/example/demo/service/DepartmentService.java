@@ -13,5 +13,7 @@ public interface DepartmentService {
     List<Department> searchUsersByKeyword(String keyword);
     //新規登録機能-------------------------
     void saveDepartment(Department departments);
+    
+    Department findById(Long department);
 
 }
