@@ -43,6 +43,6 @@ public class DepartmentController {
     @PostMapping("/save")
     public String saveDepartment(@ModelAttribute Department departments) {
         departmentService.saveDepartment(departments);
-        return "/department/index";
+        return "redirect:/department/index";
     }
 }
