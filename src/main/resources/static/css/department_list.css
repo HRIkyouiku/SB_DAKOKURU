@@ -1,0 +1,16 @@
+@charset "UTF-8";
+ body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #333; }
+        .search-area { margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; background-color: #f9f9f9; }
+        .search-area label { margin-right: 10px; }
+        .search-area input[type="text"] { padding: 8px; border: 1px solid #ccc; }
+        .search-area button { padding: 8px 15px; background-color: #007bff; color: white; border: none; cursor: pointer; margin-left: 5px; }
+        .search-area button.clear { background-color: #6c757d; }
+        .add-button-area { text-align: right; margin-bottom: 20px; }
+        .add-button-area a { padding: 10px 20px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px; }
+        .search-results { margin-bottom: 10px; font-weight: bold; }
+        table { width: 50%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .edit-button { padding: 5px 10px; background-color: #ffc107; color: #333; border: none; cursor: pointer; text-decoration: none; border-radius: 3px; }
+ 

@@ -18,6 +18,7 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/register", "/login").permitAll()
+                        .requestMatchers("/department/**").permitAll() // 部署管理の全URLを許可する
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")

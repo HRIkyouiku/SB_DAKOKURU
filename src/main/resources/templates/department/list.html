@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>部署一覧</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <img th:src="@{/images/DAKOKURU.jpg}" alt="DAKOKURU">
+            </div>
+            <nav id=navigation>
+                <ul>
+                    <li class="current-item"><a th:href="@{/user/index}">【管理】ユーザー一覧</a></li>
+                    <li><a th:href="@{/users_daily_timestamps/{period}(period=${#dates.format(#dates.createNow(), 'yyyy-MM')})}">【管理】打刻集計</a></li>
+                    <li><a th:href="@{/department/index}">【管理】部署一覧</a></li>
+                    <li><a th:href="@{/workPlace/index}">【管理】勤務地一覧</a></li>
+                </ul>
+                <span id="slide-line"></span>
+            </nav>
+            <div class="user-info">
+                <span>ユーザー名</span>
+            </div>
+          </div>
+    </header>
+    <main layout:fragment="content">
+       <!-- 各ページのコンテンツがここに入る -->
+    </main>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script>
+        $(function(){
+            let $nav = $("#navigation"),
+                $slideLine = $("#slide-line"),
+                $currentItem = $(".current-item");
+            // メニューにアクティブな項目がある場合
+            if ($currentItem.length) {
+                $slideLine.css({
+                    "width": $currentItem.width() + 10 + "px",
+                    "left": $currentItem.position().left + 5 + "px"
+                });
+            }
+            // 下線のトランジション
+            $nav.find("li").hover(
+                function(){
+                    $slideLine.css({
+                        "width": $(this).width() + 10 + "px",
+                        "left": $(this).position().left + 5 + "px"
+                    });
+                },
+                function(){
+                    if ($currentItem.length) {
+                        // 現在の項目に戻す
+                        $slideLine.css({
+                            "width": $currentItem.width() + 10 + "px",
+                            "left": $currentItem.position().left + 5 + "px"
+                        });
+                    } else {
+                        // 非表示にする
+                        $slideLine.width(0);
+                    }
+               }
+            );
+        });
+    </script>
+    <h1>部署一覧</h1>
+         <div th:if="${successMessage}" class="success-message">
+            <p th:text="${successMessage}"></p>
+        </div>
+        <form th:action="@{/department/index}" th:object="${departmentSearchForm}" method="get" class="search-form">
+            <label for="keyword">キーワード:</label>
+            <input type="text" id="keyword" th:field="*{keyword}" placeholder="検索したい部署名を入力">
+            <button type="submit" class="search-button">検索</button>
+            <button type="button" class="clear-button" onclick="location.href='/department/index';">クリア</button>
+            <span th:if="${#fields.hasErrors('keyword')}" th:errors="*{keyword}" class="validation-error"></span>
+        </form>
+        <p>検索結果: <span th:text="${departments.size()}">0</span>件</p>
+        <a th:href="@{/department/create}" class="create-button">部署新規追加</a>
+    <table>
+        <tbody>
+            <tr th:each="department : ${departments}">
+                <td th:text="${department.nameJp}"></td>
+                <td>
+                <a th:href="@{/department/edit/{id}(id=${department.id})}" class="edit-link">編集</a>
+                </td>
+            </tr>
+            <tr th:if="${departments.empty}">
+                <td colspan="6">データの取得に失敗しました。</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
