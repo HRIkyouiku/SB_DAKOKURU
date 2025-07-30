@@ -42,7 +42,7 @@ public class UserController {
     public String store(@Validated @ModelAttribute("userForm") UserForm form,
             BindingResult result, RedirectAttributes ra) {
 
-        Integer empNo = form.getEmployeeNo();
+        Long empNo = form.getEmployeeNo();
 
         // 社員番号桁数チェック
         if (empNo != null && String.valueOf(empNo).length() > 10) {

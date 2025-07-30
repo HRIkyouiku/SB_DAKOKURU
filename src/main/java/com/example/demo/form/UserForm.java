@@ -194,8 +194,10 @@ public class UserForm implements ValidationGroups {
     //社員番号
 
     @NotNull(message = "社員番号を入力してください。")
-    private Integer employeeNo;
-
+    //Long型に変更
+    //private Integer employeeNo;
+    private Long employeeNo;
+    
     private Integer currentEmployeeNo;
 
     //入社日
