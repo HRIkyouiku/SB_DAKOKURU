@@ -259,7 +259,7 @@ public class UserForm implements ValidationGroups {
 
     // ミドルネームフィールドのいずれかが入力された場合は、mnJp も必須
     @AssertTrue(message = "ミドルネームの各欄に一つでも入力があった場合は必須です。")
-    public boolean isMnNameValid() {
+    public boolean isMnJpRequiredByMnGroup() {
         if ((mnJpHira != null && !mnJpHira.isEmpty()) ||
                 (mnJpKata != null && !mnJpKata.isEmpty()) ||
                 (mnEn != null && !mnEn.isEmpty())) {
@@ -270,7 +270,7 @@ public class UserForm implements ValidationGroups {
 
     // ミドルネームフィールドのいずれかが入力された場合は、mnJpHira も必須
     @AssertTrue(message = "ミドルネームの各欄に一つでも入力があった場合は必須です。")
-    public boolean isMnNameHiraValid() {
+    public boolean isMnJpHiraRequiredByMnGroup() {
         if ((mnJp != null && !mnJp.isEmpty()) ||
                 (mnJpKata != null && !mnJpKata.isEmpty()) ||
                 (mnEn != null && !mnEn.isEmpty())) {
@@ -281,7 +281,7 @@ public class UserForm implements ValidationGroups {
     
     // ミドルネームフィールドのいずれかが入力された場合は、mnJpKata も必須
     @AssertTrue(message = "ミドルネームの各欄に一つでも入力があった場合は必須です。")
-    public boolean isMnNameKataValid() {
+    public boolean isMnJpKataRequiredByMnGroup() {
         if ((mnJp != null && !mnJp.isEmpty()) ||
                 (mnJpHira != null && !mnJpHira.isEmpty()) ||
                 (mnEn != null && !mnEn.isEmpty())) {
@@ -292,7 +292,7 @@ public class UserForm implements ValidationGroups {
     
     // ミドルネームフィールドのいずれかが入力された場合は、mnEn も必須
     @AssertTrue(message = "ミドルネームの各欄に一つでも入力があった場合は必須です。")
-    public boolean isMnNameEnValid() {
+    public boolean isMnEnRequiredByMnGroup() {
         if ((mnJp != null && !mnJp.isEmpty()) ||
                 (mnJpHira != null && !mnJpHira.isEmpty()) ||
                 (mnJpKata != null && !mnJpKata.isEmpty())) {
