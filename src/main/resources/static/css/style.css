@@ -72,3 +72,7 @@ main {
 .error-message {
     color: red;
 }
+
+table {
+    display: inline-block;
+}

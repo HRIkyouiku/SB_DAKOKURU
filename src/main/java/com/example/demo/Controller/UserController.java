@@ -42,6 +42,13 @@ public class UserController {
     public String store(@Validated @ModelAttribute("userForm") UserForm form,
             BindingResult result, RedirectAttributes ra) {
 
+        Long empNo = form.getEmployeeNo();
+
+        // 社員番号桁数チェック
+        if (empNo != null && String.valueOf(empNo).length() > 10) {
+            result.rejectValue("employeeNo", "employeeNo.digits", "社員番号は1桁以上、10桁以内で入力してください。");
+        }
+
         User existingEmail = userService.findByEmail(form.getEmail());
         if (existingEmail != null) {
             result.rejectValue("email", "duplicate.email", "メールアドレスは既に存在しています。");
