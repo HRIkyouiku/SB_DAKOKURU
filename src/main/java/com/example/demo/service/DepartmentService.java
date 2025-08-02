@@ -1,9 +1,12 @@
 package com.example.demo.service;
 
+import java.util.List;
+
 import com.example.demo.entity.Department;
 
 public interface DepartmentService {
-	
-	 void createDepartment(Department createDepartment);
+
+	public List<Department> getAllDepartments() {
+}return departmentsRepository.findAll();
 
 }
