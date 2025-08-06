@@ -136,7 +136,6 @@ public class UserController {
             return "redirect:" + redirectUrl;
         }
 
-        System.out.println(form.getId());
         User user = userService.findById(form.getId()).orElse(new User());
         user.setEmail(form.getEmail());
         user.setPassword(passwordEncoder.encode(form.getPassword()));

@@ -43,7 +43,6 @@ public class TimestampController {
 
         List<Timestamp> timestampHistories = timestampService.findAllByUserIdOrderByCreatedAtDesc(userDetails.getId());
         model.addAttribute("timestampHistories", timestampHistories);
-        System.out.println(timestampHistories);
 
         return "timestamps/create";
     }
@@ -62,7 +61,7 @@ public class TimestampController {
         // 現在の日時を取得
         LocalDateTime currentDateTime = LocalDateTime.now();
         LocalTime currentTime = LocalTime.of(currentDateTime.getHour(), currentDateTime.getMinute());
-        System.out.println(currentTime);
+
         // 05:00をリミット時間として定義
         LocalTime limitTime = LocalTime.of(5, 0);
         if (currentTime.isBefore(limitTime)) {
