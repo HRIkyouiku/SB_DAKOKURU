@@ -6,11 +6,11 @@
         <div>
             <form method="post" th:action="@{/timestamp/store}" th:object="${timestampForm}">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-    
+
                 <select name="workPlaceId">
                     <option th:each="place : ${places}" th:value="${place.id}" th:text="${place.name}"></option>
                 </select>
-    
+
                 <th:block th:if="${#lists.isEmpty(timestampHistories)}">
                     <input type="hidden" name="type" value="1">
                     <button type="submit">出勤</button>

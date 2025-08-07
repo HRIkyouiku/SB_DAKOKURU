@@ -3,8 +3,6 @@ package com.example.demo.Controller;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,21 +12,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.entity.Timestamp;
 import com.example.demo.entity.WorkPlace;
 import com.example.demo.form.TimestampForm;
-import com.example.demo.form.UserTimestampForm;
 import com.example.demo.security.CustomUserDetails;
-import com.example.demo.service.NameService;
 import com.example.demo.service.TimestampService;
-import com.example.demo.service.UserService;
 import com.example.demo.service.WorkPlaceService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.RequiredArgsConstructor;
 
@@ -38,8 +30,6 @@ public class TimestampController {
 
     private final WorkPlaceService workPlaceService;
     private final TimestampService timestampService;
-    private final NameService nameService;
-    private final UserService userService;
 
     @GetMapping("/timestamp/create")
     public String timeline(Model model, @AuthenticationPrincipal CustomUserDetails userDetails) {
@@ -53,7 +43,6 @@ public class TimestampController {
 
         List<Timestamp> timestampHistories = timestampService.findAllByUserIdOrderByCreatedAtDesc(userDetails.getId());
         model.addAttribute("timestampHistories", timestampHistories);
-        System.out.println(timestampHistories);
 
         return "timestamps/create";
     }
@@ -72,7 +61,7 @@ public class TimestampController {
         // 現在の日時を取得
         LocalDateTime currentDateTime = LocalDateTime.now();
         LocalTime currentTime = LocalTime.of(currentDateTime.getHour(), currentDateTime.getMinute());
-        System.out.println(currentTime);
+
         // 05:00をリミット時間として定義
         LocalTime limitTime = LocalTime.of(5, 0);
         if (currentTime.isBefore(limitTime)) {
