@@ -39,7 +39,7 @@ public class User {
     private String password;
 
     @Column(name = "employee_no")
-    private Integer employeeNo;
+    private Long employeeNo;
 
     @Column(name = "joining_date", nullable = false)
     private LocalDate joiningDate;

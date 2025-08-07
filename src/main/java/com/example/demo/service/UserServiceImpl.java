@@ -1,8 +1,5 @@
 package com.example.demo.service;
 
-import java.time.LocalDate;
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -39,7 +36,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByEmployeeNo(Integer employeeNo) {
+    public User findByEmployeeNo(Long employeeNo) {
         return userRepository.findByEmployeeNo(employeeNo);
     }
 }
