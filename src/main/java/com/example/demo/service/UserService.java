@@ -14,5 +14,5 @@ public interface UserService {
 
     User findByEmail(String email);
 
-    User findByEmployeeNo(Integer employeeNo);
+    User findByEmployeeNo(Long employeeNo);
 }

@@ -19,7 +19,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String employeeNoStr) throws UsernameNotFoundException {
         try {
-            int employeeNo = Integer.parseInt(employeeNoStr);
+            Long employeeNo = Long.parseLong(employeeNoStr);
             User user = customUserRepository.findByEmployeeNo(employeeNo)
                     .orElseThrow(() -> new UsernameNotFoundException("User not found with employee_no: " + employeeNo));
             return new CustomUserDetails(user);

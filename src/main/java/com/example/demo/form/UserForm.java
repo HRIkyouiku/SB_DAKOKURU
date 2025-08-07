@@ -60,9 +60,9 @@ public class UserForm implements ValidationGroups {
     private String password;
 
     @NotNull(message = "社員番号を入力してください。")
-    private Integer employeeNo;
+    private Long employeeNo;
 
-    private Integer currentEmployeeNo;
+    private Long currentEmployeeNo;
 
     @NotNull(message = "入社日を入力してください。")
     private LocalDate joiningDate;

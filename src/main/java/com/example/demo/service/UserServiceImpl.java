@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByEmployeeNo(Integer employeeNo) {
+    public User findByEmployeeNo(Long employeeNo) {
         return userRepository.findByEmployeeNo(employeeNo);
     }
 }
