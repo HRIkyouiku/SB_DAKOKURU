@@ -42,8 +42,8 @@ public class DepatmentController {
 	}
 
 	@GetMapping("/department/index")
-	private String showALLdepartmens(Model model) {
-		List<Department> departments = departmentRepository.findAll();
+	private String departmenlist(Model model) {
+		List<Department> departments = departmentService.findAllDepartments();
 		model.addAttribute("departments", departments);
 		return "/department/index";
 	}

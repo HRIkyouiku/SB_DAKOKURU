@@ -15,16 +15,15 @@ import lombok.RequiredArgsConstructor;
 public class DepartmentServiceImpl implements DepartmentService {
 
 	private final DepartmentRepository departmentRepository;
-
+	
 	@Override
 	public void createDepartment(Department createDepartment) {
 		departmentRepository.save(createDepartment);
 	}
-
+	
 	@Override
-	public List<Department> departmentList(Long departmentId) {
-		List<Department> list = departmentRepository.departmentList(departmentId);
-		return list;
+	public List<Department> findAllDepartments() {
+		return departmentRepository.findAll();
 	}
 
 }
