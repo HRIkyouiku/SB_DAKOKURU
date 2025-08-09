@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+    <main layout:fragment="content">
+        <h2>部署一覧</h2>
+        <form th:actionion="@{/department/create}" method="get">
+            <div>
+                <input type="submit" value="部署新規追加"/>
+            </div>
+            <table>
+                <tr th:each="departmentRegistrarion : ${departmentRegistrarion}">
+                    <td th:text="${departmentRegistrarion.name_jp}"></td>
+            </table>
+        </form>
+    </main>
+</html>
