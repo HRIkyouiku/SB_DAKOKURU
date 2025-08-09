@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+	<title>Spring Security Example </title>
+</head>
+
+<body>
+	<form th:action="@{/department/index}" th:method="post">
+		<h1>部署一覧</h1>
+		<div>
+			<label>キーワード</label>
+			<input type="text" name="searchName" placeholder="検索したい部署名を入力">
+			<button>検索</button>
+			<button>クリア</button>
+			<button>部署新規追加</button>
+			<table>
+				<tr th:each="department : ${departments}">
+					<td th:text="${department.name}"></td>
+				</tr>
+			</table>
+		</div>
+		<div>
+			<input type="submit" value="ログイン" />
+		</div>
+	</form>
+</body>
+
+</html>
