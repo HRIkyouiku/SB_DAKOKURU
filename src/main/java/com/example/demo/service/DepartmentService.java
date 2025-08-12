@@ -1,5 +1,9 @@
 package com.example.demo.service;
 
-public interface DepartmentService {
+import com.example.demo.entity.Department;
 
+public interface DepartmentService {
+	boolean existsByNameJp(String nameJp);
+	boolean existsByNameEn(String nameEn);
+	public void save(Department department);
 }

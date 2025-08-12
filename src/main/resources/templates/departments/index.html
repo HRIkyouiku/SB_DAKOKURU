@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+	<main layout:fragment="content">
+    <h2>部署一覧</h2>
+	<span th:if="${successMessage}" th:text="${successMessage}"></span>
+	<form th:action="@{/department/search}" th:method="post">
+		<label>キーワード</label>
+		<input type="text" name="searchName" placeholder="検索したい部署名を検索">
+		<button type="submit">検索</button>
+	</form>
+	<button onclick="location.href='/department/index'">クリア</button>
+	<button onclick="location.href='/department/create'">部署新規追加</button>
+
+</main>
+</html>
