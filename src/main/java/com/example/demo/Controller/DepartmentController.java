@@ -51,7 +51,7 @@ public class DepartmentController {
     public String editDepartment(@PathVariable Long id, Model model) {
         Department department = departmentService.findById(id);
         model.addAttribute("department", department);
-        return "department/edit/{id}";
+        return "department/edit";
     }
 }
 
