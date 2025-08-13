@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Department;
@@ -12,6 +14,12 @@ import lombok.RequiredArgsConstructor;
 public class DepartmentServiceImpl implements DepartmentService {
 	
 	private final DepartmentRepository departmentRepository;
+	
+	@Override
+	public List<Department> findAll() {
+		List<Department> list = departmentRepository.findAll();
+        return list;
+    }
 	
 	@Override
 	public boolean existsByNameJp(String nameJp) {

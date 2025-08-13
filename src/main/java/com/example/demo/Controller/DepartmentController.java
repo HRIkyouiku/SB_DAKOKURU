@@ -1,5 +1,7 @@
 package com.example.demo.Controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,7 +25,9 @@ public class DepartmentController {
 	private final DepartmentService departmentService;
 	
 	@GetMapping("/department/index")
-	public String index() {
+	public String index(Model model) {
+		List<Department> list = departmentService.findAll();
+		model.addAttribute("departmentList", list);
 		return "departments/index";
 	}
 	

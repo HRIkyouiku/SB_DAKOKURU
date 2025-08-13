@@ -11,6 +11,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
 	</form>
 	<button onclick="location.href='/department/index'">クリア</button>
 	<button onclick="location.href='/department/create'">部署新規追加</button>
-
+	<table>
+		<tr th:each="department : ${departmentList}">
+			<td th:text="${department.nameJp}"></td>
+			<td>
+				<a th:href="@{/department/edit/{id}(id=${department.id})}">編集</a>
+			</td>
+		</tr>
+	</table>
 </main>
 </html>
