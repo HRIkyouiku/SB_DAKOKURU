@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <meta charset="UTF-8">
+    <title>departement-create</title>
+</head>
+<body>
+    <div class="box">
+        <h1>新規部署登録</h1>
+        <div class="container">
+            <form th:action="@{/department/store}" th:object="${departmentForm}" method="POST">
+                <div class="form-row">
+                    <label for="nameJp">作成する部署名</label>
+                    <input type="text" th:field="*{nameJp}" placeholder="新しい部署名">
+                </div>
+                <div th:if="${#fields.hasErrors('nameJp')}" th:text="${#fields.errors('*{nameJp}')[0]}"
+                    class="error-message"></div>
+                <div class="form-row">
+                    <label class="create-department-form" for="nameEn">部署名(英語)</label>
+                    <input type="text" th:field="*{nameEn}" placeholder="新しい部署名(英語)">
+                </div>
+                <div th:if="${#fields.hasErrors('nameEn')}" th:text="${#fields.errors('*{nameEn}')[0]}"
+                    class="error-message"></div>
+                <div>
+                    <button class="button create-button store-button" type="submit"
+                        onclick="return confirm('登録します。宜しいですか？')">登録</button>
+                </div>
+                <div class="return-index">
+                    <a th:href="@{/department/index}">部署一覧に戻る</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<html>

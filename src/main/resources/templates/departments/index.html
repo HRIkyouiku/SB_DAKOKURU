@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <meta charset="UTF-8">
+    <title>departement-index</title>
+</head>
+<body>
+    <div class="box">
+        <h1>部署一覧</h1>
+        <div class="container">
+            <p>キーワード</p>
+            <form th:action="@{/department/search}" action="GET">
+                <div>
+                    <input type="text" name="keyword" placeholder="検索したい部署を入力" th:value="${keyword}">
+                    <button class="button" type="submit">検索</button>
+                    <button class="button" type="button" onclick="location.href='/department/index'">クリア</button>
+                </div>
+            </form><br>
+            <div>
+                <button class="button create-button" type="button"
+                    onclick="location.href='/department/create'">部署新規追加</button>
+            </div>
+        </diV>
+        <div class="department-list-box">
+            <div th:if="${keyword}">
+                <p>検索結果<span th:text="${#lists.size(departments)}"></span>件</p>
+            </div>
+            <div th:if="${successMessage}" th:text="${successMessage}" class="success-message"></div>
+            <div th:if="${errorMessage}" th:text="${errorMessage}" class="error-message"></div>
+            <div class="department-row" th:each="department : ${departments}">
+                <p class="department-name" th:text="${department.nameJp}"></p>
+                <form th:action="@{/department/edit/{departmentId}(departmentId=${department.id})}" method="GET">
+                    <button class="button edit-button" type="submit">編集</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
