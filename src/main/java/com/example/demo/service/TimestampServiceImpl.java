@@ -23,6 +23,7 @@ public class TimestampServiceImpl implements TimestampService {
         return result;
     }
 
+	
 	@Override
 	public void save(Timestamp timestamp) {
 		timestampRepository.save(timestamp);

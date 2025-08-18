@@ -8,4 +8,5 @@ public interface TimestampService {
 
 	public List<Timestamp> findAllByUserIdOrderByCreatedAtDesc(Long userId);
 	public void save(Timestamp timestamp);
+	
 }
