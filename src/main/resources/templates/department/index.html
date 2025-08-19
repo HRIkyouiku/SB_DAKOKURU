@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <meta charset="UTF-8">
+        <title layout:title-pattern="$CONTENT_TITLE - 打刻システム">打刻システム</title>
+        <link rel="stylesheet" th:href="@{/css/style.css}">
+    </head>
+    <body>
+        <h1>部署一覧</h1>
+        <div class = "search-department">
+            <form th:action="@{/department/searchresult}" th:method="post" th:object="${searchDepartmentForm}">
+                <label>キーワード</label>
+                <input type="text" th:field="*{searchDepartment}" placeholder="検索したい部署名を入力">
+                <button>検索</button>
+                <input type="button" value="クリア" onclick="this.form.searchDepartment.value='';">
+                <button type="submit"><a th:href="@{/department/create}">部署新規追加</a></button>
+                <p th:if="${#fields.hasErrors('searchDepartment')}" th:errors="*{searchDepartment}"></p>
+            </form>
+            <p th:if="${countDepartment != null}">検索結果：<span th:text="${countDepartment}"></span>件</p>
+            <table>
+                <tr th:each="department : ${departmentList}">
+                    <td th:text="${department.nameJp}"></td>
+                    <td>
+                        <a th:href="@{/department/edit/{id}(id=${department.id})}">
+                            <button type="submit">編集</button>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div> 
+    </body>
+</html>
