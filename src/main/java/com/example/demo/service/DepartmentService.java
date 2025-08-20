@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.example.demo.entity.Department;
 
@@ -14,6 +15,6 @@ public interface DepartmentService {
     //新規登録機能-------------------------
     void saveDepartment(Department departments);
     
-    Department findById(Long department);
+    Optional<Department> findById(Long department);
 
 }

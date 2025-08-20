@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,8 +50,8 @@ public class DepartmentController {
     //編集フォーム表示
     @GetMapping("department/edit/{id}")
     public String editDepartment(@PathVariable Long id, Model model) {
-        Department department = departmentService.findById(id);
-        model.addAttribute("department", department);
+        Optional<Department> department = departmentService.findById(id);
+        model.addAttribute("department", department.get());
         return "department/edit";
     }
 }

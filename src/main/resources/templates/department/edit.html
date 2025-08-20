@@ -9,7 +9,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
 		<input type="hidden" th:field="*{id}">
 		<p>
 			<label>変更前</label>
-			<span></span>
+			<span th:text="${department.nameJp}"></span>
 		</p>
 		<p>
 			<label>変更後</label>

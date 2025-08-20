@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -32,7 +33,7 @@ public class DepartmentServiceImpl implements DepartmentService{
     }
     
     @Override
-    public Department findById(Long id) {
-        return departmentRepository.findById(id).orElse(null);
+    public Optional<Department> findById(Long id) {
+        return departmentRepository.findById(id);
     }
 }
