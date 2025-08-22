@@ -4,6 +4,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
 	<main layout:fragment="content">
     <h2>部署一覧</h2>
 	<span th:if="${successMessage}" th:text="${successMessage}"></span>
+	<span th:if="${errorMessage}" class="error-message" th:text="${errorMessage}"></span>
 	<form th:action="@{/department/search}" th:method="post">
 		<label>キーワード</label>
 		<input type="text" name="searchName" placeholder="検索したい部署名を検索">

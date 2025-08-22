@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -34,5 +35,10 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Override
 	public void save(Department department) {
 		departmentRepository.save(department);
+	}
+	
+	@Override
+	public Optional<Department> findById(Long departmentId) {
+		return departmentRepository.findById(departmentId);
 	}
 }
