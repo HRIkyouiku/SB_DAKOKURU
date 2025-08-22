@@ -29,6 +29,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
 			<div>
 				<input type="submit" onclick="return confirm('更新します。宜しいですか？')" value="変更">
 			</div>
+	    </form>
+		<form method="post" th:action="@{/department/delete/{id}(id=${department.id})}" th:object="${departmentForm}">
 	        <div>
 	        	<input type="submit" onclick="return confirm('削除します。宜しいですか？')" value="削除">
 	        </div>

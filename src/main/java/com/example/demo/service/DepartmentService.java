@@ -11,4 +11,5 @@ public interface DepartmentService {
 	boolean existsByNameEn(String nameEn);
 	public void save(Department department);
 	public Optional<Department> findById(Long departmentId);
+	void deleteById(Long departmentId);
 }

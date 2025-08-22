@@ -131,4 +131,18 @@ public class DepartmentController {
 		
 		return "redirect:/department/edit/{departmentId}";
 	}
+	
+	@PostMapping("/department/delete/{departmentId}")
+	public String delete(@PathVariable("departmentId") Long departmentId,
+			             RedirectAttributes ra) {
+		
+		try {
+			departmentService.deleteById(departmentId);
+			ra.addFlashAttribute("successMessage", "削除しました。");
+		} catch(Exception e) {
+			ra.addFlashAttribute("errorMessage", "削除に失敗しました。");
+		}
+		
+		return  "redirect:/department/index";
+	}
 }
