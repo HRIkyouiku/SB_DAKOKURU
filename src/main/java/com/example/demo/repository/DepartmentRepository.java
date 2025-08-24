@@ -11,6 +11,7 @@ import com.example.demo.entity.Department;
 @Repository
 public interface DepartmentRepository extends JpaRepository<Department, Long>{
 	List<Department> findAll();
+	List<Department> findByNameJpContainingOrNameEnContaining(String keyword1, String keyword2);
 	boolean existsByNameJp(String nameJp);
 	boolean existsByNameEn(String nameEn);
 	Optional<Department> findById(Long departmentId);

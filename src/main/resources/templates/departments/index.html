@@ -5,13 +5,16 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
     <h2>部署一覧</h2>
 	<span th:if="${successMessage}" th:text="${successMessage}"></span>
 	<span th:if="${errorMessage}" class="error-message" th:text="${errorMessage}"></span>
-	<form th:action="@{/department/search}" th:method="post">
-		<label>キーワード</label>
-		<input type="text" name="searchName" placeholder="検索したい部署名を検索">
-		<button type="submit">検索</button>
-	</form>
-	<button onclick="location.href='/department/index'">クリア</button>
-	<button onclick="location.href='/department/create'">部署新規追加</button>
+	<div class="search">
+		<form th:action="@{/department/search}" th:method="get">
+			<label>キーワード</label>
+			<input type="text" name="searchName" placeholder="検索したい部署名を検索">
+			<button type="submit">検索</button>
+		</form>
+		<button type="buttton" class="crear-button" onclick="location.href='/department/index'">クリア</button>
+		<button type="buttton" class="create-button" onclick="location.href='/department/create'">部署新規追加</button>
+	</div>
+	<p th:if="${isSearch}" th:text="'検索結果 ' + ${resultCount} + '件'"></p>
 	<table>
 		<tr th:each="department : ${departmentList}">
 			<td th:text="${department.nameJp}"></td>

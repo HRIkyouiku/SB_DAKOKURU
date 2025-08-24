@@ -23,6 +23,11 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 	
 	@Override
+	public List<Department> departmentList(String searchName){
+		return departmentRepository.findByNameJpContainingOrNameEnContaining(searchName, searchName);
+	}
+	
+	@Override
 	public boolean existsByNameJp(String nameJp) {
 		return departmentRepository.existsByNameJp(nameJp);
 	}

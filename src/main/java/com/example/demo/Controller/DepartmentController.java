@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.entity.Department;
@@ -30,6 +32,37 @@ public class DepartmentController {
 	public String index(Model model) {
 		List<Department> list = departmentService.findAll();
 		model.addAttribute("departmentList", list);
+		return "departments/index";
+	}
+	
+	@GetMapping("/department/search")
+	public String search(@RequestParam(value = "searchName", required = false) String searchName,
+						 Model model) {
+		
+		// 検索フラグ
+		model.addAttribute("isSearch", true);
+		
+		
+		// 空入力の場合は0件を表示
+		if(!StringUtils.hasText(searchName)) {
+			model.addAttribute("departmentList", List.of());
+			model.addAttribute("resultCount", 0);
+			return "departments/index";
+		}
+		
+		// 文字数バリデーションチェック・検索フラグ
+		if(searchName.length() > 255) {
+			model.addAttribute("errorMessage", "検索ワードは255文字以内で入力してください。");
+			List<Department> list = departmentService.findAll();
+			model.addAttribute("departmentList", list);
+			model.addAttribute("isSearch", false);
+			return "departments/index";
+		}
+		
+		// 検索＆件数取得
+		List<Department> list = departmentService.departmentList(searchName);
+		model.addAttribute("departmentList", list);
+		model.addAttribute("searchResultCount", list.size());
 		return "departments/index";
 	}
 	

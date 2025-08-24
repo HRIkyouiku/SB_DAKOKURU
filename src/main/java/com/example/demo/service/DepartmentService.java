@@ -7,6 +7,7 @@ import com.example.demo.entity.Department;
 
 public interface DepartmentService {
 	public List<Department> findAll();
+	public List<Department> departmentList(String searchName);
 	boolean existsByNameJp(String nameJp);
 	boolean existsByNameEn(String nameEn);
 	public void save(Department department);
