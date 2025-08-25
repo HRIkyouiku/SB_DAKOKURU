@@ -42,7 +42,6 @@ public class DepartmentController {
 		// 検索フラグ
 		model.addAttribute("isSearch", true);
 		
-		
 		// 空入力の場合は0件を表示
 		if(!StringUtils.hasText(searchName)) {
 			model.addAttribute("departmentList", List.of());
