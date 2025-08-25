@@ -73,34 +73,40 @@ public class DepartmentController {
 	
 	@PostMapping("/department/store")
 	public String store(Model model, @Validated(DepartmentCreateGroup.class) @ModelAttribute("departmentForm") DepartmentForm form,
-			BindingResult result,
-			RedirectAttributes ra) {
+						BindingResult result,
+						RedirectAttributes ra) {
 		
+		// バリデーションチェック後に重複チェック
+		if (!result.hasErrors()) {
+			if(departmentService.existsByNameJp(form.getNameJp())) {
+				result.rejectValue("nameJp", "duplicate", "部署名は既に存在しています。");
+			}
+		
+			if(departmentService.existsByNameEn(form.getNameEn())) {
+				result.rejectValue("nameEn", "duplicate", "部署名（英語）は既に存在しています。");
+			}
+		}
+		
+		// バリデーションチェック
 		if(result.hasErrors()) {
 			ra.addFlashAttribute("org.springframework.validation.BindingResult.departmentForm", result);
             ra.addFlashAttribute("departmentForm", form);
 			return "departments/create";
 		}
 		
-		if(departmentService.existsByNameJp(form.getNameJp())) {
-			model.addAttribute("errorMessage", "部署名は既に存在しています。");
-	        return "departments/create";
-		}
-		
-		if(departmentService.existsByNameEn(form.getNameEn())) {
-			model.addAttribute("errorMessage", "部署名（英語）は既に存在しています。");
-	        return "departments/create";
-		}
-		
-		Department department = new Department();
-		department.setNameJp(form.getNameJp());
-		department.setNameEn(form.getNameEn());
+		try {
+			Department department = new Department();
+			department.setNameJp(form.getNameJp());
+			department.setNameEn(form.getNameEn());
+			departmentService.save(department);
 
-        // データベースに保存
-		departmentService.save(department);
-
-        // リダイレクト時にメッセージを追加
-        ra.addFlashAttribute("successMessage", "登録しました。");
+			// リダイレクト時にメッセージを追加
+			ra.addFlashAttribute("successMessage", "登録しました。");
+			
+		} catch (Exception e) {
+			ra.addFlashAttribute("errorMessage", "更新に失敗しました。");
+			return  "redirect:/department/index";
+		}
 
         return "redirect:/department/index";
 	}
@@ -134,18 +140,21 @@ public class DepartmentController {
 	        return "redirect:/department/index";
 	    }
 		
-		if(departmentService.existsByNameJp(form.getNameJp())) {
-			result.rejectValue("nameJp", "duplicate", "部署名は既に存在しています。");
-		}
+	    // バリデーションチェック後に重複チェック
+	    if(!result.hasErrors()) {
+	    	if(departmentService.existsByNameJp(form.getNameJp())) {
+	    		result.rejectValue("nameJp", "duplicate", "部署名は既に存在しています。");
+	    	}
 		
-		if(departmentService.existsByNameEn(form.getNameEn())) {
-			result.rejectValue("nameEn", "duplicate", "部署名（英語）は既に存在しています。");
-		}
-		
+	    	if(departmentService.existsByNameEn(form.getNameEn())) {
+	    		result.rejectValue("nameEn", "duplicate", "部署名（英語）は既に存在しています。");
+	    	}
+	    }
+	    
+	    // バリデーションチェック
 		if(result.hasErrors()) {
 			ra.addFlashAttribute("org.springframework.validation.BindingResult.departmentForm", result);
             ra.addFlashAttribute("departmentForm", form);
-            System.out.println(result);
             return "redirect:/department/edit/{departmentId}";
 		}
 		

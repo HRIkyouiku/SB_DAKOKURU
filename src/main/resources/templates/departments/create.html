@@ -1,24 +1,35 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
-	<main layout:fragment="content">
-	    <h2>新規部署登録</h2>
-	    <form method="post" th:action="@{/department/store}" th:object="${departmentForm}">
-	    	<div>
-	            <label for="name_jp">作成する部署名</label>
-	            <input id="name_jp" type="text" name="nameJp">
-	            <span th:if="${#fields.hasErrors('nameJp')}" th:errors="*{nameJp}" class="error-message"></span>
-				
-				<label for="name_en">部署名(英語)</label>
-			    <input id="name_en" type="text" name="nameEn">
-			    <span th:if="${#fields.hasErrors('nameEn')}" th:errors="*{nameEn}" class="error-message"></span>
-	        </div>
-	        <div>
-	        	<input type="submit" onclick="return confirm('登録します。宜しいですか？')" value="登録">
-	        </div>
-	        <div>
-				<span th:if="${errorMessage}" th:text="${errorMessage}" class="error-message"></span>
-		    </div>
-	    </form>
-	</main>
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layouts/layout}">
+
+<main layout:fragment="content">
+	<h2>新規部署登録</h2>
+	<form method="post" th:action="@{/department/store}" th:object="${departmentForm}">
+		<div>
+	    	<label for="name_jp">作成する部署名</label>
+	        <input id="name_jp" type="text" name="nameJp">
+		</div>
+		<div>
+	        <span th:if="${#fields.hasErrors('nameJp')}" th:errors="*{nameJp}" class="error-message"></span>
+		</div>
+		<div>
+			<label for="name_en">部署名(英語)</label>
+			<input id="name_en" type="text" name="nameEn">
+		</div>
+		<div>
+			<span th:if="${#fields.hasErrors('nameEn')}" th:errors="*{nameEn}" class="error-message"></span>
+	     </div>
+	     <div>
+	     	<input type="submit" onclick="return confirm('登録します。宜しいですか？')" value="登録">
+	     </div>
+	     <div>
+		 	<span th:if="${errorMessage}" th:text="${errorMessage}" class="error-message"></span>
+		 </div>
+	</form>
+	
+	<a th:href="@{/department/index}">部署一覧へ戻る</a>
+	
+</main>
+
 </html>
