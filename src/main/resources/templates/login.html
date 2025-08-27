@@ -6,6 +6,9 @@
     <body>
         <form th:action="@{/login}" method="post">
             <div>
+                <div th:if="${param.error}" class="message error-message">
+                    <p>社員番号とパスワードの組み合わせが正しくありません。</p>
+                </div>
                 <label> 社員番号: <input type="text" name="employee_no"/></label>
             </div>
             <div>
