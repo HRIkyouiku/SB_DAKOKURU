@@ -2,18 +2,35 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
     <head>
         <title>Spring Security Example </title>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
     </head>
     <body>
-        <form th:action="@{/login}" method="post">
-            <div>
-                <label> 社員番号: <input type="text" name="employee_no"/></label>
-            </div>
-            <div>
-                <label> パスワード: <input type="password" name="password"/></label>
-            </div>
-            <div>
-                <input type="submit" value="ログイン"/>
-            </div>
-        </form>
+		<div class="container">
+			<div class="center">
+				<div class="title">
+					<div class="logo">
+						<img th:src="@{/images/DAKOKURU.jpg}" alt="DAKOKURU">
+					</div>
+					<p class="logo">Dakoku-Ru</p>
+				</div>
+		        <form th:action="@{/login}" method="post">
+					<div th:if="${param.error}">
+			       		<p class="small-font">社員番号とパスワードの組み合わせが正しくありません。</p>
+					</div>
+		            <div>
+		                <label><input class="login-form" type="text" name="employee_no"/ placeholder="社員番号"></label>
+		            </div>
+		            <div>
+		                <label><input class="login-form" type="password" name="password"/ placeholder="パスワード"></label>
+		            </div>
+		            <div>
+		                <input class="button"  type="submit" value="Log-in"/>
+		            </div>
+		        </form>
+		        <div>
+					<p class="small-font">お問い合わせは<a href="">こちら</a></p>
+				</div>
+			</div>
+		</div>
     </body>
 </html>
