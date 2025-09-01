@@ -24,6 +24,8 @@
                     <input id="fn_en" type="text" name="fnEn" th:value="*{fnEn}">
                     <span th:if="${#fields.hasErrors('fnEn')}" th:errors="*{fnEn}" class="error-message"></span>
     
+                    <br><br>
+
                     <label for="ln_jp">姓(正式表示)</label>
                     <input id="ln_jp" type="text" name="lnJp" th:value="*{lnJp}">
                     <span th:if="${#fields.hasErrors('lnJp')}" th:errors="*{lnJp}" class="error-message"></span>
@@ -39,11 +41,13 @@
                     <label for="ln_en">姓(英語)</label>
                     <input id="ln_en" type="text" name="lnEn" th:value="*{lnEn}">
                     <span th:if="${#fields.hasErrors('lnEn')}" th:errors="*{lnEn}" class="error-message"></span>
-    
+
+                    <br><br>
+
                     <label for="oln_jp">旧姓(正式表示)</label>
                     <input id="oln_jp" type="text" name="olnJp" th:value="*{olnJp}">
                     <span th:if="${#fields.hasErrors('olnJp')}" th:errors="*{olnJp}" class="error-message"></span>
-    
+
                     <label for="oln_jp_hira">旧姓(ひらがな)</label>
                     <input id="oln_jp_hira" type="text" name="olnJpHira" th:value="*{olnJpHira}">
                     <span th:if="${#fields.hasErrors('olnJpHira')}" th:errors="*{olnJpHira}"
@@ -56,7 +60,11 @@
                     <label for="oln_en">旧姓(英語)</label>
                     <input id="oln_en" type="text" name="olnEn" th:value="*{olnEn}">
                     <span th:if="${#fields.hasErrors('olnEn')}" th:errors="*{olnEn}" class="error-message"></span>
-    
+
+                    <span th:if="${#fields.hasErrors('oldNameValid')}" th:errors="*{oldNameValid}" class="error-message"></span>
+
+                    <br><br>
+
                     <label for="mn_jp">ミドルネーム(正式表示)</label>
                     <input id="mn_jp" type="text" name="mnJp" th:value="*{mnJp}">
                     <span th:if="${#fields.hasErrors('mnJp')}" th:errors="*{mnJp}" class="error-message"></span>
@@ -72,7 +80,11 @@
                     <label for="mn_en">ミドルネーム(英語)</label>
                     <input id="mn_en" type="text" name="mnEn" th:value="*{mnEn}">
                     <span th:if="${#fields.hasErrors('mnEn')}" th:errors="*{mnEn}" class="error-message"></span>
-    
+
+                    <span th:if="${#fields.hasErrors('middleNameValid')}" th:errors="*{middleNameValid}" class="error-message"></span>
+
+                    <br><br>
+
                     <label for="email">メールアドレス</label>
                     <input id="email" type="email" name="email" th:value="*{email}">
                     <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></span>
@@ -95,7 +107,7 @@
                         <input id="display_first_name" type="checkbox" name="englishNotation"
                             value="true" th:checked="*{englishNotation}">
                     </div>
-    
+
                     <input type="submit" value="登録">
                 </div>
                 <div>
