@@ -8,6 +8,8 @@ import com.example.demo.entity.Department;
 
 public interface DepartmentRepository extends JpaRepository<Department, Long> {
 	
-	 List<Department> departmentList(Long departmentId);
+	 List<Department> findAll();
+	 
+	 Department findDepartmentById(Long departmentId);
 
 }

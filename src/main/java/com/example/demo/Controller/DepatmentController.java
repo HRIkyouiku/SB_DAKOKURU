@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.entity.Department;
@@ -46,6 +47,14 @@ public class DepatmentController {
 		List<Department> departments = departmentService.findAllDepartments();
 		model.addAttribute("departments", departments);
 		return "/department/index";
+	}
+
+	@GetMapping("/department/edit/{departmentId}")
+	private String departmentEdit(@PathVariable("departmentId") Long departmentId,
+			Model model) {
+		Department department = departmentService.findDepartmentById(departmentId);
+		model.addAttribute("department", department);
+		return "/department/edit";
 	}
 
 }
