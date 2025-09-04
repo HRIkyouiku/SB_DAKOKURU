@@ -7,7 +7,7 @@
 </head>
 
 <body>
-	<form th:action="@{/department/edit}" th:method="post">
+	<form th:action="@{/department/edit/{id}(id=$departmemt.id})}" th:method="post">
 		<input type="hidden" th:field="*{departmentid}">
 		<h1>部署編集・削除</h1>
 		<div>
@@ -31,14 +31,14 @@
 			<div th:if="${#fields.hasErrors('departmentname_en')}" th:errors="*{departmentname_en}" style="color:red;">
 			</div>
 		</div>
-		
-		<input type = "submit" value ="変更">
+
+		<input type="submit" value="変更">
 		<button class="btn btn-primary" type="submit">削除</button>
 
 		<div>
 			<a th:href="@{/department/index}">戻る</a>
 		</div>
-
+	</form>
 </body>
 
 </html>
