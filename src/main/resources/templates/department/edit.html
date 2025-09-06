@@ -10,13 +10,17 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
 		<p>
 			<label>変更前</label>
 			<span th:text="${department.nameJp}"></span>
+			<span th:text="${department.nameEn}"></span>
 		</p>
 		<p>
 			<label>変更後</label>
 			<input>
+			<label>変更後（英語）</label>
 			<input>
 		</p>
 		<button type="button">変更</button>
+		<button>削除</button>
+		<a href="/department/index">部署一覧へ戻る</a>
 	</form>
 </body>
 </html>
