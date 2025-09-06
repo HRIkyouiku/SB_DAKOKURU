@@ -5,6 +5,25 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<h2>
+		部署一覧
+	</h2>
+	
+	<table>
+		<tr>
+			<td>
+				キーワード
+			</td>
+			<td form th:action="@{/department/search}" th:method="post">
+				<input type="text" name="searchName">
+				<button>検索</button>
+			</td>
+		</tr>
+	    <tr th:each="departmentlist : ${department}">
+	        <td th:text="${departmentlist.nameJp}"></td>
+	        
+	    </tr>
+	</table>
 
 </body>
 </html>

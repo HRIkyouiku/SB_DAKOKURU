@@ -27,5 +27,14 @@ public class DepartmentServiceImpl implements DepartmentService {
 	public void save(Department department) {
 		departmentRepository.save(department);
 	}
+	
+    @Override
+    public List<Department> departmentList(String searchName,String searchNameEn) {
+            List<Department> list =departmentRepository.findByNameJpLikeOrNameEnLikeOrderByNameJpDesc(
+                    "%" + searchName  + "%", "%" + searchNameEn  + "%");
+            
+            return list;
+            
+    }
 
 }

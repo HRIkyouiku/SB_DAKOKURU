@@ -10,5 +10,7 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
 	
 	List<Department> findAllByOrderByCreatedAtDesc();	
 	
+	
+	List<Department> findByNameJpLikeOrNameEnLikeOrderByNameJpDesc(String searchName,String searchNameEn);
 
 }
