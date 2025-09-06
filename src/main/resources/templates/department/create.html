@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title layout:title-pattern="$CONTENT_TITLE - 打刻システム">打刻システム</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main layout:fragment="content">
+    <h2 th:text="#{department.create.title}">create new department</h2>
+    <div class="department-create-container">
+        <form th:action="@{/department/store}" th:method="post" th:object="${department}">
+            <!--　control layer validation -->
+             <div th:if="${#fields.hasErrors('nameJp')}" th:switch="${validationErrorKeyNameJp}">
+                 <p th:case="validation.blank.DepartmentName"
+                     th:text="#{${validationErrorKeyNameJp}}">
+                    validation error blank jp
+                </p>
+                 <p th:case="validation.between.DepartmentName"
+                     th:text="#{${validationErrorKeyNameJp}}">
+                    validation error between jp
+                </p>
+            </div>
+            <!--　service layer validation -->
+            <div th:unless="${#fields.hasErrors('nameJp')}" th:switch="${validationErrorKey}">
+                <p th:case="validation.blank.DepartmentName"
+                    th:text="#{${validationErrorKey}}">
+                    validation error blank jp
+                </p>
+                <p th:case="validation.between.DepartmentName"
+                    th:text="#{${validationErrorKey}}">
+                    validation error between jp
+                </p>
+                <p th:case="validation.unique.DepartmentName"
+                    th:text="#{${validationErrorKey}}">
+                    validation error unique jp
+                </p>
+            </div>
+            <div>
+                <label for="department-create-name-jp" th:text="#{department.create.name.jp}">
+                    create department name
+                </label>
+                <input type="text" th:field="*{nameJp}" name="department-create-name-jp"
+                    id="department-create-name-jp"
+                    th:placeholder="#{department.create.name.placeholder.jp}" />
+            </div>
+            <!-- control layer validation -->
+            <div th:if="${#fields.hasErrors('nameEn')}" th:switch="${validationErrorKeyNameEn}">
+                <p th:case="validation.blank.DepartmentNameEnglish"
+                     th:text="#{${validationErrorKeyNameEn}}">
+                    validation error blank en
+                </p>
+                 <p th:case="validation.between.DepartmentNameEnglish"
+                     th:text="#{${validationErrorKeyNameEn}}">
+                    validation error between en
+                </p>
+                <p th:case="validation.format.DepartmentNameEnglish"
+                    th:text="#{${validationErrorKeyNameEn}}">
+                    validation error unique en
+                </p>
+            </div>
+            <!-- service layer validation -->
+            <div th:unless="${#fields.hasErrors('nameEn')}" th:switch="${validationErrorKey}">
+                <p th:case="validation.blank.DepartmentNameEnglish"
+                    th:text="#{${validationErrorKey}}">
+                    validation error blank en
+                </p>
+                <p th:case="validation.between.DepartmentNameEnglish"
+                    th:text="#{${validationErrorKey}}">
+                    validation error between en
+                </p>
+                <p th:case="validation.format.DepartmentNameEnglish"
+                    th:text="#{${validationErrorKey}}">
+                    validation error between en
+                </p>
+                <p th:case="validation.unique.DepartmentNameEnglish"
+                    th:text="#{${validationErrorKey}}">
+                    validation error unique en
+                </p>
+            </div>
+            <div>
+                <label for="department-create-name-en" th:text="#{department.create.name.en}">
+                    create department name(English)
+                </label>
+                <input type="text" th:field="*{nameEn}" name="department-create-name-en"
+                    id="department-create-name-en"
+                    th:placeholder="#{department.create.name.placeholder.en}" />
+            </div>
+            <div class="department-create-btn-position">
+                <input class="department-btn" type="submit" th:value="#{register.button}"
+                    th:attr="onclick=|return confirm('#{alertmessages.create.01}')|">
+            </div>
+        </form>
+        <a th:href="@{/department/index}" th:text="#{department.list.return}">
+            return department list
+        </a>
+    </div>
+</main>
+</body>
+</html>

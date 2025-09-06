@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title layout:title-pattern="$CONTENT_TITLE - 打刻システム">打刻システム</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/utility.js}" defer></script>
+</head>
+<body th:attr="onload=|alertMessage('${messageValue}')|">
+<main layout:fragment="content">
+    <h2 th:text="#{department.list.title}">department list</h2>
+    <div class="department-index-container">
+        <div class="department-index-menu-container">
+            <form th:method="get" 
+                th:action="@{/department/index/search{searchWord}(searchWord = ${searchWord})}">
+                <label for="department-index-search-box" th:text=#{department.list.search.keyword}>
+                    keyword</label>
+                <input type="text" name="searchWord" th:value="${searchWord}"
+                    id="department-index-search-box"
+                    th:placeholder=#{department.list.search.keyword.placeholder} />
+                <input class="department-btn" type="submit" th:value=#{search.button}>
+                <a class="department-btn" th:href="@{/department/index}" th:text="#{clear.button}">
+                    clear button
+                </a>
+            </form>
+            <div>
+                <a class="department-btn" th:href="@{/department/create}"
+                    th:text="#{department.create.button}">
+                    create new department
+                </a>
+            </div>
+        </div>
+        <div class="department-index-search-result" th:unless="${resultSize == null}">
+            <p th:text="#{search.result} + ' ' + ${resultSize} + ' ' + #{search.unit}">
+                search result
+            </p>
+        </div>
+        <div th:each="department : ${departmentList}" class="dpartment-index-name-cotainer">
+            <div th:text="${department.nameJp}">department name</div>
+            <div>
+                <a class="department-btn" th:href="@{/department/edit/{id}(id = ${department.id})}"
+                    th:text="#{edit.button}">
+                    edit
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
