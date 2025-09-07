@@ -27,10 +27,10 @@ public class Department {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name_jp")
+    @Column(name = "name_jp" , nullable = false)
     private String nameJp;
 
-    @Column(name = "name_en")
+    @Column(name = "name_en" , nullable = false)
     private String nameEn;
 
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -39,7 +39,7 @@ public class Department {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    @Column(name = "deleted_at", nullable = false)
+    @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
     @PrePersist
