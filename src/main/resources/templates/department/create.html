@@ -6,9 +6,9 @@
 
 <body>
 	<h1>新規部署登録</h1>
-	<form th:action="@{/department/create}" th:object="${department}" method="post">
+	<form th:action="@{/department/create}" th:object="${departmentForm}" method="post">
 	    <div>
-	        <label> 作成する部署 <input type="text" th:field="*{nameJp}"/></label>
+	        <label> 作成する部署名 <input type="text" th:field="*{nameJp}"/></label>
 	    </div>
 	    <div>
 	        <label> 部署名（英語） <input type="text" th:field="*{nameEn}"/></label>
