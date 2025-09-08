@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,7 +32,7 @@ public class UserController {
 	private final NameService nameService;
 
 	@GetMapping("/user/create")
-	public String create(Model model) {
+	public String create(Model model, RedirectAttributes ra) {
 
 		if (!model.containsAttribute("userForm")) {
 	        model.addAttribute("userForm", new UserForm());
@@ -53,9 +54,19 @@ public class UserController {
 	    if (existingEmployeeNo != null) {
 	        result.rejectValue("employeeNo", "duplicate.employeeNo", "社員番号が既に存在しています。");
 	    }
+	    
+	    for (FieldError fieldError : result.getFieldErrors()) {
+	        if (fieldError.isBindingFailure()) {
+	            String message = switch (fieldError.getField()) {
+	                case "employeeNo" -> "社員番号は半角数字で入力してください。";
+	                case "joiningDate" -> "入社日は日付形式で正しく入力してください。";
+	                default -> "入力内容が不正です。";
+	            };
+	            result.rejectValue(fieldError.getField(), null, message);
+	        }
+	    }
 
         if (result.hasErrors()) {
-
             ra.addFlashAttribute("org.springframework.validation.BindingResult.userForm", result);
             ra.addFlashAttribute("userForm", form);
             return "redirect:/user/create";
