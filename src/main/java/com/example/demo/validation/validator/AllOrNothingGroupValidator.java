@@ -20,45 +20,43 @@ public class AllOrNothingGroupValidator implements ConstraintValidator<AllOrNoth
 
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
-        try {
-            boolean hasAnyInput = false;
-            boolean hasEmpty = false;
+        if (value == null) return true;
 
+        boolean hasAnyInput = false;
+        try {
+            // 1つでも入力があるかをチェック
             for (String fieldName : fields) {
                 Field field = value.getClass().getDeclaredField(fieldName);
                 field.setAccessible(true);
                 Object fieldValue = field.get(value);
-
-                boolean isEmpty = (fieldValue == null || "".equals(fieldValue.toString().trim()));
-                if (!isEmpty) {
+                if (fieldValue != null && !fieldValue.toString().trim().isEmpty()) {
                     hasAnyInput = true;
-                } else {
-                    hasEmpty = true;
+                    break; // 1つでも入力があれば終了
                 }
             }
 
-            // 1つ以上入力があり、かつ未入力もある場合はエラー
-            if (hasAnyInput && hasEmpty) {
-                context.disableDefaultConstraintViolation();
-                for (String fieldName : fields) {
-                    Field field = value.getClass().getDeclaredField(fieldName);
-                    field.setAccessible(true);
-                    Object fieldValue = field.get(value);
+            // 全て空ならOK
+            if (!hasAnyInput) return true;
 
-                    boolean isEmpty = (fieldValue == null || "".equals(fieldValue.toString().trim()));
-                    if (isEmpty) {
-                        context.buildConstraintViolationWithTemplate(message)
-                               .addPropertyNode(fieldName)
-                               .addConstraintViolation();
-                    }
+            // 一つでも入力があれば未入力の欄にエラーメッセージ
+            boolean hasViolation = false;
+            context.disableDefaultConstraintViolation();
+            for (String fieldName : fields) {
+                Field field = value.getClass().getDeclaredField(fieldName);
+                field.setAccessible(true);
+                Object fieldValue = field.get(value);
+                if (fieldValue == null || fieldValue.toString().trim().isEmpty()) {
+                    context.buildConstraintViolationWithTemplate(message)
+                           .addPropertyNode(fieldName)
+                           .addConstraintViolation();
+                    hasViolation = true;
                 }
-                return false;
             }
-
-            return true;
+            return !hasViolation;
 
         } catch (Exception e) {
-            return false;
+            e.printStackTrace();
+            return true;
         }
     }
 }

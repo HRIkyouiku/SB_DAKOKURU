@@ -13,6 +13,8 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.example.demo.validation.annotation.AllOrNothingGroup;
+import com.example.demo.validation.annotation.OptionalLength;
+import com.example.demo.validation.annotation.OptionalPattern;
 
 import lombok.Data;
 
@@ -70,36 +72,36 @@ public class UserForm implements ValidationGroups {
     private String lnEn;
 
     // 旧姓の入力が必要な場合にチェック　-----------------------------------------------------------
-    @Pattern(regexp = "^[^\\x00-\\x7F]+$", message = "旧姓(正式表示)は全角で入力してください。")
-    @Length(min = 1, max = 255, message = "旧姓(正式表示)は1文字以上、255文字以内で入力してください。")
+    @OptionalPattern(regexp = "^[^\\x00-\\x7F]+$", message = "旧姓(正式表示)は全角で入力してください。")
+    @OptionalLength(min = 1, max = 255, message = "旧姓(正式表示)は1文字以上、255文字以内で入力してください。")
     private String olnJp;
     
-    @Pattern(regexp = "^[ぁ-んー]+$", message = "旧姓(ひらがな)は全角ひらがなで入力してください。")
-    @Length(min = 1, max = 255, message = "旧姓(ひらがな)は1文字以上、255文字以内で入力してください。")
+    @OptionalPattern(regexp = "^[ぁ-んー]+$", message = "旧姓(ひらがな)は全角ひらがなで入力してください。")
+    @OptionalLength(min = 1, max = 255, message = "旧姓(ひらがな)は1文字以上、255文字以内で入力してください。")
     private String olnJpHira;
     
-    @Pattern(regexp = "^[ァ-ンー]+$", message = "旧姓(カタカナ)は全角カタカナで入力してください。")
-    @Length(min = 1, max = 255, message = "旧姓(カタカナ)は1文字以上、255文字以内で入力してください。")
+    @OptionalPattern(regexp = "^[ァ-ンー]+$", message = "旧姓(カタカナ)は全角カタカナで入力してください。")
+    @OptionalLength(min = 1, max = 255, message = "旧姓(カタカナ)は1文字以上、255文字以内で入力してください。")
     private String olnJpKata;
     
-    @Pattern(regexp = "^[a-zA-Z]+$", message = "姓(英語)は半角英字で入力してください。")
-    @Length(min = 1, max = 255, message = "旧姓(英語)は1文字以上、255文字以内で入力してください。")
+    @OptionalPattern(regexp = "^[a-zA-Z]+$", message = "姓(英語)は半角英字で入力してください。")
+    @OptionalLength(min = 1, max = 255, message = "旧姓(英語)は1文字以上、255文字以内で入力してください。")
     private String olnEn;
 
-    @Pattern(regexp = "^[^\\x00-\\x7F]+$", message = "ミドルネーム(正式表示)は全角で入力してください。")
-    @Length(min = 1, max = 255, message = "ミドルネーム(正式表示)は1文字以上、255文字以内で入力してください。")
+    @OptionalPattern(regexp = "^[^\\x00-\\x7F]+$", message = "ミドルネーム(正式表示)は全角で入力してください。")
+    @OptionalLength(min = 1, max = 255, message = "ミドルネーム(正式表示)は1文字以上、255文字以内で入力してください。")
     private String mnJp;
     
-    @Pattern(regexp = "^[ぁ-んー]+$", message = "ミドルネーム(ひらがな)は全角ひらがなで入力してください。")
-    @Length(min = 1, max = 255, message = "ミドルネーム(ひらがな)は1文字以上、255文字以内で入力してください。")
+    @OptionalPattern(regexp = "^[ぁ-んー]+$", message = "ミドルネーム(ひらがな)は全角ひらがなで入力してください。")
+    @OptionalLength(min = 1, max = 255, message = "ミドルネーム(ひらがな)は1文字以上、255文字以内で入力してください。")
     private String mnJpHira;
     
-    @Pattern(regexp = "^[ァ-ンー]+$", message = "ミドルネーム(カタカナ)は全角カタカナで入力してください。")
-    @Length(min = 1, max = 255, message = "ミドルネーム(カタカナ)は1文字以上、255文字以内で入力してください。")
+    @OptionalPattern(regexp = "^[ァ-ンー]+$", message = "ミドルネーム(カタカナ)は全角カタカナで入力してください。")
+    @OptionalLength(min = 1, max = 255, message = "ミドルネーム(カタカナ)は1文字以上、255文字以内で入力してください。")
     private String mnJpKata;
     
-    @Pattern(regexp = "^[a-zA-Z]+$", message = "ミドルネーム(英語)は半角英字で入力してください。")
-    @Length(min = 1, max = 255, message = "ミドルネーム(英語)は1文字以上、255文字以内で入力してください。")
+    @OptionalPattern(regexp = "^[a-zA-Z]+$", message = "ミドルネーム(英語)は半角英字で入力してください。")
+    @OptionalLength(min = 1, max = 255, message = "ミドルネーム(英語)は1文字以上、255文字以内で入力してください。")
     private String mnEn;
 
     @NotBlank(message = "メールアドレスを入力してください。")
