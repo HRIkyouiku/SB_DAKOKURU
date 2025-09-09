@@ -4,9 +4,12 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.example.demo.entity.User;
 
+
+@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
     @EntityGraph(attributePaths = {
@@ -16,7 +19,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     void deleteById(Long userId);
 
-    User findByEmail(String email);
-
-    User findByEmployeeNo(Long employeeNo);
+    Optional<User> findByEmail(String email);
+    
+    Optional<User> findByEmployeeNo(Long employeeNo);
 }

@@ -42,12 +42,12 @@ public class UserController {
     public String store(@Validated @ModelAttribute("userForm") UserForm form,
             BindingResult result, RedirectAttributes ra) {
 
-        User existingEmail = userService.findByEmail(form.getEmail());
+        Optional<User> existingEmail = userService.findByEmail(form.getEmail());
         if (existingEmail != null) {
             result.rejectValue("email", "duplicate.email", "メールアドレスは既に存在しています。");
         }
 
-        User existingEmployeeNo = userService.findByEmployeeNo(form.getEmployeeNo());
+        Optional<User> existingEmployeeNo = userService.findByEmployeeNo(form.getEmployeeNo());
         if (existingEmployeeNo != null) {
             result.rejectValue("employeeNo", "duplicate.employeeNo", "社員番号が既に存在しています。");
         }
@@ -115,13 +115,13 @@ public class UserController {
     public String update(@Validated @ModelAttribute("userForm") UserForm form,
             BindingResult result, RedirectAttributes ra) {
 
-        User existingEmail = userService.findByEmail(form.getEmail());
-        if (existingEmail != null && !existingEmail.getId().equals(form.getId())) {
+        Optional<User> existingEmail = userService.findByEmail(form.getEmail());
+        if (existingEmail != null && !existingEmail.get().equals(form.getId())) {
             result.rejectValue("email", "duplicate.email", "メールアドレスは既に存在しています。");
         }
 
-        User existingEmployeeNo = userService.findByEmployeeNo(form.getEmployeeNo());
-        if (existingEmployeeNo != null && !existingEmployeeNo.getId().equals(form.getId())) {
+        Optional<User> existingEmployeeNo = userService.findByEmployeeNo(form.getEmployeeNo());
+        if (existingEmployeeNo != null && !existingEmployeeNo.get().equals(form.getId())) {
             result.rejectValue("employeeNo", "duplicate.employeeNo", "社員番号が既に存在しています。");
         }
 

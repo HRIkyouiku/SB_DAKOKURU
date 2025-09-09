@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <meta charset="UTF-8">
+        <title layout:title-pattern="$CONTENT_TITLE - 打刻システム">打刻システム</title>
+        <link rel="stylesheet" th:href="@{/css/style.css}">
+    </head>
+    <body>
+        <header>
+            <div class="navbar">
+                <div class="logo">
+                    <img th:src="@{/images/DAKOKURU.jpg}" alt="DAKOKURU">
+                </div>
+                <nav id=navigation>
+                    <ul>
+                        <li class="current-item"><a th:href="@{/user/index}">【管理】ユーザー一覧</a></li>
+                        <li><a th:href="@{/users_daily_timestamps/{period}(period=${#dates.format(#dates.createNow(), 'yyyy-MM')})}">【管理】打刻集計</a></li>
+                        <li><a th:href="@{/department/index}">【管理】部署一覧</a></li>
+                        <li><a th:href="@{/workPlace/index}">【管理】勤務地一覧</a></li>
+                    </ul>
+                    <span id="slide-line"></span>
+                </nav>
+                <div class="user-info">
+                    <span>ユーザー名</span>
+                </div>
+            </div>
+        </header>
+    
+        <main layout:fragment="content">
+        </main>
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+        <script th:src="@{/js/script.js}"></script>
+    </body>
+</html>

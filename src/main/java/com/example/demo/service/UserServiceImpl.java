@@ -31,12 +31,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByEmail(String email) {
+    public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
     @Override
-    public User findByEmployeeNo(Long employeeNo) {
+    public Optional<User> findByEmployeeNo(Long employeeNo) {
         return userRepository.findByEmployeeNo(employeeNo);
     }
 }
