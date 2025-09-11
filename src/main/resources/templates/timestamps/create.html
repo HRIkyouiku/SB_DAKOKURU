@@ -11,13 +11,13 @@
                     <option th:each="place : ${places}" th:value="${place.id}" th:text="${place.name}"></option>
                 </select>
     
-                <th:block th:if="${#lists.isEmpty(timestampHistories)}">
+                <th:block th:if="${#lists.isEmpty(timestampHistories.content)}">
                     <input type="hidden" name="type" value="1">
                     <button type="submit">出勤</button>
                 </th:block>
     
-                <th:block th:if="${not #lists.isEmpty(timestampHistories)}">
-                    <th:block th:switch="${timestampHistories[0].type}">
+                <th:block th:if="${not #lists.isEmpty(timestampHistories.content)}">
+                    <th:block th:switch="${timestampHistories.content[0].type}">
                         <th:block th:case="4">
                             <input type="hidden" name="type" value="1">
                             <button type="submit">出勤</button>
@@ -49,7 +49,7 @@
         <div>
             <h2>打刻履歴</h2>
             <table>
-                <tr th:each="timestampHistory : ${timestampHistories}">
+                <tr th:each="timestampHistory : ${timestampHistories.content}">
                     <td th:text="${timestampHistory.date}"></td>
                     <td th:text="${timestampHistory.time}"></td>
                     <td>
@@ -63,6 +63,13 @@
                     </td>
                 </tr>
             </table>
+        </div>
+        <!--ページネーション-->
+        <div class="pagination">
+            <a th:if="${timestampHistories.hasPrevious()}"
+                th:href="@{/timestamp/create(page=${timestampHistories.number - 1})}">前へ</a>
+            <a th:if="${timestampHistories.hasNext()}"
+                th:href="@{/timestamp/create(page=${timestampHistories.number + 1})}">次へ</a>
         </div>
     </main>
 </html>
