@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -29,10 +30,10 @@ public class DepartmentServiceImpl implements DepartmentService {
         List<Department> list = null;
         list = departmentRepository.findAll();
 
-        //部署リストを部署名(日本語)でソート
+        //部署リストを部署名(日本語)で降順にソート
         list.sort(
                 (a, b) ->
-                a.getNameJp().compareTo(b.getNameJp())
+                Collator.getInstance().compare(b.getNameJp(), a.getNameJp())
                 );
 
         return list;
@@ -57,10 +58,10 @@ public class DepartmentServiceImpl implements DepartmentService {
             //HashSetをArrayListに変換
             list = new ArrayList<>(set);
 
-            //listを部署名(日本語)でソート
+            //listを部署名(日本語)で降順にソート
             list.sort(
                     (a, b) ->
-                    a.getNameJp().compareTo(b.getNameJp())
+                    Collator.getInstance().compare(b.getNameJp(), a.getNameJp())
                     );
 
         } catch (RuntimeException e) {
