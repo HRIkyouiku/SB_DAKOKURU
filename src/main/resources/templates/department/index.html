@@ -3,14 +3,11 @@
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
     <main layout:fragment="content">
         <h2>部署一覧</h2>
-        <form th:actionion="@{/department/create}" method="get">
-            <div>
-                <input type="submit" value="部署新規追加"/>
-            </div>
+        <a th:href="@{/department/create}">部署新規追加</a>
             <table>
                 <tr th:each="departmentRegistrarion : ${departmentRegistrarion}">
-                    <td th:text="${departmentRegistrarion.name_jp}"></td>
-            </table>
-        </form>
+                    <td th:text="${departmentRegistrarion.nameJp}"></td>
+                    <td><a th:href="@{/department/edit/{Id}(Id=${departmentRegistrarion.id})}">編集</a></td>
+        </table>
     </main>
 </html>
