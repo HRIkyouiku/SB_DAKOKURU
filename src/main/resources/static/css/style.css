@@ -72,3 +72,73 @@ main {
 .error-message {
     color: red;
 }
+
+#clock {
+    font-size: 48px;
+    font-family: 'Segoe UI' , sans-serif;
+    text-align: center;
+    margin-top: 50px;
+}
+
+#datePart {
+    font-size: 20px;
+    }
+ 
+ #timePart {
+    font-size: 40px;
+     margin-top: 4px;
+ }
+ 
+ .box {
+     text-align: center;
+ }
+ 
+ .box-2 {
+     width: 21vw;
+    margin: 0 auto;
+      text-align: left; 
+ }
+ .box table {
+     margin: 0 auto;
+ }
+
+ .form-wrapper {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+ }
+ 
+ .form-row {
+     width:300px;
+     margin-bottom: 12px;
+     text-align: center;
+ }
+ 
+ .form-row button {
+  display: block;
+  margin: 0 auto;
+}
+ 
+ .form-row select {
+     margin-top: 30px;
+ }
+ 
+ .form-row select,
+ .form-row button {
+     width: 100%;
+ }
+ 
+.form-row button {
+    color: white;
+    background-color: gray;
+    height: 40px;
+}
+
+.box-2 button {
+    color: white;
+    background-color: gray;
+}
+
+.box-2 p {
+    background-color: lightgray;
+}
