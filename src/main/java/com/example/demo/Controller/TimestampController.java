@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.demo.entity.Department;
 import com.example.demo.entity.Timestamp;
 import com.example.demo.entity.WorkPlace;
 import com.example.demo.form.TimestampForm;
 import com.example.demo.security.CustomUserDetails;
+import com.example.demo.service.DepartmentService;
 import com.example.demo.service.NameService;
 import com.example.demo.service.TimestampService;
 import com.example.demo.service.UserService;
@@ -34,6 +36,7 @@ public class TimestampController {
     private final TimestampService timestampService;
     private final NameService nameService;
     private final UserService userService;
+    private final DepartmentService departmentService;
 
     @GetMapping("/timestamp/create")
     public String timeline(Model model, @AuthenticationPrincipal CustomUserDetails userDetails) {
@@ -96,7 +99,18 @@ public class TimestampController {
     
     // 「ユーザーごと勤怠一覧」ページ
     @GetMapping("/timestamp/userlist")
-    public String userlist() {
+    public String userlist(Model model) {
+
+        //部署一覧の取得
+        List<Department> departments = departmentService.departmentfindall();
+        model.addAttribute("departments", departments);
+         
+        //timestamps/userlistを表示する
         return "timestamps/userlist";
     }
+    
+    //検索機能
+
+    
+    
 }
