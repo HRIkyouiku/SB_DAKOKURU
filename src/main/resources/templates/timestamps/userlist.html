@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
-    <main layout:fragment="content">
-        <h2>ユーザーごと勤怠一覧</h2>
-        <h3>打刻一覧</h3>
-        <div>
-            <!--検索フォーム-->
-            <form action="@{/timestamp/userlist/search" method="post" th:object="${searchForm}">
-                <label>名前</label>
-                <input type="text" name="searchName"><br>
-                <label>部署</label>
-                <select name="departmentId">
-                    <option value="" disabled selected>-- 部署を選択する --</option>
+    <body>
+        <main layout:fragment="content">
+             <h2>ユーザーごと勤怠一覧</h2>
+            <h3>打刻一覧</h3>
+            <div>
+                <!--検索フォーム-->
+                <form th:action="@{/timestamp/userlist/search}" method="post" th:object="${searchForm}">
+                    <label>名前</label>
+                    <input type="text" th:field="*{searchName}"><br>
+                    <label>部署</label>
+                    <select th:field="*{departmentId}">
+                    <option value="">-- 部署を選択する --</option>
                     <option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.nameJp}"></option>
-                </select>
-               <button type="submit">検索</button>
-            </form>
-        </div>
-    </main>
+                    </select>
+                    <button type="submit">検索</button>
+                </form>
+            </div>
+        </main>
+    </body>
 </html>

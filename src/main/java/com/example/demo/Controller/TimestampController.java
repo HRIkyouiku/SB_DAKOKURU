@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.demo.entity.Department;
 import com.example.demo.entity.Timestamp;
 import com.example.demo.entity.WorkPlace;
+import com.example.demo.form.SearchForm;
 import com.example.demo.form.TimestampForm;
 import com.example.demo.security.CustomUserDetails;
 import com.example.demo.service.DepartmentService;
@@ -101,15 +102,28 @@ public class TimestampController {
     @GetMapping("/timestamp/userlist")
     public String userlist(Model model) {
 
+        //検索フォーム初期表示
+        model.addAttribute("searchForm", new SearchForm());
+        
         //部署一覧の取得
         List<Department> departments = departmentService.departmentfindall();
         model.addAttribute("departments", departments);
-         
+              
         //timestamps/userlistを表示する
         return "timestamps/userlist";
     }
     
     //検索機能
+    @PostMapping("/timestamp/userlist/search")
+    public String searchUsers(@ModelAttribute SearchForm searchForm, Model model) {
+
+        model.addAttribute("searchForm", searchForm);
+        model.addAttribute("departments", departmentService.departmentfindall()); 
+
+    	//timestamps/userlistを表示する
+        return "timestamps/userlist";
+    }
+
 
     
     
