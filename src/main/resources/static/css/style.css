@@ -72,3 +72,38 @@ main {
 .error-message {
     color: red;
 }
+
+#date {
+    text-align: center;
+}
+
+#time {
+    text-align: center;
+    font-size: 30px;
+}
+
+h2 {
+    text-align: center;
+}
+
+form {
+    text-align: center;
+    margin: 20px 0 0 0;
+}
+
+table {
+    margin: 0 auto;
+}
+
+p {
+    text-align: left;
+    background-color:#dcdcdc;
+    margin: 15px auto 0 auto;
+    width: 190px
+}
+
+button {
+    color: white;
+    background-color: #7f7f7f;
+    
+}
