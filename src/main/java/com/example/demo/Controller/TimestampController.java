@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.entity.Department;
 import com.example.demo.entity.Timestamp;
+import com.example.demo.entity.User;
 import com.example.demo.entity.WorkPlace;
 import com.example.demo.form.SearchForm;
 import com.example.demo.form.TimestampForm;
@@ -100,7 +101,7 @@ public class TimestampController {
     
     // 「ユーザーごと勤怠一覧」ページ
     @GetMapping("/timestamp/userlist")
-    public String userlist(Model model) {
+    public String userlist(Model model, @ModelAttribute SearchForm searchForm) {
 
         //検索フォーム初期表示
         model.addAttribute("searchForm", new SearchForm());
@@ -108,7 +109,7 @@ public class TimestampController {
         //部署一覧の取得
         List<Department> departments = departmentService.departmentfindall();
         model.addAttribute("departments", departments);
-              
+ 
         //timestamps/userlistを表示する
         return "timestamps/userlist";
     }
@@ -120,7 +121,35 @@ public class TimestampController {
         model.addAttribute("searchForm", searchForm);
         model.addAttribute("departments", departmentService.departmentfindall()); 
 
-    	//timestamps/userlistを表示する
+        // 入力された検索条件
+        String name = searchForm.getSearchName();
+        Long departmentId = searchForm.getDepartmentId();
+
+        //検索メソッド
+        List<User> users ;
+
+        // １.名前なし＋部署なし
+        if ((name == null || name.isEmpty()) && departmentId == null) {
+            // 全ユーザー検索
+            users = userService.userlistfindall();
+        // ２.名前あり＋部署なし
+        } else if ((name != null || !name.isEmpty()) && departmentId == null) {
+            // ユーザー名のみで検索
+            users = userService.userlistfindByName(name);
+            // ３.名前なし＋部署あり
+        } else if ((name == null || name.isEmpty()) && departmentId != null) {
+            // 部署IDのみで検索
+            users = userService.userlistfindByDepartmentId(departmentId);
+            // ４.１～３以外(名前あり＋部署あり)
+        } else {
+        	// 名前と部署IDで検索
+        	users = userService.userlistfindByNameAndDepartmentId(name, departmentId);
+        }
+        
+        model.addAttribute("users", users);
+
+        
+        //timestamps/userlistを表示する
         return "timestamps/userlist";
     }
 

@@ -17,6 +17,21 @@
                     </select>
                     <button type="submit">検索</button>
                 </form>
+                <table border="1">
+                    <tr>
+                        <th>名前</th>
+                        <th>部署</th>
+                        <th>日付</th>
+                    </tr>
+                    <tr th:each="user : ${users}">
+                        <td th:if="${user.name != null}" th:text="${user.name.fnJp + ' ' + user.name.lnJp}"></td>
+                        <td>
+                            <span th:if="${#lists.isEmpty(user.departments)}">未登録</span>
+                            <span th:each="department : ${user.departments}" th:text="${department.nameJp} + ' '"></span>
+                        </td>                   
+                        <td>勤怠時間</td>
+                    </tr>
+                </table>
             </div>
         </main>
     </body>
