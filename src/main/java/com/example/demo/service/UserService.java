@@ -35,4 +35,5 @@ public interface UserService {
     // ４.名前あり＋部署あり
     // 名前と部署IDで検索
     List<User> userlistfindByNameAndDepartmentId(String name, Long departmentId);
+    
 }

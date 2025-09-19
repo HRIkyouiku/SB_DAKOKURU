@@ -3,7 +3,10 @@ package com.example.demo.Controller;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -100,21 +103,74 @@ public class TimestampController {
     }
     
     // 「ユーザーごと勤怠一覧」ページ
+
     @GetMapping("/timestamp/userlist")
     public String userlist(Model model, @ModelAttribute SearchForm searchForm) {
 
-        //検索フォーム初期表示
+        // 検索フォーム初期表示
         model.addAttribute("searchForm", new SearchForm());
         
-        //部署一覧の取得
+        // 部署一覧の取得
         List<Department> departments = departmentService.departmentfindall();
         model.addAttribute("departments", departments);
- 
-        //timestamps/userlistを表示する
+        
+        // timestamps/userlistを表示する
         return "timestamps/userlist";
     }
+
+
+    // 期間表示
+    private String getDateRange() {
+
+        // 今日の日付を取得　(例：2025-09-19)
+        LocalDate today = LocalDate.now();
+        
+        // 今月の初日　(withDayOfMonth(1)：日付を1日に変更する)
+        LocalDate start = today.withDayOfMonth(1);
+        
+        // 今月の末日　(lengthOfMonth：その月が何日あるかを返す)
+        LocalDate end = start.withDayOfMonth(start.lengthOfMonth());
+        
+        // DateTimeFormatterで「2025.09.19」のようにフォーマットを定義
+        DateTimeFormatter rangeFmt = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+        
+        // フォーマットした今月の初日と末日を「2025.09.01 - 2025.09.30」の形式で返却
+        return start.format(rangeFmt) + " - " + end.format(rangeFmt);
+    }
+
     
-    //検索機能
+    // 今月の日付一覧を取得
+    private List<String> getDates() {
+
+        // 今日の日付を取得　(例：2025-09-19)
+        LocalDate today = LocalDate.now();
+        
+        // 今月の初日　(withDayOfMonth(1)：日付を1日に変更する)
+        LocalDate start = today.withDayOfMonth(1);
+        
+        // 今月の末日　(lengthOfMonth：その月が何日あるかを返す)
+        LocalDate end = start.withDayOfMonth(start.lengthOfMonth());
+
+        // DateTimeFormatterで「01(月)」のようにフォーマットを定義
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd(E)", Locale.JAPAN);
+        //　フォーマット定義した日付格納リスト
+        List<String> formattedDates = new ArrayList<>();
+        
+        // 今月の1日から月末までの日付を1日ずつループして、整形した文字列をリストに追加する        
+        for (LocalDate date = start;  // 月初からスタート
+            !date.isAfter(end);       // 月末まで(isAfter：指定した値より後かどうか→前だったらループする)
+            date = date.plusDays(1)   // 1日ずつ進める
+        ) {
+        	// 「01(月)」のように定義したフォーマットでリストに追加
+            formattedDates.add(date.format(formatter));
+        }
+        
+        // フォーマットした日付リストの値を返却
+        return formattedDates;
+    }
+
+    
+    // 検索機能
     @PostMapping("/timestamp/userlist/search")
     public String searchUsers(@ModelAttribute SearchForm searchForm, Model model) {
 
@@ -147,7 +203,12 @@ public class TimestampController {
         }
         
         model.addAttribute("users", users);
-
+        
+        // 日付一覧メソッド
+        model.addAttribute("dateList", getDates());
+        
+        // 期間表示メソッド
+        model.addAttribute("dateRange", getDateRange());
         
         //timestamps/userlistを表示する
         return "timestamps/userlist";

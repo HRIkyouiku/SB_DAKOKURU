@@ -71,4 +71,5 @@ public class UserServiceImpl implements UserService {
     public List<User> userlistfindByNameAndDepartmentId(String name, Long departmentId) {
         return userRepository.findByNameAndDepartment(name, departmentId);
     }
+    
 }
