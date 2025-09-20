@@ -28,9 +28,9 @@ public class DepatmentController {
     
     @GetMapping("/department/index")
     private String index(Model model) {
-        List<Department> departmentRegistrarion = departmentService.departmentlist();
-        model.addAttribute("departmentRegistrarion", departmentRegistrarion);
-        System.out.println(departmentRegistrarion);
+        List<Department> department = departmentService.departmentlist();
+        model.addAttribute("department", department);
+        System.out.println(department);
 
         return "department/index";
     }
@@ -117,11 +117,11 @@ public class DepatmentController {
 
         ra.addFlashAttribute("successMessage", "更新しました。");
 
-        return "redirect:/department/index";
+        return "redirect:/department/edit";
     }
     
     @PostMapping("/department/delete/{Id}")
-    public String destroy(@ModelAttribute("departmentForm") DepartmentForm form) {
+    public String delete(@ModelAttribute("departmentForm") DepartmentForm form) {
         departmentService.deleteById(form.getId());
         return "redirect:/department/index";
     }

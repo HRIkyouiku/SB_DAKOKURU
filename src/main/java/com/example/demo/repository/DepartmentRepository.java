@@ -17,5 +17,7 @@ public interface DepartmentRepository extends JpaRepository<Department, Long>  {
     Optional<Department> findById(Long Id);
     
     public List<Department>findAll();
+    
+    public void deleteById(Long Id);
 
 }

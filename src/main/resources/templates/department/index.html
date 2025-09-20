@@ -5,9 +5,9 @@
         <h2>部署一覧</h2>
         <a th:href="@{/department/create}">部署新規追加</a>
             <table>
-                <tr th:each="departmentRegistrarion : ${departmentRegistrarion}">
-                    <td th:text="${departmentRegistrarion.nameJp}"></td>
-                    <td><a th:href="@{/department/edit/{Id}(Id=${departmentRegistrarion.id})}">編集</a></td>
+                <tr th:each="department : ${department}">
+                    <td th:text="${department.nameJp}"></td>
+                    <td><a th:href="@{/department/edit/{Id}(Id=${department.id})}">編集</a></td>
         </table>
     </main>
 </html>
