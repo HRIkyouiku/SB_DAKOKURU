@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.example.demo.entity.Department;
-import com.example.demo.form.DepartmentForm;
 import com.example.demo.service.DepartmentService;
 
 import lombok.RequiredArgsConstructor;
@@ -37,14 +36,14 @@ public class DepatmentController {
     
     @GetMapping("/department/create")
     private String create(Model model) {
-        if (!model.containsAttribute("departmentForm")) {
-            model.addAttribute("departmentForm", new DepartmentForm());
+        if (!model.containsAttribute("department")) {
+            model.addAttribute("department", new Department());
         }
         return "department/create";
     }
     
     @PostMapping("/department/store")
-    public String store(@Validated @ModelAttribute("departmentForm") DepartmentForm form,
+    public String store(@Validated @ModelAttribute("department") Department form,
             BindingResult result, RedirectAttributes ra) {
 
         Department existingNameJp = departmentService.findByNameJp(form.getNameJp());
@@ -58,8 +57,8 @@ public class DepatmentController {
         }
 
         if (result.hasErrors()) {
-            ra.addFlashAttribute("org.springframework.validation.BindingResult.departmentForm", result);
-            ra.addFlashAttribute("departmentForm", form);
+            ra.addFlashAttribute("org.springframework.validation.BindingResult.Department", result);
+            ra.addFlashAttribute("department", form);
             return "redirect:/department/create";
         }
 
@@ -74,8 +73,8 @@ public class DepatmentController {
     @GetMapping("/department/edit/{Id}")
     private String edit(Model model,  @PathVariable("Id") Long Id) {
 
-        if (!model.containsAttribute("departmentForm")) {
-            model.addAttribute("departmentForm", new DepartmentForm());
+        if (!model.containsAttribute("department")) {
+            model.addAttribute("department", new Department());
         }
         
         Department department = departmentService.findById(Id).orElse(new Department());
@@ -85,7 +84,7 @@ public class DepatmentController {
     }
      
     @PostMapping("/department/update/{Id}")
-    public String update(@Validated @ModelAttribute("departmentForm") DepartmentForm form,
+    public String update(@Validated @ModelAttribute("department") Department form,
             BindingResult result, RedirectAttributes ra) {
 
         Department existingNameJp = departmentService.findByNameJp(form.getNameJp());
@@ -99,8 +98,8 @@ public class DepatmentController {
         }
 
         if (result.hasErrors()) {
-            ra.addFlashAttribute("org.springframework.validation.BindingResult.departmentForm", result);
-            ra.addFlashAttribute("departmentForm", form);
+            ra.addFlashAttribute("org.springframework.validation.BindingResult.department", result);
+            ra.addFlashAttribute("department", form);
 
             String redirectUrl = UriComponentsBuilder
                     .fromPath("/department/edit")
@@ -121,7 +120,7 @@ public class DepatmentController {
     }
     
     @PostMapping("/department/delete/{Id}")
-    public String delete(@ModelAttribute("departmentForm") DepartmentForm form) {
+    public String delete(@ModelAttribute("department") Department form) {
         departmentService.deleteById(form.getId());
         return "redirect:/department/index";
     }

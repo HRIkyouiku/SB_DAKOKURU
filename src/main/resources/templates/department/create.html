@@ -3,7 +3,7 @@
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
     <main layout:fragment="content">
         <h2>新規部署登録</h2>
-            <form method="post" th:action="@{/department/store}" th:object="${departmentForm}">
+            <form method="post" th:action="@{/department/store}" th:object="${department}">
                 <div>
                     <label>作成する部署名<input type="text" name="nameJp" th:value="*{nameJp}" placeholder="新しい部署名"/></label>
                     <span th:if="${#fields.hasErrors('nameJp')}" th:errors="*{nameJp}" class="error-message"></span>
