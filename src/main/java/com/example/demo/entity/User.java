@@ -22,6 +22,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -86,4 +87,21 @@ public class User {
     //    @OneToMany()
     //    @JoinColumn(name = "user_id")
     //    private List<Timestamp> timestamp = new ArrayList<>();
+    
+    // 表示用の勤怠データ
+    // User と Timestamp は1対多の関係
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Timestamp> timestamps;
+
+    @Transient
+    private List<String> attendanceDisplay;
+
+    public List<String> getAttendanceDisplay() {
+        return attendanceDisplay;
+    }
+
+    public void setAttendanceDisplay(List<String> attendanceDisplay) {
+        this.attendanceDisplay = attendanceDisplay;
+    }
+
 }

@@ -6,7 +6,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
+import java.util.Optional;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -16,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.entity.Department;
@@ -103,7 +104,7 @@ public class TimestampController {
     }
     
     // 「ユーザーごと勤怠一覧」ページ
-
+    
     @GetMapping("/timestamp/userlist")
     public String userlist(Model model, @ModelAttribute SearchForm searchForm) {
 
@@ -114,68 +115,37 @@ public class TimestampController {
         List<Department> departments = departmentService.departmentfindall();
         model.addAttribute("departments", departments);
         
+        // ページネーションの非表示フラグ
+        model.addAttribute("showPagination", false);
+     
         // timestamps/userlistを表示する
         return "timestamps/userlist";
     }
 
 
-    // 期間表示
-    private String getDateRange() {
-
-        // 今日の日付を取得　(例：2025-09-19)
-        LocalDate today = LocalDate.now();
-        
-        // 今月の初日　(withDayOfMonth(1)：日付を1日に変更する)
-        LocalDate start = today.withDayOfMonth(1);
-        
-        // 今月の末日　(lengthOfMonth：その月が何日あるかを返す)
+    // 期間表示（例：2025.09.01 - 2025.09.30）
+    private String getDateRange(int year, int month) {
+        // 対象年月の初日と末日を生成
+        LocalDate start = LocalDate.of(year, month, 1);
         LocalDate end = start.withDayOfMonth(start.lengthOfMonth());
-        
-        // DateTimeFormatterで「2025.09.19」のようにフォーマットを定義
+
+        // 表示形式（例：2025.09.01 - 2025.09.30）
         DateTimeFormatter rangeFmt = DateTimeFormatter.ofPattern("yyyy.MM.dd");
-        
-        // フォーマットした今月の初日と末日を「2025.09.01 - 2025.09.30」の形式で返却
         return start.format(rangeFmt) + " - " + end.format(rangeFmt);
     }
 
-    
-    // 今月の日付一覧を取得
-    private List<String> getDates() {
-
-        // 今日の日付を取得　(例：2025-09-19)
-        LocalDate today = LocalDate.now();
         
-        // 今月の初日　(withDayOfMonth(1)：日付を1日に変更する)
-        LocalDate start = today.withDayOfMonth(1);
-        
-        // 今月の末日　(lengthOfMonth：その月が何日あるかを返す)
-        LocalDate end = start.withDayOfMonth(start.lengthOfMonth());
-
-        // DateTimeFormatterで「01(月)」のようにフォーマットを定義
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd(E)", Locale.JAPAN);
-        //　フォーマット定義した日付格納リスト
-        List<String> formattedDates = new ArrayList<>();
-        
-        // 今月の1日から月末までの日付を1日ずつループして、整形した文字列をリストに追加する        
-        for (LocalDate date = start;  // 月初からスタート
-            !date.isAfter(end);       // 月末まで(isAfter：指定した値より後かどうか→前だったらループする)
-            date = date.plusDays(1)   // 1日ずつ進める
-        ) {
-        	// 「01(月)」のように定義したフォーマットでリストに追加
-            formattedDates.add(date.format(formatter));
-        }
-        
-        // フォーマットした日付リストの値を返却
-        return formattedDates;
-    }
-
-    
     // 検索機能
     @PostMapping("/timestamp/userlist/search")
-    public String searchUsers(@ModelAttribute SearchForm searchForm, Model model) {
+    public String searchUsers(@ModelAttribute SearchForm searchForm, Model model,
+        @RequestParam(required = false) Integer year,
+        @RequestParam(required = false) Integer month) {
 
         model.addAttribute("searchForm", searchForm);
         model.addAttribute("departments", departmentService.departmentfindall()); 
+        
+        // ページネーションの表示フラグ
+        model.addAttribute("showPagination", true);
 
         // 入力された検索条件
         String name = searchForm.getSearchName();
@@ -203,18 +173,95 @@ public class TimestampController {
         }
         
         model.addAttribute("users", users);
+                 
+        //　ページネーション
+        int targetYear = (year != null) ? year : LocalDate.now().getYear();
+        int targetMonth = (month != null) ? month : LocalDate.now().getMonthValue();
         
-        // 日付一覧メソッド
-        model.addAttribute("dateList", getDates());
-        
+        // 先月・翌月の計算
+        int prevMonth = (targetMonth == 1) ? 12 : targetMonth - 1;
+        int prevYear  = (targetMonth == 1) ? targetYear - 1 : targetYear;
+        int nextMonth = (targetMonth == 12) ? 1 : targetMonth + 1;
+        int nextYear  = (targetMonth == 12) ? targetYear + 1 : targetYear;
+
+        model.addAttribute("year", targetYear);
+        model.addAttribute("month", targetMonth);
+        model.addAttribute("prevYear", prevYear);
+        model.addAttribute("prevMonth", prevMonth);
+        model.addAttribute("nextYear", nextYear);
+        model.addAttribute("nextMonth", nextMonth);
+
         // 期間表示メソッド
-        model.addAttribute("dateRange", getDateRange());
+        String dateRange = getDateRange(targetYear, targetMonth);
+        model.addAttribute("dateRange", dateRange);
+
+        //勤怠データ取得
+        // 今日の日付を取得　(例：2025-09-19)
+        LocalDate today = LocalDate.now();
         
+        // 今月の初日　(withDayOfMonth(1)：日付を1日に変更する)
+        LocalDate start = LocalDate.of(targetYear, targetMonth, 1);
+        
+        // 今月の末日　(lengthOfMonth：その月が何日あるかを返す)
+        LocalDate end = start.withDayOfMonth(start.lengthOfMonth());
+
+        // 日付リスト（LocalDate型）を生成
+        List<LocalDate> rawDateList = new ArrayList<>();
+        for (LocalDate date = start; !date.isAfter(end); date = date.plusDays(1)) {
+            rawDateList.add(date);
+        }
+        model.addAttribute("rawDateList", rawDateList);
+
+        // 勤怠時間取得        
+        // 時刻を "HH:mm" 形式（例：09:00）で表示するためのフォーマッターを定義
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        
+        // 検索結果で取得した全ユーザーに対してループ
+        for (User user : users) {
+            
+            // 対象ユーザーの今月分の勤怠データ（出退勤）を取得
+            List<Timestamp> timestamps = timestampService.findByUserIdAndDateBetween(user.getId(), start, end);
+
+            // ユーザーに勤怠データをセット（テンプレートで使うため）
+            user.setTimestamps(timestamps);
+
+            // 日付ごとの表示用文字列（出：HH:mm / 退：HH:mm）を格納
+            List<String> displayList = new ArrayList<>();
+
+            // 今月の日付リスト（rawDateList）をループ
+            for (LocalDate date : rawDateList) {
+            	// 出勤時間（type = 1）を抽出（該当がなければ空）
+                Optional<LocalTime> shukkin = timestamps.stream()
+                    .filter(ts -> ts.getDate().equals(date) && ts.getType() == 1)
+                    .map(Timestamp::getTime)
+                    .findFirst();
+
+                // 退勤時間（type = 4）を抽出（該当がなければ空）
+                Optional<LocalTime> taikin = timestamps.stream()
+                    .filter(ts -> ts.getDate().equals(date) && ts.getType() == 4)
+                    .map(Timestamp::getTime)
+                    .findFirst();
+
+                // 出勤時間が存在する場合は "出：HH:mm"、なければ赤文字で "出：-"
+                String shukkinStr = shukkin.isPresent()
+                    ? "出：" + shukkin.get().format(formatter)
+                    : "<span style='color:red;'>出：-</span>";
+                
+                // 退勤時間が存在する場合は "退：HH:mm"、なければ赤文字で "退：-"
+                String taikinStr = taikin.isPresent()
+                    ? "退：" + taikin.get().format(formatter)
+                    : "<span style='color:red;'>退：-</span>";
+
+                // 出退勤を1つの文字列にまとめてリストに追加
+                displayList.add(shukkinStr + "<br>" + taikinStr);
+            }
+
+         // 表示用リストをユーザーにセット（Userクラスに @Transient フィールドとして定義）
+            user.setAttendanceDisplay(displayList);
+        }
+             
         //timestamps/userlistを表示する
         return "timestamps/userlist";
     }
 
-
-    
-    
 }

@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -27,4 +28,12 @@ public class TimestampServiceImpl implements TimestampService {
     public void save(Timestamp timestamp) {
         timestampRepository.save(timestamp);
     }
+    
+    // 勤怠データ取得
+    @Override
+    public List<Timestamp> findByUserIdAndDateBetween(Long userId, LocalDate start, LocalDate end) {
+        return timestampRepository.findByUserIdAndDateBetween(userId, start, end);
+    }
+
+
 }

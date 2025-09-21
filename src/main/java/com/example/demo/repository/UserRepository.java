@@ -25,7 +25,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByEmployeeNo(Long employeeNo);
 
-    // 【ユーザーごと勤怠一覧】 検索機能
+    // 【ユーザーごと勤怠一覧】 
+    
+    // 検索機能
 
     // ２.名前あり＋部署なし　の処理
     // ユーザー名のみで検索(fnJpまたはlnJpでのあいまい検索)

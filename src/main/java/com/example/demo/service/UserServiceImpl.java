@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.User;
+import com.example.demo.repository.TimestampRepository;
 import com.example.demo.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final TimestampRepository timestampRepository;
 
     @Override
     public void save(User user) {
@@ -44,6 +46,8 @@ public class UserServiceImpl implements UserService {
 
     // 【ユーザーごと勤怠一覧】
     
+    // 検索機能
+    
     // １.名前なし＋部署なし
     // 全ユーザー検索
     @Override
@@ -71,5 +75,6 @@ public class UserServiceImpl implements UserService {
     public List<User> userlistfindByNameAndDepartmentId(String name, Long departmentId) {
         return userRepository.findByNameAndDepartment(name, departmentId);
     }
+    
     
 }

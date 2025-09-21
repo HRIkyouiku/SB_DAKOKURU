@@ -18,21 +18,38 @@
                     <button type="submit">検索</button>
                 </form>
                 <!--期間表示-->
-                <p th:text="${dateRange}"></p>
+                <h3><p th:text="${dateRange}"></p></h3>
+				<!--ページネーション-->
+                <div th:if="${showPagination}">
+                    <form th:action="@{/timestamp/userlist/search}" method="post" style="display:inline;">
+                        <input type="hidden" name="year" th:value="${prevYear}" />
+                        <input type="hidden" name="month" th:value="${prevMonth}" />
+                        <input type="hidden" name="searchName" th:value="${searchForm.searchName}" />
+                        <input type="hidden" name="departmentId" th:value="${searchForm.departmentId}" />
+                        <button type="submit" class="link-button">◀︎ 先月へ</button>
+                    </form>
+                    <span> | </span>
+                    <form th:action="@{/timestamp/userlist/search}" method="post" style="display:inline;">
+                        <input type="hidden" name="year" th:value="${nextYear}" />
+                        <input type="hidden" name="month" th:value="${nextMonth}" />
+                        <input type="hidden" name="searchName" th:value="${searchForm.searchName}" />
+                        <input type="hidden" name="departmentId" th:value="${searchForm.departmentId}" />
+                        <button type="submit" class="link-button">翌月へ ▶︎</button>
+                    </form>
+                </div>
                 <table border="1">
                     <tr>
                         <th>名前</th>
-                        <th>部署</th>
-                        <!--日付-->
-                        <th th:each="date : ${dateList}" th:text="${date}"></th>
+                        <th>部署</th> 
+                        <th th:each="date : ${rawDateList}" th:text="${#temporals.format(date, 'dd(EEE)')}"></th>   <!--日付ループ-->
                     </tr>
                     <tr th:each="user : ${users}">
-                        <td th:if="${user.name != null}" th:text="${user.name.fnJp + ' ' + user.name.lnJp}"></td>
+                        <td th:if="${user.name != null}" th:text="${user.name.fnJp + ' ' + user.name.lnJp}"></td>   <!--名前-->
                         <td>
+                            <span th:each="department : ${user.departments}" th:text="${department.nameJp} + ' '"></span>       <!--部署-->
                             <span th:if="${#lists.isEmpty(user.departments)}">未登録</span>
-                            <span th:each="department : ${user.departments}" th:text="${department.nameJp} + ' '"></span>
-                        </td>                   
-                        <td th:each="date : ${dateList}">勤怠時間</td>
+                        </td> 
+                        <td th:each="text : ${user.attendanceDisplay}" th:utext="${text}"></td>
                     </tr>
                 </table>
             </div>
