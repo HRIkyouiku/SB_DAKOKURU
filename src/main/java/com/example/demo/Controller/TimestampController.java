@@ -137,7 +137,8 @@ public class TimestampController {
         
     // 検索機能
     @PostMapping("/timestamp/userlist/search")
-    public String searchUsers(@ModelAttribute SearchForm searchForm, Model model,
+    public String searchUsers(@ModelAttribute @Validated SearchForm searchForm,
+        BindingResult result, Model model,
         @RequestParam(required = false) Integer year,
         @RequestParam(required = false) Integer month) {
 
