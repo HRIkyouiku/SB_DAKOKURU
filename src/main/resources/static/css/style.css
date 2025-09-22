@@ -72,3 +72,14 @@ main {
 .error-message {
     color: red;
 }
+
+.link-button {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #007bff; 
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 1em;
+    font-family: inherit;
+}
