@@ -18,7 +18,7 @@
 				<tr th:each="department : ${departments}">
 					<td th:text="${department.nameJp}"></td>
 					<td>
-						<a th:href="@{/department/edit/{id}(id=${department.id})}">編集</a>
+						<a th:href="@{/department/edit(departmentId=${department.departmentId})}">編集</a>
 					</td>
 				</tr>
 			</table>

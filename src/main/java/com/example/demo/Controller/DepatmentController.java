@@ -8,8 +8,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Department;
 import com.example.demo.form.DepartmentForm;
@@ -36,8 +36,8 @@ public class DepatmentController {
 		}
 
 		Department createDepartment = new Department();
-		createDepartment.setNameJp(form.getDepartmentname_jp());
-		createDepartment.setNameEn(form.getDepartmentname_en());
+		createDepartment.setNameJp(form.getNameJp());
+		createDepartment.setNameEn(form.getNameEn());
 		departmentService.createDepartment(createDepartment);
 		return "redirect:/login";
 	}
@@ -48,13 +48,11 @@ public class DepatmentController {
 		model.addAttribute("departments", departments);
 		return "/department/index";
 	}
-
-	@GetMapping("/department/edit/{departmentId}")
-	private String departmentEdit(@PathVariable("departmentId") Long departmentId,
-			Model model) {
-		Department department = departmentService.findDepartmentById(departmentId);
-		model.addAttribute("department", department);
-		return "/department/edit";
+	
+	@GetMapping("department/edit")
+	public String editDepartment(@RequestParam Long departmentId, Model model) {
+		model.addAttribute("departmentForm", departmentService.getEditDepartment(departmentId));
+		return "edit";
 	}
 
 }
