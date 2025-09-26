@@ -13,15 +13,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.entity.Department;
 import com.example.demo.form.DepartmentForm;
-import com.example.demo.repository.DepartmentRepository;
+import com.example.demo.service.DepartmentService;
+
+import lombok.RequiredArgsConstructor;
 
 @Controller
+@RequiredArgsConstructor
 public class DepartmentController {
-	private final DepartmentRepository departmentRepository;
+	private final DepartmentService departmentService;
 	
-    public DepartmentController(DepartmentRepository departmentRepository) {
-        this.departmentRepository = departmentRepository;
-    }
     @GetMapping("/department/create")
     public String create(Model model) {
         if (!model.containsAttribute("departmentForm")) {
@@ -49,7 +49,7 @@ public class DepartmentController {
         department.setUpdatedAt(now);
 
         // データベースに保存
-        departmentRepository.save(department);
+        departmentService.save(department);
 
         // リダイレクト時にメッセージを追加
         ra.addFlashAttribute("successMessage", "部署が登録されました。");
@@ -58,7 +58,7 @@ public class DepartmentController {
     }
     @GetMapping("/department/list")
     public String showDepartment(Model model) {
-        model.addAttribute("departments", departmentRepository.findAll());
+        model.addAttribute("departments", departmentService.findAll());
         return "department/list";
     }
 }
