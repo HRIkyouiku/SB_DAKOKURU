@@ -26,10 +26,17 @@ public class DepatmentController {
     private final DepartmentService departmentService;
     
     @GetMapping("/department/index")
-    private String index(Model model) {
-        List<Department> department = departmentService.departmentlist();
-        model.addAttribute("department", department);
-        System.out.println(department);
+    private String index(Model model,@ModelAttribute("department") Department form) {
+        if("searchWord" != null) {
+            List<Department> department = departmentService.departmentlist();
+            model.addAttribute("department", department);
+            System.out.println(department);
+            
+        } else {
+            List<Department> department = departmentService.departmentlist();
+            model.addAttribute("department", department);
+            System.out.println(department);
+        }
 
         return "department/index";
     }
@@ -102,7 +109,7 @@ public class DepatmentController {
             ra.addFlashAttribute("department", form);
 
             String redirectUrl = UriComponentsBuilder
-                    .fromPath("/department/edit")
+                    .fromPath("/department/edit/{id}")
                     .buildAndExpand(form.getId())
                     .toUriString();
             return "redirect:" + redirectUrl;
@@ -116,7 +123,7 @@ public class DepatmentController {
 
         ra.addFlashAttribute("successMessage", "更新しました。");
 
-        return "redirect:/department/edit";
+        return "redirect:/department/edit/" + form.getId();
     }
     
     @PostMapping("/department/delete/{Id}")

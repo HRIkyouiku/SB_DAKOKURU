@@ -26,6 +26,14 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
     
     @Override
+    public List<Department> departmentfindlist() {
+
+        List<Department> list = departmentRepository.findByNameList(searchWord);
+
+        return list;
+    }
+    
+    @Override
     public void save(Department department) {
         departmentRepository.save(department);
     }

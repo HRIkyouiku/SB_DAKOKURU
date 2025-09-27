@@ -3,11 +3,18 @@
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
     <main layout:fragment="content">
         <h2>部署一覧</h2>
-        <a th:href="@{/department/create}">部署新規追加</a>
+        <label>キーワード</label>
+        <form method="post">
+            <input type="text" name="searchWord" placeholder="検索したい部署名を入力"/>
+            <input type="submit" value="検索"/>
+            <input type="reset" value="クリア"/>
+            <a th:href="@{/department/create}">部署新規追加</a>
+        </form>
+        <p>検索結果　●件</p>
             <table>
                 <tr th:each="department : ${department}">
                     <td th:text="${department.nameJp}"></td>
                     <td><a th:href="@{/department/edit/{Id}(Id=${department.id})}">編集</a></td>
-        </table>
+            </table>
     </main>
 </html>

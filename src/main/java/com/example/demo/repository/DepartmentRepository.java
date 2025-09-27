@@ -18,6 +18,8 @@ public interface DepartmentRepository extends JpaRepository<Department, Long>  {
     
     public List<Department>findAll();
     
+    public List<Department>findByNameList(String searchWord);
+    
     public void deleteById(Long Id);
 
 }

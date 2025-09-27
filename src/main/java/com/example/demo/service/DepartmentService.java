@@ -9,6 +9,8 @@ public interface DepartmentService {
 
     public List<Department> departmentlist();
     
+    public List<Department> departmentfindlist(String searchWord);
+    
     public Optional<Department> findById(Long Id);
 
     public void save(Department department);
