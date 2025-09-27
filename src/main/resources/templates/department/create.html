@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>新規部署登録</title>
+    </head>
+
+<body>
+	<h1>新規部署登録</h1>
+	<form th:action="@{/department/create}" th:object="${departmentForm}" method="post">
+	    <div>
+	        <label> 作成する部署名 <input type="text" th:field="*{nameJp}"/></label>
+	    </div>
+	    <div>
+	        <label> 部署名（英語） <input type="text" th:field="*{nameEn}"/></label>
+	    </div>
+	    <div>
+	        <input type="submit" value="登録"/>	
+        </div>
+	</form>
+</body>
+</html>
