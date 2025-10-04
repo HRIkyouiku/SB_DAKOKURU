@@ -8,7 +8,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Department;
-import com.example.demo.form.DepartmentForm;
 import com.example.demo.repository.DepartmentRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -29,18 +28,16 @@ public class DepartmentServiceImpl implements DepartmentService {
 	public List<Department> findAllDepartments() {
 		return departmentRepository.findAll();
 	}
-	
+
 	@Transactional
 	public Optional<Department> getDepartmentById(Long id) {
 		return departmentRepository.findById(id);
 	}
 
 	@Transactional
-	public DepartmentForm getEditDepartment(Long id) {
+	public Optional<Department> getEditDepartment(Long id) {
 		Optional<Department> departmentOpt = departmentRepository.findById(id);
 		return departmentOpt;
 	}
-	
-	
 
 }
