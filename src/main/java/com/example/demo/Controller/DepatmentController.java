@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,8 +58,9 @@ public class DepatmentController {
 	
 	@GetMapping("/department/edit")
 	public String editDepartment(@RequestParam Long id, Model model) {
-		model.addAttribute("departmentForm", departmentService.getEditDepartment(id));
-		return "/department/edit"; 
+	Optional<Department> departmentOpt = departmentService.getEditDepartment(id);
+	model.addAttribute("departmentOpt", departmentOpt.get());
+	return "/department/edit";
 	}
 
 }

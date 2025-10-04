@@ -37,15 +37,8 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 	@Transactional
 	public DepartmentForm getEditDepartment(Long id) {
-		
 		Optional<Department> departmentOpt = departmentRepository.findById(id);
-		Department entity = departmentOpt.get();
-		
-		DepartmentForm form = new DepartmentForm();
-		form.setId(id);
-		form.setNameJp(entity.getNameJp());
-		form.setNameEn(entity.getNameEn());
-		return form;
+		return departmentOpt;
 	}
 	
 	
