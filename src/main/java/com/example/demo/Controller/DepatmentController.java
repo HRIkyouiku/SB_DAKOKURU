@@ -57,7 +57,7 @@ public class DepatmentController {
 	}
 	
 	@GetMapping("/department/edit")
-	public String editDepartment(@RequestParam Long id, Model model) {
+	public String editDepartment(@RequestParam @ModelAttribute("departmentForm") DepartmentForm form, Long id, Model model) {
 	Optional<Department> departmentOpt = departmentService.getEditDepartment(id);
 	model.addAttribute("departmentOpt", departmentOpt.get());
 	return "/department/edit";
