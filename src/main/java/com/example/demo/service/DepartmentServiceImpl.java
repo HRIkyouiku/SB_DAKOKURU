@@ -3,8 +3,9 @@ package com.example.demo.service;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.entity.Department;
 import com.example.demo.form.DepartmentForm;
@@ -28,19 +29,25 @@ public class DepartmentServiceImpl implements DepartmentService {
 	public List<Department> findAllDepartments() {
 		return departmentRepository.findAll();
 	}
+	
+	@Transactional
+	public Optional<Department> getDepartmentById(Long id) {
+		return departmentRepository.findById(id);
+	}
 
 	@Transactional
-	public DepartmentForm getEditDepartment(Long departmentId) {
-		// データベースから情報を取得
-		Optional<Department> departmentOpt = repository.findById(departmentId);
+	public DepartmentForm getEditDepartment(Long id) {
+		
+		Optional<Department> departmentOpt = departmentRepository.findById(id);
 		Department entity = departmentOpt.get();
-
-		// CompanyFormオブジェクトを作成してプロパティを設定
+		
 		DepartmentForm form = new DepartmentForm();
-		form.setDepartmentId(departmentId);
+		form.setId(id);
 		form.setNameJp(entity.getNameJp());
 		form.setNameEn(entity.getNameEn());
 		return form;
 	}
+	
+	
 
 }

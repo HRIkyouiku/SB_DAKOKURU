@@ -49,10 +49,16 @@ public class DepatmentController {
 		return "/department/index";
 	}
 	
-	@GetMapping("department/edit")
-	public String editDepartment(@RequestParam Long departmentId, Model model) {
-		model.addAttribute("departmentForm", departmentService.getEditDepartment(departmentId));
-		return "edit";
+	@GetMapping("/department/search")
+	public String search(@RequestParam Long id, Model model) {
+		model.addAttribute("departments", departmentService.getDepartmentById(id).orElse(null));
+		return "/department/index";
+	}
+	
+	@GetMapping("/department/edit")
+	public String editDepartment(@RequestParam Long id, Model model) {
+		model.addAttribute("departmentForm", departmentService.getEditDepartment(id));
+		return "/department/edit"; 
 	}
 
 }

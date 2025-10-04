@@ -7,37 +7,41 @@
 </head>
 
 <body>
-	<form th:action="@{/department/edit}" th:object="${departmentForm}"　th:method="post">
+	<h1>部署編集・削除</h1>
+	<form th:action="@{/department/edit}" th:object="${departmentForm}" 　th:method="post">
 		<input type="hidden" th:field="*{departmentid}">
-		<h1>部署編集・削除</h1>
-		<div>
-			<label>変更前</label>
-			<input type="text" name="nameJp" th:field="*{departmentname_jp}">
-			<div th:if="${#fields.hasErrors('departmentname_jp')}" th:errors="*{departmentname_jp}" style="color:red;">
-			</div>
-			<input type="text" name="nameEn" th:field="*{departmentname_en}">
-			<div th:if="${#fields.hasErrors('departmentname_en')}" th:errors="*{departmentname_en}" style="color:red;">
-			</div>
-		</div>
-		<div>
-			<label>変更後</label>
-			<input type="text" name="nameJp" th:field="*{departmentname_jp}">
-			<div th:if="${#fields.hasErrors('departmentname_jp')}" th:errors="*{departmentname_jp}" style="color:red;">
-			</div>
-		</div>
-		<div>
-			<label>変更後（英語）</label>
-			<input type="text" name="nameEn" th:field="*{departmentname_en}">
-			<div th:if="${#fields.hasErrors('departmentname_en')}" th:errors="*{departmentname_en}" style="color:red;">
-			</div>
-		</div>
+		<table>
+			<tr>
+				<td><input type="hidden" th:field="*{id}" /></td>
+			</tr>
+			<tr>
+				<td><label for="department">変更前</label></td>
+				<td><input type="text" name="nameJp" th:field="*{nameJp}" /></td>
+				<td th:if="${#fields.hasErrors('departmentname_jp')}" th:errors="*{departmentname_jp}" style="color:red;"></td>
+				<td><input type="text" name="nameEn" th:field="*{nameEn}"></td>
+			    <td th:if="${#fields.hasErrors('departmentname_en')}" th:errors="*{departmentname_en}" style="color:red;"></td>
+			</tr>
+			
+			<tr>
+				<td><label for="department">変更後</label></td>
+				<td><input type="text" name="nameJp" th:field="*{nameJp}" /></td>
+				<td th:if="${#fields.hasErrors('departmentname_jp')}" th:errors="*{departmentname_jp}" style="color:red;"></td>
+			</tr>
+			<tr>
+				<td><label for="department">変更後（英語</label></td>
+				<td><input type="text" name="nameEn" th:field="*{nameEn}"></td>
+				<td th:if="${#fields.hasErrors('departmentname_en')}" th:errors="*{departmentname_en}" style="color:red;"></td>
+			</tr>
+			<tr>
+			<td><button type="submit" value="変更">変更</button></td>
+			</tr>
+			
+			<button class="btn btn-primary" type="submit">削除</button>
 
-		<input type="submit" value="変更">
-		<button class="btn btn-primary" type="submit">削除</button>
-
-		<div>
-			<a th:href="@{/department/index}">戻る</a>
-		</div>
+			<div>
+				<a th:href="@{/department/index}">戻る</a>
+			</div>
+		</table>
 	</form>
 </body>
 
