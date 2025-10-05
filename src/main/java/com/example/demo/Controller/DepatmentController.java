@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -26,18 +27,15 @@ public class DepatmentController {
     private final DepartmentService departmentService;
     
     @GetMapping("/department/index")
-    private String index(Model model,@ModelAttribute("department") Department form) {
-        if("searchWord" != null) {
-            List<Department> department = departmentService.departmentlist();
+    private String index(Model model,@RequestParam(name = "searchWord", required = false) String searchWord) {
+        if(searchWord != null) {
+            List<Department> department = departmentService.departmentfindJplist(searchWord);
             model.addAttribute("department", department);
             System.out.println(department);
-            
         } else {
             List<Department> department = departmentService.departmentlist();
             model.addAttribute("department", department);
-            System.out.println(department);
         }
-
         return "department/index";
     }
     
