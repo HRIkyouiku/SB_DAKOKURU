@@ -54,6 +54,18 @@ public class DepartmentController {
         model.addAttribute("department", department.get());
         return "department/edit";
     }
+    //削除
+    @PostMapping("/department/delete")
+    public String deleteDepartment(@RequestParam("id") Long id) {
+        departmentService.deleteById(id);
+        return "redirect:/department/index";
+    }
+    
+    @PostMapping("/department/update")
+    public String updateDepartment(@ModelAttribute Department departments) {
+        departmentService.save(departments);
+        return "redirect:/department/index";
+    }
 }
 
 

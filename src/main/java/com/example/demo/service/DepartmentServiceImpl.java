@@ -36,4 +36,19 @@ public class DepartmentServiceImpl implements DepartmentService{
     public Optional<Department> findById(Long id) {
         return departmentRepository.findById(id);
     }
+    
+    @Override
+    public void deleteById(Long id) {
+        departmentRepository.deleteById(id);
+    }
+    
+    @Override
+    public List<Department> findAll(){
+        return departmentRepository.findAll();
+    }
+    
+    @Override
+    public void save(Department departmens) {
+        departmentRepository.save(departmens);
+    }
 }

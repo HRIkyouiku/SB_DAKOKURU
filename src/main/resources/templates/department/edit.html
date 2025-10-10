@@ -5,7 +5,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
 <title>部署名編集削除</title>
 <body>
 	<h2>部署編集・削除</h2>
-	<form>
+	<form th:action="@{/department/update}" th:object="${department}" methot="post">
 		<input type="hidden" th:field="*{id}">
 		<p>
 			<label>変更前</label>
@@ -13,14 +13,17 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
 			<span th:text="${department.nameEn}"></span>
 		</p>
 		<p>
-			<label>変更後</label>
-			<input>
+			<label for="nameJp">変更後</label>
+			<input type="text" id="nameJp" th:filed="*{nameJp}">
 			<label>変更後（英語）</label>
 			<input>
 		</p>
-		<button type="button">変更</button>
-		<button>削除</button>
-		<a href="/department/index">部署一覧へ戻る</a>
+		<button type="submit">変更</button>
 	</form>
+	<form th:action="@{/department/delete}" method="post">
+		<input type="hidden" th:name="id" th:field="${department.id}">
+		<button>削除</button>
+	</form>
+	<a href="/department/index">部署一覧へ戻る</a>
 </body>
 </html>
