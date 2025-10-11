@@ -8,7 +8,7 @@
 
 <body>
 	<h1>部署編集・削除</h1>
-	<form th:action="@{/department/edit}" th:object="${departmentForm}" 　th:method="post">
+	<form th:action="@{department/edit}" th:object="${departmentForm}" 　th:method="post">
 		<input type="hidden" th:field="*{id}">
 		<table>
 			<tr>
