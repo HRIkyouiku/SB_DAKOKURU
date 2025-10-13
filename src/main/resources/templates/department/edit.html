@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+	<title>Spring Security Example </title>
+</head>
+
+<body>
+	<h1>部署編集・削除</h1>
+	<form th:action="@{/department/edit}" th:object="${departmentForm}" 　th:method="post">
+		<input type="hidden" th:field="*{id}">
+		<table>
+			<tr>
+				<td><input type="hidden" th:field="*{id}" /></td>
+			</tr>
+			<tr>
+				<td><label for="department">変更前</label></td>
+				<td><input type="text" name="nameJp" th:field="*{nameJp}" /></td>
+				<td th:if="${#fields.hasErrors('nameJp')}" th:errors="*{nameJp}" style="color:red;"></td>
+				<td><input type="text" name="nameEn" th:field="*{nameEn}"></td>
+			    <td th:if="${#fields.hasErrors('nameEn')}" th:errors="*{nemeEn}" style="color:red;"></td>
+			</tr>
+			
+			<tr>
+				<td><label for="department">変更後</label></td>
+				<td><input type="text" name="nameJp" th:field="*{nameJp}" /></td>
+				<td th:if="${#fields.hasErrors('nameJp')}" th:errors="*{nameJp}" style="color:red;"></td>
+			</tr>
+			<tr>
+				<td><label for="department">変更後（英語</label></td>
+				<td><input type="text" name="nameEn" th:field="*{nameEn}"></td>
+				<td th:if="${#fields.hasErrors('nameEn')}" th:errors="*{nameEn}" style="color:red;"></td>
+			</tr>
+			<tr>
+			<td><button type="submit" value="変更">変更</button></td>
+			</tr>
+			
+			<button class="btn btn-primary" type="submit">削除</button>
+
+			<div>
+				<a th:href="@{/department/index}">戻る</a>
+			</div>
+		</table>
+	</form>
+</body>
+
+</html>
