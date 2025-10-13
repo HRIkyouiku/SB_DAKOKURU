@@ -10,8 +10,8 @@
             <input type="reset" value="クリア"/>
             <a th:href="@{/department/create}">部署新規追加</a>
         </form>
-        <p>検索結果　●件</p>
             <table>
+               <span th:if="${department.size() != null}" th:text="${department.size()} + '件'"></span>
                 <tr th:each="department : ${department}">
                     <td th:text="${department.nameJp}"></td>
                     <td><a th:href="@{/department/edit/{Id}(Id=${department.id})}">編集</a></td>

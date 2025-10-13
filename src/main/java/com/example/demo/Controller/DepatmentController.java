@@ -29,7 +29,7 @@ public class DepatmentController {
     @GetMapping("/department/index")
     private String index(Model model,@RequestParam(name = "searchWord", required = false) String searchWord) {
         if(searchWord != null) {
-            List<Department> department = departmentService.departmentfindJplist(searchWord);
+            List<Department> department = departmentService.departmentfindJplist(searchWord,searchWord);
             model.addAttribute("department", department);
             System.out.println(department);
         } else {

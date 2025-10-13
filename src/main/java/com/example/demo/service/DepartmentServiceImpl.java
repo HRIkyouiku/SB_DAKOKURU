@@ -24,14 +24,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
     
     @Override
-    public List<Department> departmentfindJplist(String searchWord) {
-        List<Department> list = departmentRepository.findByNameJpContaining(searchWord)  ;
-        return list;
-    }
-    
-    @Override
-    public List<Department> departmentfindEnlist(String searchWord) {
-        List<Department> list = departmentRepository.findByNameEnContaining(searchWord);
+    public List<Department> departmentfindJplist(String searchWordJp,String searchWordEn) {
+        List<Department> list = departmentRepository.findByNameJpContainingOrNameEnContaining(searchWordJp,searchWordEn) ;
         return list;
     }
     

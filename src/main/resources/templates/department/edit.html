@@ -20,10 +20,10 @@
                     <span th:if="${#fields.hasErrors('nameEn')}" th:errors="*{nameEn}" class="error-message"></span>
                 </div>
                 <div>
-                   <input type="submit" value="変更"/>
+                   <input type="submit" value="変更" onclick="return confirm('更新します。宜しいですか？')"/>
              </form>
                    <form method="post" th:action="@{/department/delete/{Id}(Id=${department.id})}" th:object="${department}">
-                       <input type="submit" value="削除"/>
+                       <input type="submit" value="削除" onclick="return confirm('削除します。宜しいですか？')"/>
                    </form>
                 </div>
             <a th:href="@{/department/index}">部署一覧へ戻る</a>

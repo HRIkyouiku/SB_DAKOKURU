@@ -18,9 +18,7 @@ public interface DepartmentRepository extends JpaRepository<Department, Long>  {
     
     public List<Department>findAll();
     
-    public List<Department>findByNameJpContaining(String searchWord);
-    
-    public List<Department>findByNameEnContaining(String searchWord);
+    public List<Department>findByNameJpContainingOrNameEnContaining(String searchWordJp,String searchWordEn);
     
     public void deleteById(Long Id);
 

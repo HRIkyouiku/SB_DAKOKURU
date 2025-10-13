@@ -9,9 +9,7 @@ public interface DepartmentService {
 
     public List<Department> departmentlist();
     
-    public List<Department> departmentfindJplist(String searchWord);
-    
-    public List<Department> departmentfindEnlist(String searchWord);
+    public List<Department> departmentfindJplist(String searchWordJp,String searchWordEn);
     
     public Optional<Department> findById(Long Id);
 
