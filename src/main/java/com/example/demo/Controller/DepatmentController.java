@@ -31,6 +31,7 @@ public class DepatmentController {
         if(searchWord != null) {
             List<Department> department = departmentService.departmentfindJplist(searchWord,searchWord);
             model.addAttribute("department", department);
+            model.addAttribute("searchWord", searchWord);
             System.out.println(department);
         } else {
             List<Department> department = departmentService.departmentlist();
