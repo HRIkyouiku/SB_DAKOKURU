@@ -10,7 +10,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
 			<p th:text="${message}"></p>
 			<p th:text="${error}"></p>
 			<label>キーワード</label>
-			<form method="get" action="/search">
+			<form method="get" action="/search" th:object="${departmentSeachForm}">
+				<span th:if="${#fields.hasErrors('keyword')}" th:errors="*{keyword}" class="error-message"></span>
 				<input type="text" name="keyword" placeholder="検索したい部署名を入力">
 				<button type="submit">検索</button>
 				<a href="/department/index"><button type="button">クリア</button></a>

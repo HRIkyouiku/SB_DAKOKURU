@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.entity.Department;
 import com.example.demo.form.DepartmentForm;
+import com.example.demo.form.DepartmentSeachForm;
 import com.example.demo.form.ValidationGroups.DepartmentCreateGroup;
 import com.example.demo.form.ValidationGroups.DepartmentUpdateGroup;
 import com.example.demo.service.DepartmentService;
@@ -30,7 +31,7 @@ public class DepartmentController {
 
     //部署一覧表示-------------------------
     @GetMapping("/department/index")
-    private String DepartmentList(Model model){
+    private String DepartmentList(Model model, @Validated @ModelAttribute("departmentSeachForm") DepartmentSeachForm form){
         try {
             model.addAttribute("departments", departmentService.departmentList());
         } catch(NullPointerException e) {
@@ -40,7 +41,10 @@ public class DepartmentController {
     }
     // キーワード検索-------------------------
     @GetMapping("/search")
-    public String searchUsers(@RequestParam String keyword, Model model) {
+    public String searchUsers(@RequestParam String keyword, Model model, @Validated @ModelAttribute("departmentSeachForm") DepartmentSeachForm form, BindingResult result) {
+        if (result.hasErrors()) {
+            return "/department/index";
+        }
         List<Department> users = departmentService.searchUsersByKeyword(keyword);
         model.addAttribute("users", users);
         return "/department/index"; // 同じテンプレートで結果を表示
