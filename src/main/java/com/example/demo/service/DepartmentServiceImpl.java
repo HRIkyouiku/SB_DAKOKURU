@@ -48,6 +48,16 @@ public class DepartmentServiceImpl implements DepartmentService{
     }
     
     @Override
+    public Department findByNameJp(String nameJp){
+        return departmentRepository.findByNameJp(nameJp);
+    }
+    
+    @Override
+    public Department findByNameEn(String nameEn){
+        return departmentRepository.findByNameEn(nameEn);
+    }
+    
+    @Override
     public void save(Department departmens) {
         departmentRepository.save(departmens);
     }

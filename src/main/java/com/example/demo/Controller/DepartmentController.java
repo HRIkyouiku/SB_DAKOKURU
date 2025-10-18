@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.demo.entity.Department;
 import com.example.demo.form.DepartmentForm;
 import com.example.demo.form.ValidationGroups.DepartmentCreateGroup;
+import com.example.demo.form.ValidationGroups.DepartmentUpdateGroup;
 import com.example.demo.service.DepartmentService;
 
 import lombok.RequiredArgsConstructor;
@@ -30,7 +31,11 @@ public class DepartmentController {
     //部署一覧表示-------------------------
     @GetMapping("/department/index")
     private String DepartmentList(Model model){
-         model.addAttribute("departments", departmentService.departmentList());
+        try {
+            model.addAttribute("departments", departmentService.departmentList());
+        } catch(NullPointerException e) {
+            model.addAttribute("error", "データの取得に失敗しました。");
+        }
          return "/department/index";
     }
     // キーワード検索-------------------------
@@ -53,6 +58,14 @@ public class DepartmentController {
     public String saveDepartment(@Validated(DepartmentCreateGroup.class) @ModelAttribute("departmentForm") DepartmentForm form,
             BindingResult result,
             RedirectAttributes ra) {
+        Department departmentNameJp = departmentService.findByNameJp(form.getNameJp());
+        if(departmentNameJp != null) {
+            result.rejectValue("nameJp","duplicate.department","部署名は既に存在しています。");
+        }
+        Department departmentNameEn = departmentService.findByNameEn(form.getNameEn());
+        if(departmentNameEn != null) {
+            result.rejectValue("nameEn","duplicate.department","部署名は既に存在しています。");
+        }
         if (result.hasErrors()) {
             ra.addFlashAttribute("org.springframework.validation.BindingResult.departmentForm", result);
             ra.addFlashAttribute("departmentForm", form);
@@ -65,9 +78,16 @@ public class DepartmentController {
     }
     //編集フォーム表示
     @GetMapping("department/edit/{id}")
-    public String editDepartment(@PathVariable Long id, Model model, @ModelAttribute("departmentForm") DepartmentForm form) {
-        Optional<Department> department = departmentService.findById(id);
-        model.addAttribute("department", department.get());
+    public String editDepartment(@PathVariable Long id, Model model) {
+        if (!model.containsAttribute("departmentForm")) {
+            model.addAttribute("departmentForm", new DepartmentForm());
+        }
+        try {
+            Optional<Department> department = departmentService.findById(id);
+            model.addAttribute("department", department.get());
+        } catch(NullPointerException e) {
+            model.addAttribute("error", "データの取得に失敗しました。");
+        }
         return "department/edit";
     }
     //削除
@@ -79,18 +99,39 @@ public class DepartmentController {
     
     //編集機能
     @PostMapping("/department/update")
-    public String updateDepartment(@ModelAttribute("departmentForm") DepartmentForm form, Model model) {
-        Optional<Department> department = departmentService.findById(form.getId());
-        Department oldDepartment = department.get();
-        String newNameJp = form.getNameJp();
-        if(newNameJp != null && !newNameJp.isEmpty()) {
-            oldDepartment.setNameJp(newNameJp);
+    public String updateDepartment(@Validated(DepartmentUpdateGroup.class) @ModelAttribute("departmentForm") DepartmentForm form,
+            BindingResult result,
+            RedirectAttributes ra) {
+        Department departmentNameJp = departmentService.findByNameJp(form.getNameJp());
+        if(departmentNameJp != null) {
+            result.rejectValue("nameJp","duplicate.department","部署名は既に存在しています。");
         }
-        String newNameEn = form.getNameEn();
-        if(newNameEn != null && !newNameEn.isEmpty()) {
-            oldDepartment.setNameEn(newNameEn);
+        Department departmentNameEn = departmentService.findByNameEn(form.getNameEn());
+        if(departmentNameEn != null) {
+            result.rejectValue("nameEn","duplicate.department","部署名は既に存在しています。");
         }
-        departmentService.save(oldDepartment);
+        if (result.hasErrors()) {
+            ra.addFlashAttribute("org.springframework.validation.BindingResult.departmentForm", result);
+            ra.addFlashAttribute("departmentForm", form);
+            return "redirect:/department/edit/" + form.getId();
+        }
+        try {
+            Optional<Department> department = departmentService.findById(form.getId());
+            Department oldDepartment = department.get();
+            String newNameJp = form.getNameJp();
+            if(newNameJp != null && !newNameJp.isEmpty()) {
+                oldDepartment.setNameJp(newNameJp);
+            }
+            String newNameEn = form.getNameEn();
+            if(newNameEn != null && !newNameEn.isEmpty()) {
+                oldDepartment.setNameEn(newNameEn);
+            }
+            departmentService.save(oldDepartment);
+            ra.addFlashAttribute("message", "更新しました。");
+        } catch(NullPointerException e) {
+            ra.addFlashAttribute("error", "更新に失敗しました。");
+            return "redirect:/department/edit/" + form.getId();
+        }
         return "redirect:/department/index";
     }
 }

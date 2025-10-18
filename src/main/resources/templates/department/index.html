@@ -7,6 +7,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
 	<body>
 		<h2>部署一覧</h2>	
 		<div>
+			<p th:text="${message}"></p>
+			<p th:text="${error}"></p>
 			<label>キーワード</label>
 			<form method="get" action="/search">
 				<input type="text" name="keyword" placeholder="検索したい部署名を入力">

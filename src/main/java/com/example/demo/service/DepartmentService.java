@@ -21,5 +21,9 @@ public interface DepartmentService {
     
     List<Department> findAll();
     
+    Department findByNameJp(String nameJp);
+    
+    Department findByNameEn(String nameEn);
+    
     void save(Department departments);
 }
