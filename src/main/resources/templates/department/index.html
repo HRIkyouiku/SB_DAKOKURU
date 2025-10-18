@@ -11,7 +11,9 @@
             <a th:href="@{/department/create}">部署新規追加</a>
         </form>
             <table>
-               <span th:if="${department.size() != null}" th:text="${department.size()} + '件'"></span>
+               <th:block th:if="${searchWord != null}">
+                   <span th:text="${department.size()} + '件'"></span>
+               </th:block>
                 <tr th:each="department : ${department}">
                     <td th:text="${department.nameJp}"></td>
                     <td><a th:href="@{/department/edit/{Id}(Id=${department.id})}">編集</a></td>
