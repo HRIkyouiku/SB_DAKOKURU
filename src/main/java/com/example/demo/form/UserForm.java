@@ -32,7 +32,7 @@ public class UserForm implements ValidationGroups {
     private Long id;
 
     @NotBlank(message = "名前(正式表示)を入力してください。")
-    @Pattern(regexp = "^[^\\x00-\\x7F]+$", message = "名前(正式表示)は全角で入力してください。")
+    @Pattern(regexp = "^[\\p{InHiragana}\\p{InKatakana}\\p{InCJKUnifiedIdeographs}ー－]+$", message = "名前(正式表示)は全角で入力してください。")
     @Length(min = 1, max = 255, message = "名前（正式表示）は1文字以上、255文字以内で入力してください。")
     private String fnJp;
 
@@ -52,7 +52,7 @@ public class UserForm implements ValidationGroups {
     private String fnEn;
 
     @NotBlank(message = "姓(正式表示)を入力してください。")
-    @Pattern(regexp = "^[^\\x00-\\x7F]+$", message = "姓(正式表示)は全角で入力してください。")
+    @Pattern(regexp = "^[\\p{InHiragana}\\p{InKatakana}\\p{InCJKUnifiedIdeographs}ー－]+$", message = "姓(正式表示)は全角で入力してください。")
     @Length(min = 1, max = 255, message = "姓（正式表示）は1文字以上、255文字以内で入力してください。")
     private String lnJp;
 
@@ -72,7 +72,7 @@ public class UserForm implements ValidationGroups {
     private String lnEn;
 
     // 旧姓の入力が必要な場合にチェック　-----------------------------------------------------------
-    @OptionalPattern(regexp = "^[^\\x00-\\x7F]+$", message = "旧姓(正式表示)は全角で入力してください。")
+    @OptionalPattern(regexp = "^[\\p{InHiragana}\\p{InKatakana}\\p{InCJKUnifiedIdeographs}ー－]+$", message = "旧姓(正式表示)は全角で入力してください。")
     @OptionalLength(min = 1, max = 255, message = "旧姓(正式表示)は1文字以上、255文字以内で入力してください。")
     private String olnJp;
     
@@ -88,7 +88,7 @@ public class UserForm implements ValidationGroups {
     @OptionalLength(min = 1, max = 255, message = "旧姓(英語)は1文字以上、255文字以内で入力してください。")
     private String olnEn;
 
-    @OptionalPattern(regexp = "^[^\\x00-\\x7F]+$", message = "ミドルネーム(正式表示)は全角で入力してください。")
+    @OptionalPattern(regexp = "^[\\p{InHiragana}\\p{InKatakana}\\p{InCJKUnifiedIdeographs}ー－]+$", message = "ミドルネーム(正式表示)は全角で入力してください。")
     @OptionalLength(min = 1, max = 255, message = "ミドルネーム(正式表示)は1文字以上、255文字以内で入力してください。")
     private String mnJp;
     
