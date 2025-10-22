@@ -10,7 +10,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
 
 	                <label for="fn_jp">名前(正式表示)</label>
 	                <input id="fn_jp" type="text" name="fnJp" th:value="*{fnJp}">
-	                <span th:if="${#fields.hasErrors('fnJp')}" th:errors="*{fnJp}" class="error-message""></span>
+	                <span th:if="${#fields.hasErrors('fnJp')}" th:errors="*{fnJp}" class="error-message"></span>
 
 	                <label for="fn_jp_hira">名前(ひらがな)</label>
 	                <input id="fn_jp_hira" type="text" name="fnJpHira" th:value="*{fnJpHira}">
@@ -93,7 +93,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
 	                    <input id="display_first_name" type="checkbox" name="englishNotation" value="true" th:checked="*{englishNotation}">
 	                </div>
 
-	                <input type="submit" value="登録">
+	                <input type="submit" value="登録" onclick="return confirm('登録します。宜しいですか？')">
+					<input type="submit" value="キャンセル" onclick="alert('キャンセルします。宜しいですか？'); return false;">
 	            </div>
 	            <div>
 			        <span th:if="${successMessage}" th:text="${successMessage}"></span>
