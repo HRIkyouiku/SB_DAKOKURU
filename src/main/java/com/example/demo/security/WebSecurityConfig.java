@@ -24,6 +24,8 @@ public class WebSecurityConfig {
                         .usernameParameter("employee_no")
                         .passwordParameter("password")
                         .defaultSuccessUrl("/timestamp/create", true)
+                        // ログイン失敗時に /login?error を付与
+                        .failureUrl("/login?error")
                         .permitAll())
                 .logout(logout -> logout
                         .logoutSuccessUrl("/login")
