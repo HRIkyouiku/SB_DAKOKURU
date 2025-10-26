@@ -12,6 +12,6 @@ public interface UserService {
 	public Optional<User> findById(Long userId);
 	public void deleteById(Long userId);
 	User findByEmail(String email);
-	User findByEmployeeNo(Integer employeeNo);
+	User findByEmployeeNo(Long employeeNo);
 	List<Object[]> getDailyTimestamps(List<Long> userIds, LocalDate firstDay, LocalDate lastDay);
 }

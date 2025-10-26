@@ -1,15 +1,12 @@
 package com.example.demo.service;
 
-import java.math.BigInteger;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo.dto.UserDailyTimestampDTO;
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 
@@ -42,7 +39,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User findByEmployeeNo(Integer employeeNo) {
+	public User findByEmployeeNo(Long employeeNo) {
 		return userRepository.findByEmployeeNo(employeeNo);
 	}
 

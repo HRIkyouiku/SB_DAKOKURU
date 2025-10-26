@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -115,7 +117,9 @@ public class UserForm implements ValidationGroups {
     private String password;
 
     @NotNull(message = "社員番号を入力してください。")
-    private Integer employeeNo;
+    @Min(value = 1, message = "社員番号は1桁以上、10桁以内で入力してください。")
+    @Max(value = 9999999999L, message = "社員番号は1桁以上、10桁以内で入力してください。")
+    private Long employeeNo;
 
     private Integer currentEmployeeNo;
 

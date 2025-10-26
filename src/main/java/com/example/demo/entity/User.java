@@ -22,9 +22,9 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Table(name = "users")
@@ -39,7 +39,7 @@ public class User {
     private String password;
 
     @Column(name = "employee_no")
-    private Integer employeeNo;
+    private Long employeeNo;
 
     @Column(name = "joining_date", nullable = false)
     private LocalDate joiningDate;

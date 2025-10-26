@@ -1,5 +1,6 @@
 package com.example.demo.Controller;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -53,17 +54,6 @@ public class UserController {
 	    User existingEmployeeNo = userService.findByEmployeeNo(form.getEmployeeNo());
 	    if (existingEmployeeNo != null) {
 	        result.rejectValue("employeeNo", "duplicate.employeeNo", "社員番号が既に存在しています。");
-	    }
-	    
-	    for (FieldError fieldError : result.getFieldErrors()) {
-	        if (fieldError.isBindingFailure()) {
-	            String message = switch (fieldError.getField()) {
-	                case "employeeNo" -> "社員番号は半角数字で入力してください。";
-	                case "joiningDate" -> "入社日は日付形式で正しく入力してください。";
-	                default -> "入力内容が不正です。";
-	            };
-	            result.rejectValue(fieldError.getField(), null, message);
-	        }
 	    }
 
         if (result.hasErrors()) {
