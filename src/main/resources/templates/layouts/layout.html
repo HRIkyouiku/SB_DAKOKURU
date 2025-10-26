@@ -12,7 +12,7 @@
                 <div class="logo">
                     <a th:href="@{/timestamp/create}"><img th:src="@{/images/DAKOKURU.jpg}" alt="DAKOKURU"></a>
                 </div>
-                <nav id=navigation>
+                <nav id="navigation">
                     <ul>
                         <li class="current-item"><a th:href="@{/user/index}">【管理】ユーザー一覧</a></li>
                         <li><a th:href="@{/users_daily_timestamps/{period}(period=${#dates.format(#dates.createNow(), 'yyyy-MM')})}">【管理】打刻集計</a></li>

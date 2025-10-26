@@ -15,6 +15,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.example.demo.entity.Department;
+import com.example.demo.form.DepartmentForm;
+import com.example.demo.form.DepartmentSearchForm;
 import com.example.demo.service.DepartmentService;
 
 import lombok.RequiredArgsConstructor;
@@ -27,29 +29,38 @@ public class DepatmentController {
     private final DepartmentService departmentService;
     
     @GetMapping("/department/index")
-    private String index(Model model,@RequestParam(name = "searchWord", required = false) String searchWord) {
-        if(searchWord != null) {
-            List<Department> department = departmentService.departmentfindJplist(searchWord,searchWord);
-            model.addAttribute("department", department);
-            model.addAttribute("searchWord", searchWord);
-            System.out.println(department);
-        } else {
-            List<Department> department = departmentService.departmentlist();
-            model.addAttribute("department", department);
+    private String index(Model model,@RequestParam(name = "searchWord", required = false) String searchWord,@Validated @ModelAttribute("departmentSearchForm") DepartmentSearchForm form,
+            BindingResult result, RedirectAttributes ra) {
+        if (result.hasErrors()) {
+            return "department/index";
         }
+        try {
+            if(searchWord != null && !searchWord.isEmpty()) {
+                List<Department> department = departmentService.departmentfindJplist(searchWord,searchWord);
+                model.addAttribute("department", department);
+                model.addAttribute("searchWord", searchWord);
+            } else {
+                List<Department> department = departmentService.departmentlist();
+                model.addAttribute("department", department);
+            }
+        } catch(NullPointerException e) {
+            ra.addFlashAttribute("error", "データの取得に失敗しました。");
+            return "department/index";
+        }
+        
         return "department/index";
     }
     
     @GetMapping("/department/create")
     private String create(Model model) {
-        if (!model.containsAttribute("department")) {
-            model.addAttribute("department", new Department());
+        if (!model.containsAttribute("departmentForm")) {
+            model.addAttribute("departmentForm", new DepartmentForm());
         }
         return "department/create";
     }
     
     @PostMapping("/department/store")
-    public String store(@Validated @ModelAttribute("department") Department form,
+    public String store(@Validated @ModelAttribute("departmentForm") DepartmentForm form,
             BindingResult result, RedirectAttributes ra) {
 
         Department existingNameJp = departmentService.findByNameJp(form.getNameJp());
@@ -63,15 +74,22 @@ public class DepatmentController {
         }
 
         if (result.hasErrors()) {
-            ra.addFlashAttribute("org.springframework.validation.BindingResult.Department", result);
-            ra.addFlashAttribute("department", form);
+            ra.addFlashAttribute("org.springframework.validation.BindingResult.departmentForm", result);
+            ra.addFlashAttribute("departmentForm", form);
             return "redirect:/department/create";
         }
-
-        Department department = new Department();
-        department.setNameJp(form.getNameJp());
-        department.setNameEn(form.getNameEn());
-        departmentService.save(department);
+        
+        try {
+            Department department = new Department();
+            department.setNameJp(form.getNameJp());
+            department.setNameEn(form.getNameEn());
+            departmentService.save(department);
+        } catch(NullPointerException e) {
+            ra.addFlashAttribute("error", "登録に失敗しました。");
+            return "redirect:/department/create";
+        }
+        
+        ra.addFlashAttribute("successMessage", "登録しました。");
 
         return "redirect:/department/index";
     }
@@ -79,8 +97,8 @@ public class DepatmentController {
     @GetMapping("/department/edit/{Id}")
     private String edit(Model model,  @PathVariable("Id") Long Id) {
 
-        if (!model.containsAttribute("department")) {
-            model.addAttribute("department", new Department());
+        if (!model.containsAttribute("departmentForm")) {
+            model.addAttribute("departmentForm", new DepartmentForm());
         }
         
         Department department = departmentService.findById(Id).orElse(new Department());
@@ -90,7 +108,7 @@ public class DepatmentController {
     }
      
     @PostMapping("/department/update/{Id}")
-    public String update(@Validated @ModelAttribute("department") Department form,
+    public String update(@Validated @ModelAttribute("departmentForm") DepartmentForm form,
             BindingResult result, RedirectAttributes ra) {
 
         Department existingNameJp = departmentService.findByNameJp(form.getNameJp());
@@ -104,8 +122,8 @@ public class DepatmentController {
         }
 
         if (result.hasErrors()) {
-            ra.addFlashAttribute("org.springframework.validation.BindingResult.department", result);
-            ra.addFlashAttribute("department", form);
+            ra.addFlashAttribute("org.springframework.validation.BindingResult.departmentForm", result);
+            ra.addFlashAttribute("departmentForm", form);
 
             String redirectUrl = UriComponentsBuilder
                     .fromPath("/department/edit/{id}")
@@ -126,8 +144,15 @@ public class DepatmentController {
     }
     
     @PostMapping("/department/delete/{Id}")
-    public String delete(@ModelAttribute("department") Department form) {
-        departmentService.deleteById(form.getId());
+    public String delete(@ModelAttribute("department") Department form,
+            RedirectAttributes ra) {
+        try {
+            departmentService.deleteById(form.getId());
+        } catch(NullPointerException e) {
+            ra.addFlashAttribute("error", "削除に失敗しました。");
+            return "redirect:/department/edit/" + form.getId();
+        }
+        ra.addFlashAttribute("successMessage", "削除しました。");
         return "redirect:/department/index";
     }
 

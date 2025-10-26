@@ -2,21 +2,33 @@
 <html xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
     <main layout:fragment="content">
-        <h2>部署一覧</h2>
-        <label>キーワード</label>
-        <form method="get"  th:action="@{/department/index}">
-            <input type="text" name="searchWord" placeholder="検索したい部署名を入力"/>
-            <input type="submit" value="検索"/>
-            <input type="reset" value="クリア"/>
-            <a th:href="@{/department/create}">部署新規追加</a>
-        </form>
-            <table>
-               <th:block th:if="${searchWord != null}">
-                   <span th:text="${department.size()} + '件'"></span>
-               </th:block>
-                <tr th:each="department : ${department}">
-                    <td th:text="${department.nameJp}"></td>
-                    <td><a th:href="@{/department/edit/{Id}(Id=${department.id})}">編集</a></td>
-            </table>
+        <h3>部署一覧</h3>
+        <p th:text="${successMessage}"></p>
+        <p th:text="${error}"></p>
+        <div class="search">
+            <label>キーワード</label>
+            <form method="get" th:action="@{/department/index}" th:object="${departmentSearchForm}">
+                <input type="text" name="searchWord" class="searchtextbox" placeholder="検索したい部署名を入力" size="23"/>
+                <input type="submit" class="searchbutton" value="検索"/>
+                <input type="reset" class="searchreset" value="クリア"/>
+                <p th:if="${#fields.hasErrors('searchWord')}" th:errors="*{searchWord}" class="error-message"></p>
+            </form>
+            <form th:action="@{/department/create}">
+                <input type="submit" class="creatlink" value = "部署新規追加"/>
+            </form>
+        </div>
+        <table class="list">
+            <tr th:if="${searchWord != null}">
+                <span class="searchresult" th:text="'検索結果 ' + ${department.size()} + '件'"></span>
+            </tr>
+            <tr th:each="department : ${department}">
+                <td th:text="${department.nameJp}"></td>
+                <td>
+                    <form th:action="@{/department/edit/{Id}(Id=${department.id})}">
+                        <input type="submit" class="editlink" th:action="@{/department/edit/{Id}(Id=${department.id})}" value="編集"/>
+                    </form>
+                </td>
+            </tr>
+        </table>
     </main>
 </html>
