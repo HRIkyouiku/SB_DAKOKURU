@@ -72,3 +72,102 @@ main {
 .error-message {
     color: red;
 }
+
+.search {
+    display: flex;
+    position: relative;
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
+
+.searchtextbox{
+    margin: auto 20px;
+}
+
+.searchbutton{
+    width: 60px;
+}
+
+.searchreset{
+    margin-left: 20px;
+    width: 60px;
+}
+
+.creatlink{
+    margin-left: 200px;
+    width: 120px;
+}
+
+.list{
+    margin-top: 10px;
+    padding-left: 7%;
+    border-spacing: 20px;
+}
+
+.searchresult{
+    padding-left: 8.5%;
+    font-size: 85%;
+}
+
+.editlink{
+    margin-left: 30px;
+    width: 60px;
+}
+
+.departmentJP{
+    margin-top: 50px;
+}
+
+.createJP{
+    margin-left: 20px;
+}
+
+.departmentEN{
+    margin-top: 20px;
+}
+
+.createEN{
+    margin-left: 40px;
+}
+
+.createbutton{
+    margin: 30px 22%;
+    width: 150px;
+}
+
+.indexlink{
+    margin-left: 10%;
+}
+
+.oldJP{
+    margin-left: 6%;
+}
+
+.oldEN{
+    margin-left: 3%;
+}
+
+.newJP{
+    margin-left: 80px;
+    margin-top: 20px;
+}
+
+.newEN{
+	margin-top: 20px;
+    margin-left: 38px;
+}
+
+.editbutton{
+    display: flex;
+    margin:3%;
+}
+
+.updbutton{
+    margin-left: 20%;
+	width: 160px;
+}
+
+.delbutton{
+    margin-left:40px;
+    width: 160px;
+}

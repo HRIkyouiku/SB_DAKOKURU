@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+    <main layout:fragment="content">
+        <h3>部署編集・削除</h3>
+            <p th:text="${successMessage}"></p>
+            <p th:text="${error}"></p>
+            <form method="post" th:action="@{/department/update/{Id}(Id=${department.id})}" th:object="${departmentForm}">
+                <div class="departmentJP">
+                    <label>変更前</label>
+                    <input type = "text" class="oldJP" th:value="${department.nameJp}" readonly size="30"/>
+                    <input type = "text" class="oldEN" th:value="${department.nameEn}" readonly size="30"/>
+                </div>
+                <div>
+                    <label>変更後</label>
+                    <input type="text" class="newJP" name="nameJp" size="72"/>
+                    <p th:if="${#fields.hasErrors('nameJp')}" th:errors="*{nameJp}" class="error-message"></p>
+                </div>
+                <div>
+                    <label>変更後(英語)</label>
+                    <input type="text" class="newEN" name="nameEn" size="72"/>
+                    <p th:if="${#fields.hasErrors('nameEn')}" th:errors="*{nameEn}" class="error-message"></p>
+                </div>
+                <div class="editbutton">
+                   <input type="submit" class="updbutton" value="変更" onclick="return confirm('更新します。宜しいですか？')"/>
+             </form>
+                   <form method="post" th:action="@{/department/delete/{Id}(Id=${department.id})}" th:object="${department}">
+                       <input type="submit" class="delbutton" value="削除" onclick="return confirm('削除します。宜しいですか？')"/>
+                   </form>
+                </div>
+            <a class="indexlink" th:href="@{/department/index}">部署一覧へ戻る</a>
+    </main>
+</html>
