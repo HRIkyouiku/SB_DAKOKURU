@@ -17,10 +17,11 @@ public class WebSecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/register", "/login").permitAll()
+                        .requestMatchers("/css/**", "/register", "/login").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")
+                        .failureUrl("/login?error=true")
                         .usernameParameter("employee_no")
                         .passwordParameter("password")
                         .defaultSuccessUrl("/timestamp/create", true)
