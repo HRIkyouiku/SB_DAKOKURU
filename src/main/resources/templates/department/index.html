@@ -11,18 +11,22 @@
 		<div>
 			<label>キーワード</label>
 			<form th:action="@{/department/search}" method="get">
-				<input type="text" name="id" placeholder="検索したい部署名を入力">
+				<input type="text" name="keyword" placeholder="検索したい部署名を入力">
 				<button type="submit">検索</button>
 			</form>
 
 			<div th:if="!${departments}">
 				<p>登録された企業はありません。</p>
 			</div>
-			
+
 			<button>クリア</button>
-			
+
 			<input type="button" onclick="location.href='/department/create'" value="部署新規追加">
-			
+
+			<th:block th:if="${keyword != null and !keyword.isEmpty()}">
+				<span th:text="'検索結果 ' + ${departments.size()} + '件'"></span>
+			</th:block>
+
 			<table>
 				<tr th:each="department : ${departments}">
 					<td th:text="${department.nameJp}"></td>
@@ -31,7 +35,6 @@
 					</td>
 				</tr>
 			</table>
-			
 		</div>
 	</form>
 </body>

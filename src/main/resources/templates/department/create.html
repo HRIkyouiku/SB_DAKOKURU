@@ -11,14 +11,14 @@
 		<h1>新規部署登録画面</h1>
 		<div>
 			<label>作成する部署名</label>
-			<input type="text" name="departmentname_jp" placeholder="新しい部署名" th:field="*{departmentname_jp}">
-			<div th:if="${#fields.hasErrors('departmentname_jp')}" th:errors="*{departmentname_jp}" style="color:red;">
+			<input type="text" name="nameJp" placeholder="新しい部署名" th:field="*{nameJp}">
+			<div th:if="${#fields.hasErrors('nameJp')}" th:errors="*{nameJp}" style="color:red;">
 			</div>
 		</div>
 		<div>
 			<label>部署名（英語）</label>
-			<input type="text" name="departmentname_en" placeholder="新しい部署名（英語）" th:field="*{departmentname_en}">
-			<div th:if="${#fields.hasErrors('departmentname_en')}" th:errors="*{departmentname_en}" style="color:red;">
+			<input type="text" name="nameEn" placeholder="新しい部署名（英語）" th:field="*{nameEn}">
+			<div th:if="${#fields.hasErrors('nameEn')}" th:errors="*{nameEn}" style="color:red;">
 			</div>
 		</div>
 
