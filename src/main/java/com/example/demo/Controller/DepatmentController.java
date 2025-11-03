@@ -66,14 +66,14 @@ public class DepatmentController {
 	}
 	
 	@PostMapping("/department/edit")
-	public String updateDepartment(@ModelAttribute @Validated DepartmentForm departmentForm,
+	public String updateDepartment(@Validated @ModelAttribute("departmentForm") DepartmentForm form,
 			BindingResult bindingResult) {
 		
 		if(bindingResult.hasErrors()) {
-			return "edit";
+			return "/department/edit";
 		}
 		
-		departmentService.updateDepartment(departmentForm);
+		departmentService.updateDepartment(form);
 		return "redirect:/department/index";
 	}
 
