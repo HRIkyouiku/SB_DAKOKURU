@@ -6,6 +6,14 @@ body {
     padding: 0;
 }
 
+.login-body {
+    display: flex;
+    justify-content: center; /* 横方向中央 */
+    align-items: center;     /* 縦方向中央 */
+    height: 100vh;           /* 画面高さに合わせる */
+    background-color: #f0f2f5;
+}
+
 header {
     background-color: #f8f9fa;
     border-bottom: 1px solid #ddd;
@@ -27,8 +35,9 @@ header {
 }
 
 .logo img {
-    height: 30px;
+    height: 40px;
     margin-right: 10px;
+	margin-bottom: 30px; /* ここがロゴ下の余白 */
 }
 
 #navigation {
@@ -71,4 +80,29 @@ main {
 
 .error-message {
     color: red;
+}
+
+/* 入力欄とボタンの幅統一 */
+input[type="text"],
+input[type="password"],
+input[type="submit"] {
+    width: 100%;       /* 幅をフォームいっぱいに統一 */
+    max-width: 300px;  /* 最大幅を設定 */
+    padding: 5px;     /* 高さ調整 */
+    box-sizing: border-box;
+}
+
+/* 入力欄同士の間隔 */
+input[type="text"] {
+    margin-bottom: 20px; /* 社員番号とパスワードの間に余白 */
+}
+
+input[type="password"] {
+    margin-bottom: 25px; /* パスワードとボタンの間に余白 */
+}
+
+/* ボタンの高さも入力欄と揃える */
+input[type="submit"] {
+    padding: 5px;
+	text-align: left;
 }
