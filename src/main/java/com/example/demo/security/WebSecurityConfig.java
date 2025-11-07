@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,11 +22,14 @@ public class WebSecurityConfig {
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")
+                        // 追記
+                        .loginProcessingUrl("/authenticate")
                         .usernameParameter("employee_no")
                         .passwordParameter("password")
                         .defaultSuccessUrl("/timestamp/create", true)
-                        // ログイン失敗時に /login?error を付与
-                        .failureUrl("/login?error")
+                        // 追記
+                        .failureHandler(customFailureHandler()) 
+                        //
                         .permitAll())
                 .logout(logout -> logout
                         .logoutSuccessUrl("/login")
@@ -37,5 +41,17 @@ public class WebSecurityConfig {
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+        
+    // 追記
+    @Bean
+    public AuthenticationFailureHandler customFailureHandler() {
+        return (request, response, exception) -> {
+            // 入力された社員番号を取得
+            String employeeNo = request.getParameter("employee_no");
+
+            // ログインページに「error」と「employee_no」を付けてリダイレクト
+            response.sendRedirect("/login?error&employee_no=" + employeeNo);
+        };
     }
 }
