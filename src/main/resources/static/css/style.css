@@ -6,7 +6,7 @@ body {
     padding: 0;
 }
 
-loginbody {
+.login-body {
     display: flex;
     justify-content: center; /* 横方向中央 */
     align-items: center;     /* 縦方向中央 */
