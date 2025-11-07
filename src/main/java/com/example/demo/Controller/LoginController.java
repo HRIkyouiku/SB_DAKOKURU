@@ -14,7 +14,6 @@ public class LoginController {
             @RequestParam(value = "error", required = false) String error,
             @RequestParam(value = "employee_no", required = false) String employeeNo,
             Model model) {
-
         if (error != null) {
             model.addAttribute("error", "社員番号とパスワードの組み合わせが正しくありません。");
         }
