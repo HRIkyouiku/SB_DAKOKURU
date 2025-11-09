@@ -22,4 +22,8 @@ public interface DepartmentService {
 
 	void deleteDepartment(Long id);
 	
+	boolean existsByNameJp(String nameJp);
+	
+	boolean existsByNameEn(String nameEn);
+	
 }

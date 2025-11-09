@@ -51,43 +51,51 @@ public class DepatmentController {
 		model.addAttribute("departments", departments);
 		return "/department/index";
 	}
-	
+
 	@PostMapping("/department/index")
 	public String search(@RequestParam String keyword, Model model) {
 		model.addAttribute("departments", departmentService.findByNameJpContainingOrNameEnContaining(keyword, keyword));
 		model.addAttribute("keyword", keyword);
 		return "/department/index";
 	}
-	
+
 	@GetMapping("/department/edit")
 	public String editDepartment(@RequestParam Long id, Model model, @ModelAttribute("departmentForm") DepartmentForm form) {
 		model.addAttribute("department", departmentService.getEditDepartment(id));
 	return "department/edit";
 	}
-	
+
 	@PostMapping("/department/edit")
-	public String updateDepartment(@Validated @ModelAttribute("departmentForm") DepartmentForm form,
-			BindingResult bindingResult) {
-		
-		if(bindingResult.hasErrors()) {
-			return "/department/edit";
+	public String updateDepartment(Model model, @Validated @ModelAttribute("departmentForm") DepartmentForm form,
+			BindingResult result) {
+		boolean existsNameJp = departmentService.existsByNameJp(form.getNameJp());
+		if(existsNameJp) {
+			result.rejectValue("nameJp", "", "部署名は既に存在しています");
 		}
+		boolean existsNameEn = departmentService.existsByNameEn(form.getNameEn());
+		if(existsNameEn) {
+			result.rejectValue("nameEn", "", "部署名（英語）は既に存在しています");
+		}
+		if (result.hasErrors()) {
+			model.addAttribute("department", departmentService.getEditDepartment(form.getId()));
+			return "/department/edit";
 		
+        }
 		departmentService.updateDepartment(form);
 		return "redirect:/department/index";
 	}
 
 	@GetMapping("/department/delete/{id}")
 	public String deleteDepartment(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-	    try {
-	        departmentService.deleteDepartment(id);
-	        redirectAttributes.addFlashAttribute("successMessage", "削除しました。");
-	    } catch (EmptyResultDataAccessException e) {
-	        redirectAttributes.addFlashAttribute("errorMessage", "指定された部署IDが見つかりませんでした。");
-	    } catch (Exception e) {
-	        redirectAttributes.addFlashAttribute("errorMessage", "削除に失敗しました。");
-	    }
-	    return "redirect:/department/index";
+		try {
+			departmentService.deleteDepartment(id);
+			redirectAttributes.addFlashAttribute("successMessage", "削除しました。");
+		} catch (EmptyResultDataAccessException e) {
+			redirectAttributes.addFlashAttribute("errorMessage", "指定された部署IDが見つかりませんでした。");
+		} catch (Exception e) {
+			redirectAttributes.addFlashAttribute("errorMessage", "削除に失敗しました。");
+		}
+		return "redirect:/department/index";
 	}
-	
+
 }

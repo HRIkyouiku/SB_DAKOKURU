@@ -39,7 +39,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 	public List<Department> findByNameJpContainingOrNameEnContaining(String keyword, String keyworden) {
 		return departmentRepository.findByNameJpContainingOrNameEnContaining(keyword, keyworden);
 	}
-
+	
 	@Transactional
 	public DepartmentForm getEditDepartment(Long id) {
 		Optional<Department> departmentOpt = departmentRepository.findById(id);
@@ -55,11 +55,20 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Transactional
 	public Department updateDepartment(DepartmentForm form) {
 		Department entity = new Department();
-		System.out.println(form.getNameJp());
 		entity.setId(form.getId());
 		entity.setNameJp(form.getNameJp());
 		entity.setNameEn(form.getNameEn());
 		return departmentRepository.save(entity);
+	}
+	
+	@Transactional
+	public boolean existsByNameJp(String nameJp) {
+		return departmentRepository.existsByNameJp(nameJp);
+	}
+	
+	@Transactional
+	public boolean existsByNameEn(String nameEn) {
+		return departmentRepository.existsByNameEn(nameEn);
 	}
 	
 	@Transactional
