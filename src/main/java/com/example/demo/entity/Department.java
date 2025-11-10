@@ -13,6 +13,9 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -27,9 +30,14 @@ public class Department {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty(message="部署名を入力してください。")
+    @Size(min=1, max=255, message="部署名は1文字以上、255文字以内で入力してください。")
     @Column(name = "name_jp")
     private String nameJp;
 
+    @NotEmpty(message="部署名（英語）を入力してください。")
+    @Size(min=1, max=255, message="部署名（英語）は1文字以上、255文字以内で入力してください。")
+    @Pattern(regexp="^[a-zA-Z0-9]+$", message="部署名（英語）は半角英数字で入力してください。")
     @Column(name = "name_en")
     private String nameEn;
 

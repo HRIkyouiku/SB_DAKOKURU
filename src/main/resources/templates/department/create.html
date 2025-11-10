@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+	<head>
+		<link rel="stylesheet" th:href="@{/css/department.css}">
+		<title>Department</title>
+	</head>
+	<body>
+		<h1>新規部署登録</h1>
+		<div class="create-department">
+			<form th:action="@{/department/store}" th:object="${department}" method="post">
+				<div class="department-form">
+					<p>作成する部署名</p>
+					<input type="text" th:field="*{nameJp}" placeholder="新しい部署名" class="new-department">
+					<div th:if="${#fields.hasErrors('nameJp')}" th:errors="*{nameJp}"></div>
+				</div>
+				<div class="department-form">
+					<p>部署名(英語)</p>
+					<input type="text" th:field="*{nameEn}" placeholder="新しい部署名(英語)" class="new-department">
+					<div th:if="${#fields.hasErrors('nameEn')}" th:errors="*{nameEn}"></div>
+				</div>
+				<div>
+					<input type="submit" value="登録する" class="small-btn" onclick="return confirm('登録します。宜しいですか？')">
+				</div>
+			</form>
+		</div>
+		<div class="link">
+			<a th:href="@{/department/index}">部署一覧へ戻る</a>
+		</div>
+	</body>
+</html>

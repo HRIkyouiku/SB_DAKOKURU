@@ -1,0 +1,193 @@
+@charset "UTF-8";
+
+h1{
+	margin-top: 50px;
+	margin-left: 50px;
+}
+
+.search{
+	display: flex;
+	align-items: center;
+	margin-left: 100px; 
+}
+
+.search p{
+	width: 100px;
+}
+
+.search form{
+	display: flex;
+	align-items: center;
+	gap: 30px;	
+	margin-right: 50px;
+}
+
+.textbox{
+	width: 300px;
+}
+
+.department-number{
+	margin-left: 200px;
+	margin-bottom: 30px;
+}
+
+.btn{
+	border: 1px solid #000;
+	width: 75px;
+	height: 25px;
+	line-height: 25px;
+	text-align: center;
+	color: #000000;
+	background-color: #dcdcdc;	
+}
+
+.large-btn{
+	display: inline-block;
+	border: 1px solid #000;
+	text-decoration: none;
+	width: 100px;
+	height: 25px;
+	line-height: 25px;
+	text-align: center;
+	color: #000000;
+	background-color: #dcdcdc;
+}
+
+.small-btn{
+	display: inline-block;
+	border: 1px solid #000;
+	text-decoration: none;
+	width: 75px;
+	height: 25px;
+	line-height: 25px;
+	text-align: center;
+	color: #000000;
+	background-color: #dcdcdc;
+}
+
+.edit-btn{
+	display: inline-block;
+	border: 1px solid #000;
+	text-decoration: none;
+	margin-right: auto;
+	width: 75px;
+	height: 25px;
+	line-height: 25px;
+	text-align: center;
+	color: #000000;
+	background-color: #dcdcdc;
+}
+
+.department-number{
+	margin-left: 200px;
+}
+
+.department-container{
+	margin-left: 200px;
+}
+
+.department-list{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 5px;
+}
+
+.department-list p{
+	width: 300px;
+}
+
+.create-department{
+	margin-left: 100px;
+}
+
+.department-form{
+	display: flex;
+	align-items: center;
+	gap: 30px;
+}
+
+.department-form p{
+	width: 120px;
+}
+
+.new-department {
+	height: 20px;
+	width: 400px; 
+}
+
+.link{
+	margin-left: 220px;
+	margin-top: 30px;;
+}
+
+.edit-container{
+	margin-left: 120px;
+}
+
+.original-name{
+	display: flex;
+	align-items: center;
+}
+
+.original-name label{
+	width: 100px;
+}
+
+.original-name input{
+	width: 195px;
+	height: 20px;
+	gap: 10px;
+}
+
+.new-jp{
+	display: flex;
+	align-items: center;
+}
+
+.new-jp label{
+	width: 100px;
+}
+
+.new-jp input{
+	height: 20px;
+	width: 400px; 
+}
+
+.new-en{
+	display: flex;
+	align-items: center;
+}
+
+.new-en label{
+	width: 100px; 
+}
+
+.new-en input{
+	height: 20px;
+	width: 400px; 
+}
+
+
+.error{
+	color: red;
+	margin-left: 100px;
+}
+
+.search-error{
+	color: red;
+	margin-left: 200px;
+}
+
+.process-message{
+	color: green;
+	margin-left: 200px;
+}
+
+.original-name,
+.new-jp,
+.new-en {
+  margin-bottom: 15px;
+}
+
