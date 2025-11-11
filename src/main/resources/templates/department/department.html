@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+	<head>
+		<link rel="stylesheet" th:href="@{/css/department.css}">
+		<title>Department</title>
+	</head>
+	<body>
+		<h1>部署一覧</h1>
+		<div th:if="${processMessage}" class="process-message">
+			<p th:text="${processMessage}"></p>
+			<p th:text="${errorMessage}"></p>
+		</div>
+		<div class="search">
+			<p>キーワード</p>
+			<form action="/department/index" method="get">
+				<div>
+					<input type="text" name="search" placeholder="検索したい部署名を入力" class="textbox" th:value="${search}">
+				</div>
+				<div>
+					<input type="submit" value="検索" class="btn">
+				</div>
+				<div>
+					<input type="button" value="クリア" class="btn" onclick="location.href='/department/index'">
+				</div>
+			</form>
+			<div>
+				<a th:href="@{/department/create}" class="large-btn">部署新規追加</a>
+			</div>
+		</div>	
+		<div th:if="${errorMessage}" class="search-error">
+			<p th:text="${errorMessage}"></p>
+		</div>
+		<div class="department-number">
+			<p th:if="${search != null and search != '' and search.length() <= 256}">検索結果：<span th:text="${#lists.size(departmentList)}"></span>件</p>
+		</div>
+		<div class="department-container">
+			<div th:each="department : ${departmentList}">
+				<div class="department-list">
+					<p th:text="${department.nameJp}"></p>
+					<a th:href="@{/department/edit/{id}(id=${department.id})}" class="edit-btn">編集</a>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

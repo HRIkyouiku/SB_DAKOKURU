@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+	<head>
+		<link rel="stylesheet" th:href="@{/css/department.css}">
+		<title>Departments</title>
+	</head>
+	<body>
+		<h1>部署編集・削除</h1>
+		<div class="edit-container">
+			<form th:action="@{/department/update/{id}(id=${department.id})}" th:object="${department}" method="post" class="update-form">
+				<input type="hidden" name="_method" value="put">
+				<div class="edit-form">
+					<div class="original-name">
+						<label>変更前</label>
+						<input type="text" th:value="${originalDepartment.nameJp}" readonly>
+						<input type="text" th:value="${originalDepartment.nameEn}" readonly>
+					</div>
+					<div class="new-jp">
+						<label>変更後</label>
+						<input type="text" th:field="*{nameJp}"/>
+					</div>
+					<div class="error">
+						<p th:if="${#fields.hasErrors('nameJp')}" th:errors="*{nameJp}"></p>
+					</div>
+					<div class="new-en">
+						<label>変更後(英語)</label>
+						<input type="text" th:field="*{nameEn}" />
+					</div>
+					<div class="error">
+						<p th:if="${#fields.hasErrors('nameEn')}" th:errors="*{nameEn}"></p>
+					</div>
+				</div>
+				<button type="submit" class="small-btn" onclick="return confirm('更新します。宜しいですか？')">変更</button>
+			</form>
+			<form th:action="@{/department/delete/{id}(id=${department.id})}" th:method="post" class="delete">
+				<input type="hidden" name="_method" value="delete">
+				<button type="submit" class="small-btn" onclick="return confirm('削除します。宜しいですか？')">削除</button>
+			</form>
+		</div>
+		<div class="link">	
+			<a th:href="@{/department/index}">部署一覧へ戻る</a>
+		</div>
+	</body>
+</html>

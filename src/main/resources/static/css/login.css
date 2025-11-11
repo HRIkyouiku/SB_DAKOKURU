@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.center-box {
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+}
+
+.textbox{
+	width: 300px;
+	margin: 10px;
+	
+}
+
+.login-btn{
+	width: 300px;
+	margin: 10px;
+}
