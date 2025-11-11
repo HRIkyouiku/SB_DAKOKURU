@@ -16,26 +16,26 @@ public class WebSecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-        .authorizeHttpRequests(auth -> auth
+	        .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/register", "/login").permitAll()
                 .requestMatchers("/css/**", "/register", "/login").permitAll()
                 .anyRequest().authenticated())
-        .formLogin(form -> form
+	        .formLogin(form -> form
                 .loginPage("/login")
                 .failureUrl("/login?error=true")
                 .usernameParameter("employee_no")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/timestamp/create", true)
                 .permitAll())
-        .logout(logout -> logout
+	        .logout(logout -> logout
                 .logoutSuccessUrl("/login")
                 .permitAll());
 
-				return http.build();
-		}
+		return http.build();
+	}
 		
-		@Bean
-		PasswordEncoder passwordEncoder() {
-			return new BCryptPasswordEncoder();
-		}
+	@Bean
+	PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 }

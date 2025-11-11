@@ -62,16 +62,18 @@ public class DepartmentController {
 			RedirectAttributes redirectAttributes,
 			Model model) {
 		boolean existsNameJp = departmentService.existsByNameJp(department.getNameJp());
-		
-		if (existsNameJp) 
-		result.rejectValue("nameJp", "duplicate", "部署名は既に存在しています。");
+		if (existsNameJp) {
+			result.rejectValue("nameJp", "duplicate", "部署名は既に存在しています。");
+		}
+			
 		boolean existsNameEn = departmentService.existsByNameEn(department.getNameEn());
+		if (existsNameEn) {
+			result.rejectValue("nameEn", "duplicate", "部署名（英語）は既に存在しています。");
+		}
 		
-		if (existsNameEn) 
-		result.rejectValue("nameEn", "duplicate", "部署名（英語）は既に存在しています。");
-		
-		if(result.hasErrors())
-		return "department/create";
+		if(result.hasErrors()) {
+			return "department/create";
+		}
 		
 		try {
 			departmentService.storeDepartment(department);
@@ -86,15 +88,13 @@ public class DepartmentController {
 	@GetMapping("/department/edit/{id}")
 	private String editDepartment(
 			@PathVariable Long id,
-			Model model) {
+			Model model) {		
+		Department original = departmentService.findById(id);
+		Department formDepartment = new Department();
+		formDepartment.setId(original.getId());
 		
-			Department original = departmentService.findById(id);
-			
-			Department formDepartment = new Department();
-			formDepartment.setId(original.getId());
-			
-			model.addAttribute("originalDepartment", original);
-			model.addAttribute("department", formDepartment);
+		model.addAttribute("originalDepartment", original);
+		model.addAttribute("department", formDepartment);
 		return "department/edit";
 	}
 	
@@ -105,27 +105,29 @@ public class DepartmentController {
 			BindingResult result,
 			RedirectAttributes redirectAttributes,
 			Model model) {
-			boolean existsNameJp = departmentService.existsByNameJpAndIdNot(department.getNameJp(), id);
-			if (existsNameJp) 
+		boolean existsNameJp = departmentService.existsByNameJpAndIdNot(department.getNameJp(), id);
+		if (existsNameJp) {
 			result.rejectValue("nameJp", "duplicate", "部署名は既に存在しています。");
+		}
 			
-			boolean existsNameEn = departmentService.existsByNameEnAndIdNot(department.getNameEn(), id);
-			if (existsNameEn) 
+		boolean existsNameEn = departmentService.existsByNameEnAndIdNot(department.getNameEn(), id);
+		if (existsNameEn) {
 			result.rejectValue("nameEn", "duplicate", "部署名は既に存在しています。");
+		}
 			
-			if (result.hasErrors()) {
-				Department original = departmentService.findById(id);
-				model.addAttribute("originalDepartment", original);
-				return "department/edit";
-			}
+		if (result.hasErrors()) {
+			Department original = departmentService.findById(id);
+			model.addAttribute("originalDepartment", original);
+			return "department/edit";
+		}
 			
-			try {
-				departmentService.storeDepartment(department);
-				redirectAttributes.addFlashAttribute("processMessage", "登録しました。");
-			} catch (Exception e) {
-				redirectAttributes.addFlashAttribute("errorMessage", "更新に失敗しました。");
-			}
-			return "redirect:/department/index";
+		try {
+			departmentService.storeDepartment(department);
+			redirectAttributes.addFlashAttribute("processMessage", "登録しました。");
+		} catch (Exception e) {
+			redirectAttributes.addFlashAttribute("errorMessage", "更新に失敗しました。");
+		}
+		return "redirect:/department/index";
 	}
 	
 	@DeleteMapping("/department/delete/{id}")
@@ -134,12 +136,12 @@ public class DepartmentController {
 			@PathVariable("id") Long id,
 			RedirectAttributes redirectAttributes) {
 			
-			try {
-				departmentService.deleteById(id);
-				redirectAttributes.addFlashAttribute("processMessage", "削除しました。");
-			} catch (Exception e) {
-				redirectAttributes.addFlashAttribute("errorMessage", "削除に失敗しました。");
-			}
-			return "redirect:/department/index";
+		try {
+			departmentService.deleteById(id);
+			redirectAttributes.addFlashAttribute("processMessage", "削除しました。");
+		} catch (Exception e) {
+			redirectAttributes.addFlashAttribute("errorMessage", "削除に失敗しました。");
+		}
+		return "redirect:/department/index";
 	}
 }			

@@ -1,37 +1,37 @@
 @charset "UTF-8";
 
-h1{
+h1 {
 	margin-top: 50px;
 	margin-left: 50px;
 }
 
-.search{
+.search {
 	display: flex;
 	align-items: center;
 	margin-left: 100px; 
 }
 
-.search p{
+.search p {
 	width: 100px;
 }
 
-.search form{
+.search form {
 	display: flex;
 	align-items: center;
 	gap: 30px;	
 	margin-right: 50px;
 }
 
-.textbox{
+.textbox {
 	width: 300px;
 }
 
-.department-number{
+.department-number {
 	margin-left: 200px;
 	margin-bottom: 30px;
 }
 
-.btn{
+.btn {
 	border: 1px solid #000;
 	width: 75px;
 	height: 25px;
@@ -41,7 +41,7 @@ h1{
 	background-color: #dcdcdc;	
 }
 
-.large-btn{
+.large-btn {
 	display: inline-block;
 	border: 1px solid #000;
 	text-decoration: none;
@@ -53,7 +53,7 @@ h1{
 	background-color: #dcdcdc;
 }
 
-.small-btn{
+.small-btn {
 	display: inline-block;
 	border: 1px solid #000;
 	text-decoration: none;
@@ -65,7 +65,7 @@ h1{
 	background-color: #dcdcdc;
 }
 
-.edit-btn{
+.edit-btn {
 	display: inline-block;
 	border: 1px solid #000;
 	text-decoration: none;
@@ -78,15 +78,15 @@ h1{
 	background-color: #dcdcdc;
 }
 
-.department-number{
+.department-number {
 	margin-left: 200px;
 }
 
-.department-container{
+.department-container {
 	margin-left: 200px;
 }
 
-.department-list{
+.department-list {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -94,21 +94,21 @@ h1{
 	margin-top: 5px;
 }
 
-.department-list p{
+.department-list p {
 	width: 300px;
 }
 
-.create-department{
+.create-department {
 	margin-left: 100px;
 }
 
-.department-form{
+.department-form {
 	display: flex;
 	align-items: center;
 	gap: 30px;
 }
 
-.department-form p{
+.department-form p {
 	width: 120px;
 }
 
@@ -117,70 +117,70 @@ h1{
 	width: 400px; 
 }
 
-.link{
+.link {
 	margin-left: 220px;
 	margin-top: 30px;;
 }
 
-.edit-container{
+.edit-container {
 	margin-left: 120px;
 }
 
-.original-name{
+.original-name {
 	display: flex;
 	align-items: center;
 }
 
-.original-name label{
+.original-name label {
 	width: 100px;
 }
 
-.original-name input{
+.original-name input {
 	width: 195px;
 	height: 20px;
 	gap: 10px;
 }
 
-.new-jp{
+.new-jp {
 	display: flex;
 	align-items: center;
 }
 
-.new-jp label{
+.new-jp label {
 	width: 100px;
 }
 
-.new-jp input{
+.new-jp input {
 	height: 20px;
 	width: 400px; 
 }
 
-.new-en{
+.new-en {
 	display: flex;
 	align-items: center;
 }
 
-.new-en label{
+.new-en label {
 	width: 100px; 
 }
 
-.new-en input{
+.new-en input {
 	height: 20px;
 	width: 400px; 
 }
 
 
-.error{
+.error {
 	color: red;
 	margin-left: 100px;
 }
 
-.search-error{
+.search-error {
 	color: red;
 	margin-left: 200px;
 }
 
-.process-message{
+.process-message {
 	color: green;
 	margin-left: 200px;
 }
