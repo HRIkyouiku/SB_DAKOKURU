@@ -35,6 +35,9 @@
 					</td>
 				</tr>
 			</table>
+			<div th:if="${successMessage}">
+				<p th:text="${successMessage}"></p>
+			</div>
 		</div>
 	</form>
 </body>

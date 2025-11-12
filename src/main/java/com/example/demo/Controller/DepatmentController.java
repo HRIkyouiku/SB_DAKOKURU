@@ -41,7 +41,7 @@ public class DepatmentController {
 		Department createDepartment = new Department();
 		createDepartment.setNameJp(form.getNameJp());
 		createDepartment.setNameEn(form.getNameEn());
-		departmentService.createDepartment(createDepartment);
+		departmentService.createDepartment(createDepartment); 
 		return "redirect:/department/index";
 	}
 
@@ -67,7 +67,7 @@ public class DepatmentController {
 
 	@PostMapping("/department/edit")
 	public String updateDepartment(Model model, @Validated @ModelAttribute("departmentForm") DepartmentForm form,
-			BindingResult result) {
+			BindingResult result, RedirectAttributes redirectAttributes) {
 		boolean existsNameJp = departmentService.existsByNameJp(form.getNameJp());
 		if(existsNameJp) {
 			result.rejectValue("nameJp", "", "部署名は既に存在しています");
@@ -82,6 +82,7 @@ public class DepatmentController {
 		
         }
 		departmentService.updateDepartment(form);
+		redirectAttributes.addFlashAttribute("successMessage", "更新しました。");
 		return "redirect:/department/index";
 	}
 
