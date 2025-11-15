@@ -72,3 +72,62 @@ main {
 .error-message {
     color: red;
 }
+
+#ymd {
+    text-align: center;
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+#hms {
+    text-align: center;
+    font-size: 32px;
+    margin: 0;
+}
+
+#timestamp{
+    text-align: center;
+}
+
+select[name="workPlaceId"]{
+    width: 350px;
+    margin: 20px 0;
+}
+
+#timestampbutton{
+    width: 350px;
+    height: 50px;
+    font-size: 18px;
+    border: none;
+    background-color: #666;
+    color: white;
+}
+
+#timestampoption{
+   margin: 20px 36.65%;
+}
+
+#optionbutton{
+    width: 115px;
+    border: none;
+    background-color: #666;
+    color: white;
+}
+
+#timestamphistory{
+    width: 350px;
+    margin-left: 36.65%;
+}
+
+#timehistory{
+    background-color: #efefef;
+    margin: auto;
+}
+
+#historydate{
+    padding-right: 10px;
+}
+
+#historytime{
+    padding-right: 10px;
+}
