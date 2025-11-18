@@ -15,26 +15,26 @@
                 <div>
                     <th:block th:if="${#lists.isEmpty(timestampHistories)}">
                         <input type="hidden" name="type" value="1">
-                        <button id="timestampbutton" type="submit">出勤</button>
+                        <button id="timestamp_button" type="submit">出勤</button>
                     </th:block>
     
                     <th:block th:if="${not #lists.isEmpty(timestampHistories)}">
                         <th:block th:switch="${timestampHistories[0].type}">
                             <th:block th:case="4">
                                 <input type="hidden" name="type" value="1">
-                                <button id="timestampbutton" type="submit">出勤</button>
+                                <button id="timestamp_button" type="submit">出勤</button>
                             </th:block>
                             <th:block th:case="1">
                                 <input type="hidden" name="type" value="2">
-                                <button id="timestampbutton" type="submit">休憩開始</button>
+                                <button id="timestamp_button" type="submit">休憩開始</button>
                             </th:block>
                             <th:block th:case="2">
                                 <input type="hidden" name="type" value="3">
-                                <button id="timestampbutton" type="submit">休憩終了</button>
+                                <button id="timestamp_button" type="submit">休憩終了</button>
                             </th:block>
                             <th:block th:case="3">
                                 <input type="hidden" name="type" value="4">
-                                <button id="timestampbutton" type="submit">退勤</button>
+                                <button id="timestamp_button" type="submit">退勤</button>
                             </th:block>
                             <th:block th:case="*">エラー</th:block>
                         </th:block>
@@ -48,15 +48,15 @@
         <div>
             <span th:if="${successMessage}" th:text="${successMessage}"></span>
         </div>
-        <div id="timestampoption">
-            <button id="optionbutton" type="button">打刻オプション</button>
+        <div id="timestamp_option">
+            <button id="option_button" type="button">打刻オプション</button>
         </div>
-        <div id="timestamphistory">
-            <p id="timehistory">打刻履歴</p>
+        <div id="timestamp_history">
+            <p id="time_history">打刻履歴</p>
             <table>
                 <tr th:each="timestampHistory : ${timestampHistories}">
-                    <td id="historydate" th:text="${timestampHistory.date}"></td>
-                    <td id="historytime" th:text="${timestampHistory.time}"></td>
+                    <td id="history_date" th:text="${timestampHistory.date}"></td>
+                    <td id="history_time" th:text="${timestampHistory.time}"></td>
                     <td>
                         <th:block th:switch="${timestampHistory.type}">
                             <span th:case="1">出勤</span>

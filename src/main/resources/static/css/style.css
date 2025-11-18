@@ -85,16 +85,16 @@ main {
     margin: 0;
 }
 
-#timestamp{
+#timestamp {
     text-align: center;
 }
 
-select[name="workPlaceId"]{
+select[name="workPlaceId"] {
     width: 350px;
     margin: 20px 0;
 }
 
-#timestampbutton{
+#timestamp_button {
     width: 350px;
     height: 50px;
     font-size: 18px;
@@ -103,31 +103,31 @@ select[name="workPlaceId"]{
     color: white;
 }
 
-#timestampoption{
+#timestamp_option {
    margin: 20px 36.65%;
 }
 
-#optionbutton{
+#option_button {
     width: 115px;
     border: none;
     background-color: #666;
     color: white;
 }
 
-#timestamphistory{
+#timestamp_history {
     width: 350px;
     margin-left: 36.65%;
 }
 
-#timehistory{
+#timehi_story {
     background-color: #efefef;
     margin: auto;
 }
 
-#historydate{
+#history_date {
     padding-right: 10px;
 }
 
-#historytime{
+#history_time {
     padding-right: 10px;
 }
