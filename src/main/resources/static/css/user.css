@@ -1,0 +1,38 @@
+.container {
+	display: flex;
+}
+
+.container > div {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    display: block;
+}
+
+.name-container,
+.lastname-container,
+.oldname-container,
+.middlename-container,
+.information-container {
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+.name-container div,
+.lastname-container div,
+.oldname-container div,
+.middlename-container div,
+.information-container div {
+	min-height: 150px;
+}
+
+.cancel {
+	
+}
+
+.required {
+	color: red;
+}
