@@ -1,4 +1,4 @@
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
 
 $(function() {
 	let $nav = $("#navigation"),
@@ -34,32 +34,34 @@ $(function() {
 			}
 		}
 	);
+	
+	const now = new Date();
+
+	const year = now.getFullYear();
+	const month = now.getMonth() + 1;
+	const date = now.getDate();
+	const day = now.getDay();
+
+	const daysOfWeek = ['(日)', '(月)', '(火)', '(水)', '(木)', '(金)', '(土)'];
+
+	const today = `${year}/${month}/${date}/${daysOfWeek[day]} `;
+	console.log(today);
+	document.querySelector(".calender").textContent = today;
+
+	function displayTime() {
+		const time = new Date();
+		const padZero = (value) => value.toString().padStart(2, "0");
+
+		const hour = padZero(time.getHours());
+		const minute = padZero(time.getMinutes());
+		const second = padZero(time.getSeconds());
+
+		const currentTime = `${hour}:${minute}:${second}`;
+		document.querySelector(".clock").textContent = currentTime;
+	}
+
+	displayTime();
+	setInterval(displayTime, 1000);
+	
 });
 
-const now = new Date();
-
-const year = now.getFullYear();
-const month = now.getMonth() + 1;
-const date = now.getDate();
-const day = now.getDay();
-
-const daysOfWeek = ['(日)', '(月)', '(火)', '(水)', '(木)', '(金)', '(土)'];
-
-const today = `${year}/${month}/${date}/${daysOfWeek[day]} `;
-console.log(today);
-document.querySelector(".calender").textContent = today;
-
-function displayTime() {
-	const time = new Date();
-	const padZero = (value) => value.toString().padStart(2, "0");
-
-	const hour = padZero(time.getHours());
-	const minute = padZero(time.getMinutes());
-	const second = padZero(time.getSeconds());
-
-	const currentTime = `${hour}:${minute}:${second}`;
-	document.querySelector(".clock").textContent = currentTime;
-}
-
-displayTime();
-setInterval(displayTime, 1000);
