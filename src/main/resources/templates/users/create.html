@@ -17,79 +17,107 @@
 						<div class="name-container">
 		    				<div>
 			                    <label for="fn_jp"><span class="required">※</span>名前(正式表示)</label>
-			                    <input id="fn_jp" type="text" name="fnJp" th:value="*{fnJp}">
-			                    <div th:if="${#fields.hasErrors('fnJp')}" th:errors="*{fnJp}" class="error-message"></div>
+			                    <input id="fn_jp" type="text" name="fnJp" th:value="*{fnJp}" class="text-field">
+								<div class="error-area">
+			                    	<div th:if="${#fields.hasErrors('fnJp')}" th:errors="*{fnJp}" class="error-message"></div>
+								</div>
 		    				</div>
 							
 							<div>
 			                    <label for=" fn_jp_hira"><span class="required">※</span>名前(ひらがな)</label>
-			                    <input id="fn_jp_hira" type="text" name="fnJpHira" th:value="*{fnJpHira}">
-			                    <div th:if="${#fields.hasErrors('fnJpHira')}" th:errors="*{fnJpHira}" class="error-message"></div>
+			                    <input id="fn_jp_hira" type="text" name="fnJpHira" th:value="*{fnJpHira}" class="text-field">
+								<div class="error-area">
+			                    	<div th:if="${#fields.hasErrors('fnJpHira')}" th:errors="*{fnJpHira}" class="error-message"></div>
+								</div>	
 							</div>
 							
 							<div>
 			                    <label for="fn_jp_kata"><span class="required">※</span>名前(カタカナ)</label>
-			                    <input id="fn_jp_kata" type="text" name="fnJpKata" th:value="*{fnJpKata}">
-			                    <div th:if="${#fields.hasErrors('fnJpKata')}" th:errors="*{fnJpKata}" class="error-message"></div>
+			                    <input id="fn_jp_kata" type="text" name="fnJpKata" th:value="*{fnJpKata}" class="text-field">
+								<div class="error-area">
+			                    	<div th:if="${#fields.hasErrors('fnJpKata')}" th:errors="*{fnJpKata}" class="error-message"></div>
+								</div>
 							</div>
 							
 							<div>
 			                    <label for="fn_en"><span class="required">※</span>名前(英語)</label>
-			                    <input id="fn_en" type="text" name="fnEn" th:value="*{fnEn}">
-			                    <div th:if="${#fields.hasErrors('fnEn')}" th:errors="*{fnEn}" class="error-message"></div>
+			                    <input id="fn_en" type="text" name="fnEn" th:value="*{fnEn}" class="text-field">
+								<div class="error-area">
+			                    	<div th:if="${#fields.hasErrors('fnEn')}" th:errors="*{fnEn}" class="error-message"></div>
+								</div>
 							</div>
 						</div>
 						
 						<div class="lastname-container">
 							<div>
 			                    <label for="ln_jp"><span class="required">※</span>姓(正式表示)</label>
-			                    <input id="ln_jp" type="text" name="lnJp" th:value="*{lnJp}">
-			                    <div th:if="${#fields.hasErrors('lnJp')}" th:errors="*{lnJp}" class="error-message"></div>
+			                    <input id="ln_jp" type="text" name="lnJp" th:value="*{lnJp}" class="text-field">
+								<div class="error-area">
+			                    	<div th:if="${#fields.hasErrors('lnJp')}" th:errors="*{lnJp}" class="error-message"></div>
+								</div>
 							</div>
 							
 							<div>
 			                    <label for="ln_jp_hira"><span class="required">※</span>姓(ひらがな)</label>
-			                    <input id="ln_jp_hira" type="text" name="lnJpHira" th:value="*{lnJpHira}">
-			                    <div th:if="${#fields.hasErrors('lnJpHira')}" th:errors="*{lnJpHira}" class="error-message"></div>
+			                    <input id="ln_jp_hira" type="text" name="lnJpHira" th:value="*{lnJpHira}" class="text-field">
+								<div class="error-area">
+			                    	<div th:if="${#fields.hasErrors('lnJpHira')}" th:errors="*{lnJpHira}" class="error-message"></div>
+								</div>
 							</div>
 							
 							<div>
 			                    <label for="ln_jp_kata"><span class="required">※</span>姓(カタカナ)</label>
-			                    <input id="ln_jp_kata" type="text" name="lnJpKata" th:value="*{lnJpKata}">
-			                    <div th:if="${#fields.hasErrors('lnJpKata')}" th:errors="*{lnJpKata}" class="error-message"></div>
+			                    <input id="ln_jp_kata" type="text" name="lnJpKata" th:value="*{lnJpKata}" class="text-field">
+								<div class="error-area">
+			                    	<div th:if="${#fields.hasErrors('lnJpKata')}" th:errors="*{lnJpKata}" class="error-message"></div>
+								</div>
 							</div>
 								
 							<div>
 			                    <label for="ln_en"><span class="required">※</span>姓(英語)</label>
-			                    <input id="ln_en" type="text" name="lnEn" th:value="*{lnEn}">
-			                    <div th:if="${#fields.hasErrors('lnEn')}" th:errors="*{lnEn}" class="error-message"></div>
+			                    <input id="ln_en" type="text" name="lnEn" th:value="*{lnEn}" class="text-field">
+								<div class="error-area">
+			                    	<div th:if="${#fields.hasErrors('lnEn')}" th:errors="*{lnEn}" class="error-message"></div>
+								</div>
 							</div>
 						</div>
 	
 						<div class="oldname-container">
 							<div>
 			                    <label for="oln_jp">旧姓(正式表示)</label>
-			                    <input id="oln_jp" type="text" name="olnJp" th:value="*{olnJp}">
-			                    <div th:if="${#fields.hasErrors('olnJp')}" th:errors="*{olnJp}" class="error-message"></div>
+			                    <input id="oln_jp" type="text" name="olnJp" th:value="*{olnJp}" class="text-field">
+								<div class="error-area">
+			                    	<div th:if="${#fields.hasErrors('olnJp')}" th:errors="*{olnJp}" class="error-message"></div>
+									<div th:if="${#fields.hasErrors('olnJpSizeValid')}" th:errors="*{olnJpSizeValid}" class="error-message"></div>
+								</div>
 							</div>
 								
 							<div>
 			                    <label for="oln_jp_hira">旧姓(ひらがな)</label>
-			                    <input id="oln_jp_hira" type="text" name="olnJpHira" th:value="*{olnJpHira}">
-			                    <div th:if="${#fields.hasErrors('olnJpHira')}" th:errors="*{olnJpHira}"
+			                    <input id="oln_jp_hira" type="text" name="olnJpHira" th:value="*{olnJpHira}" class="text-field">
+								<div class="error-area">
+			                    	<div th:if="${#fields.hasErrors('olnJpHira')}" th:errors="*{olnJpHira}"
 			                        class="error-message"></div>
+									<div th:if="${#fields.hasErrors('olnJpHiraSizeValid')}" th:errors="*{olnJpHiraSizeValid}" class="error-message"></div>
+								</div>
 							</div>
 									
 							<div>
 			                    <label for="oln_jp_kata">旧姓(カタカナ)</label>
-			                    <input id="oln_jp_kata" type="text" name="olnJpKata" th:value="*{olnJpKata}">
-			                    <div th:if="${#fields.hasErrors('olnJpKata')}" th:errors="*{olnJpKata}" class="error-message"></div>
+			                    <input id="oln_jp_kata" type="text" name="olnJpKata" th:value="*{olnJpKata}" class="text-field">
+								<div class="error-area">
+			                    	<div th:if="${#fields.hasErrors('olnJpKata')}" th:errors="*{olnJpKata}" class="error-message"></div>
+									<div th:if="${#fields.hasErrors('olnJpKataSizeValid')}" th:errors="*{olnJpKataSizeValid}" class="error-message"></div>
+								</div>
 							</div>
 								
 							<div>
 			                    <label for="oln_en">旧姓(英語)</label>
-			                    <input id="oln_en" type="text" name="olnEn" th:value="*{olnEn}">
-			                    <div th:if="${#fields.hasErrors('olnEn')}" th:errors="*{olnEn}" class="error-message"></div>
+			                    <input id="oln_en" type="text" name="olnEn" th:value="*{olnEn}" class="text-field">
+								<div class="error-area">
+			                    	<div th:if="${#fields.hasErrors('olnEn')}" th:errors="*{olnEn}" class="error-message"></div>
+									<div th:if="${#fields.hasErrors('olnEnSizeValid')}" th:errors="*{olnEnSizeValid}" class="error-message"></div>
+								</div>
 							</div>
 							
 							<div>
@@ -100,26 +128,38 @@
 						<div class="middlename-container">
 							<div>
 			                    <label for="mn_jp">ミドルネーム(正式表示)</label>
-			                    <input id="mn_jp" type="text" name="mnJp" th:value="*{mnJp}">
-			                    <div th:if="${#fields.hasErrors('mnJp')}" th:errors="*{mnJp}" class="error-message"></div>
+			                    <input id="mn_jp" type="text" name="mnJp" th:value="*{mnJp}" class="text-field">
+								<div class="error-area">
+			                   		 <div th:if="${#fields.hasErrors('mnJp')}" th:errors="*{mnJp}" class="error-message"></div>
+									 <div th:if="${#fields.hasErrors('mnJpSizeValid')}" th:errors="*{mnJpSizeValid}" class="error-message"></div>
+								</div>
 							</div>
 								
 							<div>
 			                    <label for="mn_jp_hira">ミドルネーム(ひらがな)</label>
-			                    <input id="mn_jp_hira" type="text" name="mnJpHira" th:value="*{mnJpHira}">
-			                    <div th:if="${#fields.hasErrors('mnJpHira')}" th:errors="*{mnJpHira}" class="error-message"></div>
+			                    <input id="mn_jp_hira" type="text" name="mnJpHira" th:value="*{mnJpHira}" class="text-field">
+								<div class="error-area">
+			                    	<div th:if="${#fields.hasErrors('mnJpHira')}" th:errors="*{mnJpHira}" class="error-message"></div>
+									<div th:if="${#fields.hasErrors('mnJpHiraSizeValid')}" th:errors="*{mnJpHiraSizeValid}" class="error-message"></div>
+								</div>
 							</div>
 								
 							<div>
 			                    <label for="mn_jp_kata">ミドルネーム(カタカナ)</label>
-			                    <input id="mn_jp_kata" type="text" name="mnJpKata" th:value="*{mnJpKata}">
-			                    <div th:if="${#fields.hasErrors('mnJpKata')}" th:errors="*{mnJpKata}" class="error-message"></div>
+			                    <input id="mn_jp_kata" type="text" name="mnJpKata" th:value="*{mnJpKata}" class="text-field">
+								<div class="error-area">
+			                   		<div th:if="${#fields.hasErrors('mnJpKata')}" th:errors="*{mnJpKata}" class="error-message"></div>
+									<div th:if="${#fields.hasErrors('mnJpKataSizeValid')}" th:errors="*{mnJpKataSizeValid}" class="error-message"></div>
+								</div>
 							</div>
 								
 							<div>
 			                    <label for="mn_en">ミドルネーム(英語)</label>
-			                    <input id="mn_en" type="text" name="mnEn" th:value="*{mnEn}">
-			                    <div th:if="${#fields.hasErrors('mnEn')}" th:errors="*{mnEn}" class="error-message"></div>
+			                    <input id="mn_en" type="text" name="mnEn" th:value="*{mnEn}" class="text-field">
+								<div class="error-area">
+			                    	<div th:if="${#fields.hasErrors('mnEn')}" th:errors="*{mnEn}" class="error-message"></div>
+									<div th:if="${#fields.hasErrors('mnEnSizeValid')}" th:errors="*{mnEnSizeValid}" class="error-message"></div>
+								</div>
 							</div>
 	                    
 							<div>	
@@ -130,27 +170,35 @@
 						<div class="information-container">
 							<div>
 			                    <label for="email"><span class="required">※</span>メールアドレス</label>
-			                    <input id="email" type="email" name="email" th:value="*{email}">
-			                    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></div>
+			                    <input id="email" type="email" name="email" th:value="*{email}" class="text-field">
+								<div class="error-area">
+			                    	<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></div>
+								</div>
 							</div>
 								
 							<div>
 			                    <label for="password"><span class="required">※</span>パスワード</label>
-			                    <input id="password" type="password" name="password">
-			                    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></div>
+			                    <input id="password" type="password" name="password" class="text-field">
+								<div class="error-area">
+			                    	<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></div>
+								</div>
 							</div>
 								
 							<div>
 			                    <label for="employee_no"><span class="required">※</span>社員番号</label>
-			                    <input id="employee_no" type="number" name="employeeNo" th:value="*{employeeNo}">
-			                    <div th:if="${#fields.hasErrors('employeeNo')}" th:errors="*{employeeNo}"
+			                    <input id="employee_no" type="number" name="employeeNo" th:value="*{employeeNo}" class="text-field">
+								<div class="error-area">
+			                    	<div th:if="${#fields.hasErrors('employeeNo')}" th:errors="*{employeeNo}"
 			                        class="error-message"></div>
+								</div>
 							</div>
 									
 							<div>
 			                    <label for="joining_date"><span class="required">※</span>入社日</label>
-			                    <input id="joining_date" type="date" name="joiningDate" th:value="*{joiningDate}">
-			                    <div th:if="${#fields.hasErrors('joiningDate')}" th:errors="*{joiningDate}" class="error-message"></div>
+			                    <input id="joining_date" type="date" name="joiningDate" th:value="*{joiningDate}" class="text-field">
+								<div class="error-area">
+			                   		 <div th:if="${#fields.hasErrors('joiningDate')}" th:errors="*{joiningDate}" class="error-message"></div>
+								</div>
 							</div>
 						</div>
 					</div>		
@@ -160,13 +208,16 @@
 	                            value="true" th:checked="*{englishNotation}">
 	                </div>
 
-                    <input type="submit" value="登録">
+					<div>
+	                    <input type="submit" value="登録" class="btn">
+						<a th:href="@{/user/index}" class="btn">キャンセル</a>
+					</div>
                 </div>
                 <div>
                     <span th:if="${successMessage}" th:text="${successMessage}"></span>
                 </div>
             </form>
-            <a th:href="@{/user/index}" class="cancel">キャンセル</a>
+            
         </div>
     </main>
 </html>
