@@ -39,4 +39,5 @@ public class UserServiceImpl implements UserService {
     public User findByEmployeeNo(Long employeeNo) {
         return userRepository.findByEmployeeNo(employeeNo);
     }
+    
 }

@@ -15,4 +15,5 @@ public interface UserService {
     User findByEmail(String email);
 
     User findByEmployeeNo(Long employeeNo);
+    
 }

@@ -40,7 +40,7 @@ public class User {
 
     @Column(name = "employee_no")
     private Long employeeNo;
-
+    
     @Column(name = "joining_date", nullable = false)
     private LocalDate joiningDate;
 
