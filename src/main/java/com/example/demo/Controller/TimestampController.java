@@ -3,10 +3,12 @@ package com.example.demo.Controller;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,21 +16,17 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.entity.Timestamp;
 import com.example.demo.entity.WorkPlace;
 import com.example.demo.form.TimestampForm;
-import com.example.demo.form.UserTimestampForm;
 import com.example.demo.security.CustomUserDetails;
 import com.example.demo.service.NameService;
 import com.example.demo.service.TimestampService;
 import com.example.demo.service.UserService;
 import com.example.demo.service.WorkPlaceService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.RequiredArgsConstructor;
 
@@ -42,7 +40,9 @@ public class TimestampController {
     private final UserService userService;
 
     @GetMapping("/timestamp/create")
-    public String timeline(Model model, @AuthenticationPrincipal CustomUserDetails userDetails) {
+    public String timeline(Model model, 
+    		@AuthenticationPrincipal CustomUserDetails userDetails, 
+    		@PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
 
         if (!model.containsAttribute("timestampForm")) {
             model.addAttribute("timestampForm", new TimestampForm());
@@ -50,10 +50,9 @@ public class TimestampController {
 
         List<WorkPlace> places = workPlaceService.findAll();
         model.addAttribute("places", places);
-
-        List<Timestamp> timestampHistories = timestampService.findAllByUserIdOrderByCreatedAtDesc(userDetails.getId());
-        model.addAttribute("timestampHistories", timestampHistories);
-        System.out.println(timestampHistories);
+        
+        Page<Timestamp> page = timestampService.findAllByUserIdOrderByCreatedAtDesc(userDetails.getId(), pageable);
+        model.addAttribute("page", page);
 
         return "timestamps/create";
     }
@@ -95,7 +94,7 @@ public class TimestampController {
         timestampService.save(timestamp);
 
         // リダイレクト時にメッセージを追加
-        ra.addFlashAttribute("successMessage", "打刻が登録されました。");
+        ra.addFlashAttribute("successMessage", "打刻が完了しました。");
 
         return "redirect:/timestamp/create";
     }

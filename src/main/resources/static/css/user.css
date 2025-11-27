@@ -1,0 +1,55 @@
+.container {
+	display: flex;
+}
+
+.container > div {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    display: block;
+}
+
+.name-container,
+.lastname-container,
+.oldname-container,
+.middlename-container,
+.information-container {
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+.error-area {
+	height: 100px;
+}
+
+.btn {
+    display: inline-flex;
+	justify-content: center;
+	align-items: center;
+    border: 1px solid #000;
+    width: 120px;
+    height: 50px;
+    line-height: 25px;
+    text-align: center;
+    color: #000000;
+    background-color: #dcdcdc;
+    text-decoration: none; 
+    font-size: 15px;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.required {
+	color: red;
+}
+
+.text-field {
+	width: 100%;
+}
