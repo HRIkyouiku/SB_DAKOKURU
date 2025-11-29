@@ -2,8 +2,6 @@ package com.example.demo.Controller;
 
 import java.util.Optional;
 
-import jakarta.validation.constraints.AssertTrue;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -95,25 +93,6 @@ public class UserController {
 
         return "redirect:/user/index";
 	}
-
-	@AssertTrue(message = "旧姓の各欄に一つでも入力があった場合は必須です。")
-    public boolean isOldNameValid() {
-        // すべて入力の有無を確認する
-        boolean isExistOlnJp = (olnJp != null && !olnJp.isEmpty());
-        boolean isExistOlnJpHira = (olnJpHira != null && !olnJpHira.isEmpty());
-        boolean isExistOlnJpKata = (olnJpKata != null && !olnJpKata.isEmpty());
-        boolean isExistOlnEn = (olnEn != null && !olnEn.isEmpty());
-
-        // どれかが入っていたら他の3つも必須にする
-        boolean anyExists = isExistOlnJp || isExistOlnJpHira || isExistOlnJpKata || isExistOlnEn;
-        boolean allExists = isExistOlnJp && isExistOlnJpHira && isExistOlnJpKata && isExistOlnEn;
-
-        if (anyExists) {
-        return allExists;
-        }
-
-        return true;
-    }
 	
 	@GetMapping("/user/show/{userId}")
 	public String show(Model model,

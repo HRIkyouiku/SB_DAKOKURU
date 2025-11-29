@@ -72,3 +72,7 @@ main {
 	color: red;
 }
 
+.required-indicator {
+	color: red; /* 必須マークを赤くする */
+	margin-left: 5px; /* ラベルとの間に少しスペースを空ける */
+}
