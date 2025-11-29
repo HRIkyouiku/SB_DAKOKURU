@@ -20,10 +20,12 @@
 				<label for="oln_jp">旧姓(正式表示)</label>
 				<input id="oln_jp" type="text" name="olnJp" th:value="*{olnJp}">
 				<span th:if="${#fields.hasErrors('olnJp')}" th:errors="*{olnJp}" class="error-message"></span>
+				<span th:if="${#fields.hasErrors('oldNameValid')}" th:errors="*{oldNameValid}" class="error-message"></span>
 
 				<label for="mn_jp">ミドルネーム(正式表示)</label>
 				<input id="mn_jp" type="text" name="mnJp" th:value="*{mnJp}">
 				<span th:if="${#fields.hasErrors('mnJp')}" th:errors="*{mnJp}" class="error-message"></span>
+				<span th:if="${#fields.hasErrors('middleNameValid')}" th:errors="*{middleNameValid}" class="error-message"></span>
 
 				<label for="email"><span class="required-indicator">※</span>メールアドレス</label>
 				<input id="email" type="email" name="email" th:value="*{email}">
@@ -101,6 +103,7 @@
 				</div>
 
 				<input type="submit" value="登録">
+				<input type="submit" value="キャンセル">
 			</div>
 			<div>
 				<span th:if="${successMessage}" th:text="${successMessage}"></span>

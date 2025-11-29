@@ -85,17 +85,6 @@ public class UserForm implements ValidationGroups {
 
 	private Boolean englishNotation;
 
-	// 旧姓フィールドのいずれかが入力された場合は、olnJp も必須
-	/*@AssertTrue(message = "旧姓の名前(正式表示)を入力してください。")
-	public boolean isOldNameValid() {
-	    if ((olnJpHira != null && !olnJpHira.isEmpty()) ||
-	        (olnJpKata != null && !olnJpKata.isEmpty()) ||
-	        (olnEn != null && !olnEn.isEmpty())) {
-	        return olnJp != null && !olnJp.isEmpty();
-	    }
-	    return true;
-	}*/
-
 	@AssertTrue(message = "旧姓の各欄に一つでも入力があった場合は必須です。")
 	public boolean isOldNameValid() {
 		// すべて入力の有無を確認する
@@ -107,6 +96,25 @@ public class UserForm implements ValidationGroups {
 		// どれかが入っていたら他の3つも必須にする
 		boolean anyExists = isExistOlnJp || isExistOlnJpHira || isExistOlnJpKata || isExistOlnEn;
 		boolean allExists = isExistOlnJp && isExistOlnJpHira && isExistOlnJpKata && isExistOlnEn;
+
+		if (anyExists) {
+			return allExists;
+		}
+
+		return true;
+	}
+	
+	@AssertTrue(message = "ミドルネームに関わるフォームのうち、一つでも入力があった場合は全てを必須とする。")
+	public boolean isMiddleNameValid() {
+		// すべて入力の有無を確認する
+		boolean isExistMnJp = (mnJp != null && !mnJp.isEmpty());
+		boolean isExistMnJpHira = (mnJpHira != null && !mnJpHira.isEmpty());
+		boolean isExistMnJpKata = (mnJpKata != null && !mnJpKata.isEmpty());
+		boolean isExistMnEn = (mnEn != null && !mnEn.isEmpty());
+
+		// どれかが入っていたら他の3つも必須にする
+		boolean anyExists = isExistMnJp || isExistMnJpHira || isExistMnJpKata || isExistMnEn;
+		boolean allExists = isExistMnJp && isExistMnJpHira && isExistMnJpKata && isExistMnEn;
 
 		if (anyExists) {
 			return allExists;
