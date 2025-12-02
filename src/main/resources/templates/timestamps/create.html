@@ -20,7 +20,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
             </th:block>
 
             <th:block th:if="${not #lists.isEmpty(timestampHistories)}">
-                <th:block th:switch="${timestampHistories[0].type}">
+                <th:block th:switch="${timestampHistories.content[0].type}">
                     <th:block th:case="4">
                         <input type="hidden" name="type" value="1">
                         <button type="submit">出勤</button>
@@ -54,7 +54,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
     <div>
         <h2>打刻履歴</h2>
         <table>
-            <tr th:each="timestampHistory : ${timestampHistories}">
+            <tr th:each="timestampHistory : ${timestampHistories.content}">
                 <td th:text="${timestampHistory.date}"></td>
                 <td th:text="${timestampHistory.time}"></td>
                 <td>
@@ -68,6 +68,17 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
                 </td>
             </tr>
         </table>
+		<!-- ページネーション -->
+		<div>
+		  <a th:if="${timestampHistories.hasPrevious()}"
+		     th:href="@{/timestamp/create(userId=${userId},page=${timestampHistories.number - 1})}">前へ</a>
+
+		  <span th:text="${timestampHistories.number + 1}"></span> /
+		  <span th:text="${timestampHistories.totalPages}"></span>
+
+		  <a th:if="${timestampHistories.hasNext()}"
+		     th:href="@{/timestamp/create(userId=${userId},page=${timestampHistories.number + 1})}">次へ</a>
+		</div>
     </div>
 </main>
 </html>

@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Timestamp;
@@ -16,9 +16,9 @@ public class TimestampServiceImpl implements TimestampService {
 	private final TimestampRepository timestampRepository;
 
 	@Override
-    public List<Timestamp> findAllByUserIdOrderByCreatedAtDesc(Long userId) {
+    public Page<Timestamp> findAllByUserIdOrderByCreatedAtDesc(Long userId, Pageable pageable) {
 
-    	List<Timestamp> result = timestampRepository.findAllByUserIdOrderByCreatedAtDesc(userId);
+		Page<Timestamp> result = timestampRepository.findAllByUserIdOrderByCreatedAtDesc(userId, pageable);
 
         return result;
     }
