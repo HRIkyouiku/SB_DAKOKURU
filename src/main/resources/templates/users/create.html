@@ -102,8 +102,8 @@
 						th:checked="*{englishNotation}">
 				</div>
 
-				<input type="submit" value="登録">
-				<input type="submit" value="キャンセル">
+				<input type="submit" onclick="return confirm('登録します。宜しいですか？')" value="登録">
+				<input type="submit" onclick="return confirm('キャンセルします。宜しいですか？')" value="キャンセル">
 			</div>
 			<div>
 				<span th:if="${successMessage}" th:text="${successMessage}"></span>

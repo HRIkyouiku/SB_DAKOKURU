@@ -55,14 +55,34 @@ public class UserForm implements ValidationGroups {
 	private String lnEn;
 
 	// 旧姓の入力が必要な場合にチェック
+	@Size(min = 1, max = 255, message = "旧姓(正式表示)は、1文字以上、255文字以内で入力してください。")
 	private String olnJp;
+	
+	@Size(min = 1, max = 255, message = "旧姓(ひらがな)は、1文字以上、255文字以内で入力してください。")
+	@Pattern(regexp = "^[あ-ん]*$", message = "旧姓(ひらがな)は全角ひらがなで入力してください。")
 	private String olnJpHira;
+	
+	@Size(min = 1, max = 255, message = "旧姓(カタカナ)は、1文字以上、255文字以内で入力してください。")
+	@Pattern(regexp = "^[ア-ン]*$", message = "旧姓(カタカナ)は全角カタカナで入力してください。")
 	private String olnJpKata;
+	
+	@Size(min = 1, max = 255, message = "旧姓(英語)は、1文字以上、255文字以内で入力してください。")
+	@Pattern(regexp = "[a-zA-Z]*", message = "旧姓(英語)は半角英字で入力してください")
 	private String olnEn;
 
+	@Size(min = 1, max = 255, message = "ミドルネーム(正式表示)は、1文字以上、255文字以内で入力してください。")
 	private String mnJp;
+	
+	@Size(min = 1, max = 255, message = "ミドルネーム(ひらがな)は、1文字以上、255文字以内で入力してください。")
+	@Pattern(regexp = "^[あ-んー]*$", message = "ミドルネーム(ひらがな)は全角ひらがなで入力してください。")
 	private String mnJpHira;
+	
+	@Size(min = 1, max = 255, message = "ミドルネーム(カタカナ)は、1文字以上、255文字以内で入力してください。")
+	@Pattern(regexp = "^[ア-ンー]*$", message = "ミドルネーム(カタカナ)は全角カタカナで入力してください。")
 	private String mnJpKata;
+	
+	@Size(min = 1, max = 255, message = "ミドルネーム(英語)は、1文字以上、255文字以内で入力してください。")
+	@Pattern(regexp = "[a-zA-Z]*", message = "ミドルネーム姓(英語)は半角英字で入力してください")
 	private String mnEn;
 
 	@NotBlank(message = "メールアドレスを入力してください。")
@@ -72,6 +92,7 @@ public class UserForm implements ValidationGroups {
 
 	@NotBlank(message = "パスワードを入力してください。")
 	@Size(min = 8, max = 255, message = "パスワードは8文字以上、255文字以内で入力してください。")
+	@Pattern(regexp = "[a-zA-Z0-9]*", message = "パスワードは半角英字で入力してください")
 	private String password;
 
 	@NotNull(message = "社員番号を入力してください。")
@@ -88,6 +109,7 @@ public class UserForm implements ValidationGroups {
 	@AssertTrue(message = "旧姓の各欄に一つでも入力があった場合は必須です。")
 	public boolean isOldNameValid() {
 		// すべて入力の有無を確認する
+		
 		boolean isExistOlnJp = (olnJp != null && !olnJp.isEmpty());
 		boolean isExistOlnJpHira = (olnJpHira != null && !olnJpHira.isEmpty());
 		boolean isExistOlnJpKata = (olnJpKata != null && !olnJpKata.isEmpty());
