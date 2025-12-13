@@ -55,9 +55,9 @@ public class UserForm implements ValidationGroups {
 	private String lnEn;
 
 	// 旧姓の入力が必要な場合にチェック
-	/*@Size(min = 1, max = 255, message = "旧姓(正式表示)は、1文字以上、255文字以内で入力してください。")*/
-	
+	@Size(min = 1, max = 255)
 	private String olnJp;
+	
 	@AssertTrue(message = "旧姓(正式表示)は、1文字以上、255文字以内で入力してください。")
 	public boolean isOldJpValid() {
 		if (olnJp != null && !olnJp.isEmpty()) {
