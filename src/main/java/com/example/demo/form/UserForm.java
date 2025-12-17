@@ -9,6 +9,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
+import org.springframework.util.StringUtils;
+
 import lombok.Data;
 
 @Data
@@ -55,46 +57,83 @@ public class UserForm implements ValidationGroups {
 	private String lnEn;
 
 	// 旧姓の入力が必要な場合にチェック
-	@Size(min = 1, max = 255)
 	private String olnJp;
-	
 	@AssertTrue(message = "旧姓(正式表示)は、1文字以上、255文字以内で入力してください。")
-	public boolean isOldJpValid() {
-		if (olnJp != null && !olnJp.isEmpty()) {
-			if (olnJp.length() <= 1 || olnJp.length() >= 255) {
-			} 
-		}
-		
-		return true;
+	public boolean isOlnJpValid() {
+	    if (!StringUtils.hasText(olnJp)) {
+	        return true;
+	    }
+	    return olnJp.length() >= 1 && olnJp.length() <= 255;
 	}
 	
-	
-	@Size(min = 1, max = 255, message = "旧姓(ひらがな)は、1文字以上、255文字以内で入力してください。")
 	@Pattern(regexp = "^[あ-ん]*$", message = "旧姓(ひらがな)は全角ひらがなで入力してください。")
 	private String olnJpHira;
+	@AssertTrue(message = "旧姓(ひらがな)は、1文字以上、255文字以内で入力してください。")
+	public boolean isOlnJpHiraValid() {
+	    if (!StringUtils.hasText(olnJpHira)) {
+	        return true;
+	    }
+	    return olnJpHira.length() >= 1 && olnJpHira.length() <= 255;
+	}
 	
-	@Size(min = 1, max = 255, message = "旧姓(カタカナ)は、1文字以上、255文字以内で入力してください。")
 	@Pattern(regexp = "^[ア-ン]*$", message = "旧姓(カタカナ)は全角カタカナで入力してください。")
 	private String olnJpKata;
+	@AssertTrue(message = "旧姓(カタカナ)は、1文字以上、255文字以内で入力してください。")
+	public boolean isOlnJpKataValid() {
+	    if (!StringUtils.hasText(olnJpKata)) {
+	        return true;
+	    }
+	    return olnJpKata.length() >= 1 && olnJpKata.length() <= 255;
+	}
 	
-	@Size(min = 1, max = 255, message = "旧姓(英語)は、1文字以上、255文字以内で入力してください。")
 	@Pattern(regexp = "[a-zA-Z]*", message = "旧姓(英語)は半角英字で入力してください")
 	private String olnEn;
+	@AssertTrue(message = "旧姓(英語)は、1文字以上、255文字以内で入力してください。")
+	public boolean isOlnEnValid() {
+	    if (!StringUtils.hasText(olnEn)) {
+	        return true;
+	    }
+	    return olnEn.length() >= 1 && olnEn.length() <= 255;
+	}
 
-	@Size(min = 1, max = 255, message = "ミドルネーム(正式表示)は、1文字以上、255文字以内で入力してください。")
 	private String mnJp;
-	
-	@Size(min = 1, max = 255, message = "ミドルネーム(ひらがな)は、1文字以上、255文字以内で入力してください。")
+	@AssertTrue(message = "ミドルネーム(正式表示)は、1文字以上、255文字以内で入力してください。")
+	public boolean isMnJpValid() {
+	    if (!StringUtils.hasText(mnJp)) {
+	        return true;
+	    }
+	    return mnJp.length() >= 1 && mnJp.length() <= 255;
+	}
+
 	@Pattern(regexp = "^[あ-んー]*$", message = "ミドルネーム(ひらがな)は全角ひらがなで入力してください。")
 	private String mnJpHira;
-	
-	@Size(min = 1, max = 255, message = "ミドルネーム(カタカナ)は、1文字以上、255文字以内で入力してください。")
+	@AssertTrue(message = "ミドルネーム(ひらがな)は、1文字以上、255文字以内で入力してください。")
+	public boolean isMnJpHiraValid() {
+	    if (!StringUtils.hasText(mnJpHira)) {
+	        return true;
+	    }
+	    return mnJpHira.length() >= 1 && mnJpHira.length() <= 255;
+	}
+
 	@Pattern(regexp = "^[ア-ンー]*$", message = "ミドルネーム(カタカナ)は全角カタカナで入力してください。")
 	private String mnJpKata;
-	
-	@Size(min = 1, max = 255, message = "ミドルネーム(英語)は、1文字以上、255文字以内で入力してください。")
+	@AssertTrue(message = "ミドルネーム(カタカナ)は、1文字以上、255文字以内で入力してください。")
+	public boolean isMnJpKataValid() {
+	    if (!StringUtils.hasText(mnJpKata)) {
+	        return true;
+	    }
+	    return mnJpKata.length() >= 1 && mnJpKata.length() <= 255;
+	}
+
 	@Pattern(regexp = "[a-zA-Z]*", message = "ミドルネーム姓(英語)は半角英字で入力してください")
 	private String mnEn;
+	@AssertTrue(message = "ミドルネーム(英語)は、1文字以上、255文字以内で入力してください。")
+	public boolean isMnEnValid() {
+	    if (!StringUtils.hasText(mnEn)) {
+	        return true;
+	    }
+	    return mnEn.length() >= 1 && mnEn.length() <= 255;
+	}
 
 	@NotBlank(message = "メールアドレスを入力してください。")
 	@Email(message = "メールアドレスの形式が正しくありません。")
