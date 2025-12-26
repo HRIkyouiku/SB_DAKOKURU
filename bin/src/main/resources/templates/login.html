@@ -5,9 +5,6 @@
     </head>
     <body>
         <form th:action="@{/login}" method="post">
-			<div th:if="${param.error}">
-					<p th:text="#{V-Nm-EnPs}"></p>
-			</div>
             <div>
                 <label> 社員番号: <input type="text" name="employee_no"/></label>
             </div>
