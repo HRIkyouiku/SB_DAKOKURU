@@ -7,6 +7,9 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,11 +46,12 @@ public class TimestampController {
 
 	@GetMapping("/timestamp/create")
 	public String timeline(Model model,
-			@AuthenticationPrincipal CustomUserDetails userDetails) {
+			@AuthenticationPrincipal CustomUserDetails userDetails,
+			@PageableDefault(page = 0, size = 10) Pageable pageable) {
 
-	    if (!model.containsAttribute("timestampForm")) {
-	        model.addAttribute("timestampForm", new TimestampForm());
-	    }
+		if (!model.containsAttribute("timestampForm")) {
+			model.addAttribute("timestampForm", new TimestampForm());
+		}
 
 		List<WorkPlace> places = workPlaceService.findAll();
 		model.addAttribute("places", places);
@@ -55,52 +59,57 @@ public class TimestampController {
 		List<Timestamp> timestampHistories = timestampService.findAllByUserIdOrderByCreatedAtDesc(userDetails.getId());
 		model.addAttribute("timestampHistories", timestampHistories);
 		System.out.println(timestampHistories);
+		
+		Page<Timestamp> timestampPage = timestampService.getTimestamps(pageable);
 
-        return "timestamps/create";
-    }
+		model.addAttribute("page", timestampPage);
+		model.addAttribute("timestamps", timestampPage.getContent());
+
+		return "timestamps/create";
+	}
 
 	@PostMapping("/timestamp/store")
 	public String store(@Validated @ModelAttribute("timestampForm") TimestampForm form,
-            BindingResult result,
-            RedirectAttributes ra,
-            @AuthenticationPrincipal CustomUserDetails userDetails) {
+			BindingResult result,
+			RedirectAttributes ra,
+			@AuthenticationPrincipal CustomUserDetails userDetails) {
 
-        if (result.hasErrors()) {
+		if (result.hasErrors()) {
 
-            ra.addFlashAttribute("org.springframework.validation.BindingResult.timestampForm", result);
-            ra.addFlashAttribute("timestampForm", form);
-            return "redirect:/timestamp/create";
-        }
+			ra.addFlashAttribute("org.springframework.validation.BindingResult.timestampForm", result);
+			ra.addFlashAttribute("timestampForm", form);
+			return "redirect:/timestamp/create";
+		}
 
-        // 現在の日時を取得
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        LocalTime currentTime = LocalTime.of(currentDateTime.getHour(), currentDateTime.getMinute());
-        System.out.println(currentTime);
-        // 05:00をリミット時間として定義
-        LocalTime limitTime = LocalTime.of(5, 0);
-        if (currentTime.isBefore(limitTime)) {
-            currentDateTime = currentDateTime.minusDays(1);
-        }
+		// 現在の日時を取得
+		LocalDateTime currentDateTime = LocalDateTime.now();
+		LocalTime currentTime = LocalTime.of(currentDateTime.getHour(), currentDateTime.getMinute());
+		System.out.println(currentTime);
+		// 05:00をリミット時間として定義
+		LocalTime limitTime = LocalTime.of(5, 0);
+		if (currentTime.isBefore(limitTime)) {
+			currentDateTime = currentDateTime.minusDays(1);
+		}
 
-        // 日付部分だけを取得
-        LocalDate fixedDate = currentDateTime.toLocalDate();
+		// 日付部分だけを取得
+		LocalDate fixedDate = currentDateTime.toLocalDate();
 
-        Timestamp timestamp = new Timestamp();
-        timestamp.setUserId(userDetails.getId());
-        timestamp.setDate(fixedDate);
-        timestamp.setTime(currentTime);
-        timestamp.setType(form.getType());
-        timestamp.setWorkPlaceId(form.getWorkPlaceId());
-        timestamp.setRemark(null);  // 備考は未使用
-        timestamp.setApproved(false);   // 未承認で固定
+		Timestamp timestamp = new Timestamp();
+		timestamp.setUserId(userDetails.getId());
+		timestamp.setDate(fixedDate);
+		timestamp.setTime(currentTime);
+		timestamp.setType(form.getType());
+		timestamp.setWorkPlaceId(form.getWorkPlaceId());
+		timestamp.setRemark(null); // 備考は未使用
+		timestamp.setApproved(false); // 未承認で固定
 
-        // データベースに保存
-        timestampService.save(timestamp);
+		// データベースに保存
+		timestampService.save(timestamp);
 
-        // リダイレクト時にメッセージを追加
-        ra.addFlashAttribute("successMessage", "打刻が登録されました。");
+		// リダイレクト時にメッセージを追加
+		ra.addFlashAttribute("successMessage", "打刻が登録されました。");
 
-        return "redirect:/timestamp/create";
+		return "redirect:/timestamp/create";
 	}
 
 	@GetMapping("/users_daily_timestamps/{period}")
@@ -108,41 +117,53 @@ public class TimestampController {
 			Model model,
 			@ModelAttribute("timestampForm") UserTimestampForm form) {
 		// "yyyy-MM" 形式のパラメータを YearMonth に変換
-        YearMonth ym = YearMonth.parse(period, DateTimeFormatter.ofPattern("yyyy-MM"));
+		YearMonth ym = YearMonth.parse(period, DateTimeFormatter.ofPattern("yyyy-MM"));
 
-        // 月初・月末を取得
-        LocalDate firstDay = ym.atDay(1);
-        LocalDate lastDay = ym.atEndOfMonth();
+		// 月初・月末を取得
+		LocalDate firstDay = ym.atDay(1);
+		LocalDate lastDay = ym.atEndOfMonth();
 
-        // フォーマットを定義
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+		// フォーマットを定義
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
 
-        // フォーマットを適用
-        String formattedFirstDay = firstDay.format(formatter);
-        String formattedLastDay = lastDay.format(formatter);
+		// フォーマットを適用
+		String formattedFirstDay = firstDay.format(formatter);
+		String formattedLastDay = lastDay.format(formatter);
 
-        // Thymeleaf に渡す
-        model.addAttribute("ym", ym);
-        model.addAttribute("firstDay", formattedFirstDay);
-        model.addAttribute("lastDay", formattedLastDay);
+		// Thymeleaf に渡す
+		model.addAttribute("ym", ym);
+		model.addAttribute("firstDay", formattedFirstDay);
+		model.addAttribute("lastDay", formattedLastDay);
 
-        // 検索キーワードからユーザーIDを取得
-        List<Long> userIds = nameService.searchUsers(form.getKeyword());
+		// 検索キーワードからユーザーIDを取得
+		List<Long> userIds = nameService.searchUsers(form.getKeyword());
 
-        System.out.println(userIds);
-        // サービスを通じて日付ごとの打刻情報を取得
-        List<Object[]> timestamps = userService.getDailyTimestamps(userIds, firstDay, lastDay);
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
+		System.out.println(userIds);
+		// サービスを通じて日付ごとの打刻情報を取得
+		List<Object[]> timestamps = userService.getDailyTimestamps(userIds, firstDay, lastDay);
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
 			String json = objectMapper.writeValueAsString(timestamps);
 			System.out.println(json);
 		} catch (JsonProcessingException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
-        model.addAttribute("timestamps", timestamps);
-
+		model.addAttribute("timestamps", timestamps);
 
 		return "timestamps/users_daily_timestamps";
 	}
+	
+	/*@GetMapping
+	public String index(Model model,
+			@PageableDefault(page = 0, size = 10) Pageable pageable) {
+		
+		Page<Timestamp> timestampPage = timestampService.getTimestamps(pageable);
+
+		model.addAttribute("page", timestampPage);
+		model.addAttribute("timestamps", timestampPage.getContent());
+
+		return "/timestamp/create";
+	}*/
+
 }

@@ -68,6 +68,41 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
                 </td>
             </tr>
         </table>
+		
+		<div>
+		  <ul>
+		    <li style="display:inline;">
+		      <span th:if="${page.first}">&lt;&lt;前</span>
+		      <a
+		        th:if="${!page.first}"
+		        th:href="@{/pages/timestamps(page = ${page.number} - 1)}"
+		      >
+		        &lt;&lt;前
+		      </a>
+		    </li>
+		    <li
+		      th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}"
+		      style="display:inline; margin-left:10px;"
+		    >
+		      <span th:if="${i} == ${page.number}" th:text="${i + 1}">1</span>
+		      <a
+		        th:if="${i} != ${page.number}"
+		        th:href="@{/pages/timestamps(page = ${i})}"
+		      >
+		        <span th:text="${i+1}">1</span>
+		      </a>
+		    </li>
+		    <li style="display:inline; margin-left:10px;">
+		      <span th:if="${page.last}">次&gt;&gt;</span>
+		      <a
+		        th:if="${!page.last}"
+		        th:href="@{/pages/timestamps(page = (${page.number} + 1))}">
+		        次&gt;&gt;
+		      </a>
+		    </li>
+		  </ul>
+		</div>
+		
     </div>
 </main>
 </html>
