@@ -30,7 +30,12 @@ public class TimestampServiceImpl implements TimestampService {
 		timestampRepository.save(timestamp);
 	}
 	
-	public Page<Timestamp> getTimestamps(Pageable pageable) {
+	public Page<Timestamp> findAll(Pageable pageable) {
         return timestampRepository.findAll(pageable);
     }
+	
+	/*@Override
+	public Page<Timestamp> findAllByUserIdOrderByCreatedAtDesc(Long userId, Pageable pageable){
+		return timestampRepository.findAll(pageable);
+	}*/
 }

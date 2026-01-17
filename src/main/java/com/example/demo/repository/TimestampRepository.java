@@ -13,5 +13,7 @@ public interface TimestampRepository extends JpaRepository<Timestamp, Long> {
 	List<Timestamp> findAllByUserIdOrderByCreatedAtDesc(Long userId);
 	
 	public Page<Timestamp> findAll(Pageable pageable);
+	
+	/*public Page<Timestamp> findAllByUserIdOrderByCreatedAtDesc(Long userId, Pageable pageable);*/
 
 }

@@ -60,10 +60,15 @@ public class TimestampController {
 		model.addAttribute("timestampHistories", timestampHistories);
 		System.out.println(timestampHistories);
 		
-		Page<Timestamp> timestampPage = timestampService.getTimestamps(pageable);
+		Page<Timestamp> timestampPage = timestampService.findAll(pageable);
 
 		model.addAttribute("page", timestampPage);
 		model.addAttribute("timestamps", timestampPage.getContent());
+		
+		/*Page<Timestamp> timestampHistories = timestampService.findAllByUserIdOrderByCreatedAtDesc(userDetails.getId(), pageable);
+
+	    model.addAttribute("page", timestampHistories);
+	    model.addAttribute("timestamps", timestampHistories.getContent()); */
 
 		return "timestamps/create";
 	}

@@ -11,5 +11,7 @@ public interface TimestampService {
 
 	public List<Timestamp> findAllByUserIdOrderByCreatedAtDesc(Long userId);
 	public void save(Timestamp timestamp);
-	public Page<Timestamp> getTimestamps(Pageable pageable);
+	public Page<Timestamp> findAll(Pageable pageable);
+	
+	/*public Page<Timestamp> findAllByUserIdOrderByCreatedAtDesc(Long userId, Pageable pageable);*/
 }
