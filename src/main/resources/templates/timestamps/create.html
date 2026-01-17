@@ -54,7 +54,7 @@
 	<div>
 		<h2>打刻履歴</h2>
 		<table>
-			<tr th:each="timestampHistory : ${timestampHistories}">
+			<tr th:each="timestampHistory : ${timestampPage}">
 				<td th:text="${timestampHistory.date}"></td>
 				<td th:text="${timestampHistory.time}"></td>
 				<td>
@@ -72,21 +72,21 @@
 		<div>
 			<ul>
 				<li style="display:inline;">
-					<span th:if="${page.first}">&lt;&lt;前</span>
-					<a th:if="${!page.first}" th:href="@{/timestamp/create(page = ${page.number} - 1)}">
+					<span th:if="${timestampPage.first}">&lt;&lt;前</span>
+					<a th:if="${!timestampPage.first}" th:href="@{/timestamp/create(page = ${timestampPage.number - 1})}">
 						&lt;&lt;前
 					</a>
 				</li>
-				<li th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}"
+				<li th:each="i : ${#numbers.sequence(0, timestampPage.totalPages - 1)}"
 					style="display:inline; margin-left:10px;">
-					<span th:if="${i} == ${page.number}" th:text="${i + 1}">1</span>
-					<a th:if="${i} != ${page.number}" th:href="@{/timestamp/create(page = ${i})}">
+					<span th:if="${i} == ${timestampPage.number}" th:text="${i + 1}">1</span>
+					<a th:if="${i} != ${timestampPage.number}" th:href="@{/timestamp/create(page = ${i})}">
 						<span th:text="${i+1}">1</span>
 					</a>
 				</li>
 				<li style="display:inline; margin-left:10px;">
-					<span th:if="${page.last}">次&gt;&gt;</span>
-					<a th:if="${!page.last}" th:href="@{/timestamp/create(page = (${page.number} + 1))}">
+					<span th:if="${timestampPage.last}">次&gt;&gt;</span>
+					<a th:if="${!timestampPage.last}" th:href="@{/timestamp/create(page = ${timestampPage.number + 1})}">
 						次&gt;&gt;
 					</a>
 				</li>

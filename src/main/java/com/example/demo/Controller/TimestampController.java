@@ -62,7 +62,7 @@ public class TimestampController {
 		
 		Page<Timestamp> timestampPage = timestampService.findAll(pageable);
 
-		model.addAttribute("page", timestampPage);
+		model.addAttribute("timestampPage", timestampPage);
 		model.addAttribute("timestamps", timestampPage.getContent());
 		
 		/*Page<Timestamp> timestampHistories = timestampService.findAllByUserIdOrderByCreatedAtDesc(userDetails.getId(), pageable);
