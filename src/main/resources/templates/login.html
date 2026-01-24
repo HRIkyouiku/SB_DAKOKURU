@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+    <link rel="stylesheet" th:href="@{/css/style.css}">    
     <head>
-        <title>Spring Security Example </title>
+        <title>Spring Security Example</title>
     </head>
     <body>
         <form th:action="@{/login}" method="post">
-            <div>
-                <label> 社員番号: <input type="text" name="employee_no"/></label>
+            <div th:if="${param.error}" class="error-message"th:text="#{V-Nm-EnPs}">。
             </div>
             <div>
-                <label> パスワード: <input type="password" name="password"/></label>
+                <label for="employee_no">
+                    社員番号:<input type="text" id="employee_no" name="employee_no"th:value="${session.employeeNo}">
+                </label>
             </div>
             <div>
-                <input type="submit" value="ログイン"/>
+                <label for="password">
+                    パスワード:<input type="password" id="password" name="password">
+                </label>
+            </div>
+            <div class="form-action">
+                <input type="submit" value="ログイン">
             </div>
         </form>
     </body>

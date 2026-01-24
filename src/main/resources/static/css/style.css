@@ -69,6 +69,37 @@ main {
     padding: 20px;
 }
 
+/*以下修正*/
 .error-message {
+    margin-bottom: 16px;
     color: red;
+    font-size: 14px;
 }
+
+/*以下追記*/
+form {
+    width: 300px;
+    margin: 80px auto;
+}
+
+.form-item {
+    margin-bottom: 16px;
+}
+
+.form-item label {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.form-item input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.form-action {
+    text-align: center;
+    margin-top: 24px;
+}
+
+

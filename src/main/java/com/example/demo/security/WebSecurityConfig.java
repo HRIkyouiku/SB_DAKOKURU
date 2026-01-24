@@ -9,22 +9,28 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import lombok.RequiredArgsConstructor;
 
+
 @Configuration
 @RequiredArgsConstructor
 public class WebSecurityConfig {
-
+	
+	private final CustomAuthenticationFailureHandler
+    customAuthenticationFailureHandler;
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/register", "/login").permitAll()
                         .anyRequest().authenticated())
+                
                 .formLogin(form -> form
                         .loginPage("/login")
                         .usernameParameter("employee_no")
-                        .passwordParameter("password")
+                        .passwordParameter("password")                       
+                        .failureHandler(customAuthenticationFailureHandler)
                         .defaultSuccessUrl("/timestamp/create", true)
                         .permitAll())
+                
                 .logout(logout -> logout
                         .logoutSuccessUrl("/login")
                         .permitAll());
