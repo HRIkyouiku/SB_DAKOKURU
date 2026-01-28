@@ -12,15 +12,19 @@
 		<img th:src="@{/images/DAKOKURU.jpg}" alt="ロゴ" width="150">
 		<h1>DAKOKURU</h1>
 	</div>
-	<div class="error-message" th:if="${errorMessage}">
-		<p th:text="${errorMessage}"></p>
+	<div th:if="${param.error}" style = color:red;>
+	    社員番号とパスワードの組み合わせが正しくありません。
 	</div>
 	<form class="login-form" th:action="@{/login}" method="post">
 		<div>
-			<label><input type="text" name="employee_no" placeholder="社員番号" /></label>
+			<label>
+				<input type="text" name="employee_no" placeholder="社員番号" th:value="${param.employee_no}"/>
+			</label>
 		</div>
 		<div>
-			<label><input type="password" name="password" placeholder="パスワード" /></label>
+			<label>
+				<input type="password" name="password" placeholder="パスワード" />
+			</label>
 		</div>
 		<div>
 			<input type="submit" value="Log-In" style="text-align: left;background-color:#4d4d4d; color:#ffffff"/>
