@@ -10,14 +10,20 @@
                 <select name="workPlaceId">
                     <option th:each="place : ${places}" th:value="${place.id}" th:text="${place.name}"></option>
                 </select>
-    
-                <th:block th:if="${#lists.isEmpty(timestampHistories)}">
+                <!-- <th:block th:if="${#lists.isEmpty(timestampHistories)}"> -->
+                <!-- 2026/01/31 ①コントローラから渡される変数がtimestampPageになったため、
+                #lists.isEmpty(...) を使わなくても timestampPage.isEmpty() で判定できる。-->
+                <th:block th:if="${timestampPage.isEmpty()}">
                     <input type="hidden" name="type" value="1">
                     <button type="submit">出勤</button>
                 </th:block>
-    
-                <th:block th:if="${not #lists.isEmpty(timestampHistories)}">
-                    <th:block th:switch="${timestampHistories[0].type}">
+                <!-- <th:block th:if="${not #lists.isEmpty(timestampHistories)}"> -->
+                <!-- 2026/01/31 ①と同様の理由で修正 -->
+                <th:block th:if="${!timestampPage.isEmpty()}">
+                    <!-- <th:block th:switch="${timestampHistories[0].type}"> -->
+                    <!-- 2026/01/31 最新の打刻タイプを確認する際、timestampPage.content[0] とすることで、
+	                そのページ内の1番目のデータを参照する -->
+                    <th:block th:switch="${timestampPage.content[0].type}">
                         <th:block th:case="4">
                             <input type="hidden" name="type" value="1">
                             <button type="submit">出勤</button>
@@ -49,7 +55,9 @@
         <div>
             <h2>打刻履歴</h2>
             <table>
-                <tr th:each="timestampHistory : ${timestampHistories}">
+                <!-- <tr th:each="timestampHistory : ${timestampHistories}"> -->
+                <!-- 2026/01/31 Pageオブジェクト出なく、データリストである ".content"を回す -->
+                <tr th:each="timestampHistory : ${timestampPage.content}">
                     <td th:text="${timestampHistory.date}"></td>
                     <td th:text="${timestampHistory.time}"></td>
                     <td>
@@ -63,6 +71,19 @@
                     </td>
                 </tr>
             </table>
+            
+            <!-- 2026/01/31 totalPages > 1(前ページが2ページ以上ある場合)にボタンを表示する -->
+            <div th:if="${timestampPage.totalPages > 1}" style="margin-top: 20px;">
+                <span th:if="${!timestampPage.first}">
+                    <a th:href="@{/timestamp/create(page=${timestampPage.number - 1})}">&laquo; 前へ</a>
+                </span>
+                            
+                <span th:text="${timestampPage.number + 1} + ' / ' + ${timestampPage.totalPages}"></span>
+                            
+                <span th:if="${!timestampPage.last}">
+                    <a th:href="@{/timestamp/create(page=${timestampPage.number + 1})}">次へ &raquo;</a>
+                </span>
+            </div>
         </div>
     </main>
 </html>

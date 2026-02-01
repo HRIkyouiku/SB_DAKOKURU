@@ -7,6 +7,10 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+//必要なパッケージのインポート 2026/01/27
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.entity.Timestamp;
@@ -42,7 +47,9 @@ public class TimestampController {
     private final UserService userService;
 
     @GetMapping("/timestamp/create")
-    public String timeline(Model model, @AuthenticationPrincipal CustomUserDetails userDetails) {
+    public String timeline(
+            @RequestParam(name = "page", defaultValue = "0") int page, // 2026/02/01 追加 ページ番号を受け取る（デフォルト0）
+            Model model, @AuthenticationPrincipal CustomUserDetails userDetails) {
 
         if (!model.containsAttribute("timestampForm")) {
             model.addAttribute("timestampForm", new TimestampForm());
@@ -50,10 +57,22 @@ public class TimestampController {
 
         List<WorkPlace> places = workPlaceService.findAll();
         model.addAttribute("places", places);
+        
+        //ページドネーション実装処理へ修正 Start 2026/01/27
+        //1ページ10件のPageableを作成
+        Pageable pageable = PageRequest.of(page, 10);
+        
+        //serviceからPageオブジェクトを取得
+        Page<Timestamp> timestampPage = timestampService.findPageByUserId(userDetails.getId(),pageable);
+        
+        //以前のListの代わりに、Pageオブジェクトを渡す
+        model.addAttribute("timestampPage",timestampPage);
+        //ページドネーション実装処理へ修正 End 2026/01/27
 
-        List<Timestamp> timestampHistories = timestampService.findAllByUserIdOrderByCreatedAtDesc(userDetails.getId());
+        /*List<Timestamp> timestampHistories = timestampService.findAllByUserIdOrderByCreatedAtDesc(userDetails.getId());
         model.addAttribute("timestampHistories", timestampHistories);
         System.out.println(timestampHistories);
+        */
 
         return "timestamps/create";
     }
