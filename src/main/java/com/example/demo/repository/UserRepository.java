@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.example.demo.dto.UserDailyTimestampDTO;
 import com.example.demo.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -20,9 +19,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	void deleteById(Long userId);
 	User findByEmail(String email);
 	User findByEmployeeNo(Integer employeeNo);
-
+	
 	@Query(value = """
-            SELECT
+			SELECT
 			    u.id AS userId,
 			    n.fn_jp AS fnJp,
 			    n.ln_jp AS lnJp,
@@ -34,27 +33,31 @@ public interface UserRepository extends JpaRepository<User, Long> {
 			                SELECT JSON_ARRAYAGG(
 			                    JSON_OBJECT(
 			                        'time', t2.time,
+			                        'type', t2.type,
 			                        'work_place_id', t2.work_place_id
 			                    )
 			                )
 			                FROM timestamps t2
 			                WHERE t2.user_id = u.id
-			                AND t2.date = t.date
+			                  AND t2.date = t.date
+			                  AND t2.type IN (1, 4)
 			            ), JSON_ARRAY())
 			        )
 			    ) AS dailyTimestamps
-            FROM users u
-            JOIN names n ON u.id = n.user_id
-            JOIN department_affiliations da ON u.id = da.user_id
-            JOIN departments d ON da.department_id = d.id
-            LEFT JOIN timestamps t ON u.id = t.user_id
-            WHERE u.id IN (:userIds)
-              AND t.date BETWEEN :startDate AND :endDate
-            GROUP BY u.id, n.fn_jp, n.ln_jp, d.name_jp;
-            """, nativeQuery = true)
-    List<Object[]> findDailyTimestamps(
-        @Param("userIds") List<Long> userIds,
-        @Param("startDate") LocalDate startDate,
-        @Param("endDate") LocalDate endDate
-    );
+			FROM users u
+			JOIN names n ON u.id = n.user_id
+			JOIN department_affiliations da ON u.id = da.user_id
+			JOIN departments d ON da.department_id = d.id
+			LEFT JOIN timestamps t
+			  ON u.id = t.user_id
+			 AND t.date BETWEEN :startDate AND :endDate
+			WHERE
+			    (:userIds IS NULL OR u.id IN (:userIds))
+			GROUP BY u.id, n.fn_jp, n.ln_jp, d.name_jp
+			""", nativeQuery = true)
+			List<Object[]> findDailyTimestamps(
+			    @Param("userIds") List<Long> userIds,
+			    @Param("startDate") LocalDate startDate,
+			    @Param("endDate") LocalDate endDate
+			);
 }

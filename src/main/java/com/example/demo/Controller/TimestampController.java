@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.demo.dto.UserDailyViewDTO;
 import com.example.demo.entity.Timestamp;
 import com.example.demo.entity.WorkPlace;
 import com.example.demo.form.TimestampForm;
@@ -27,8 +28,6 @@ import com.example.demo.service.NameService;
 import com.example.demo.service.TimestampService;
 import com.example.demo.service.UserService;
 import com.example.demo.service.WorkPlaceService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.RequiredArgsConstructor;
 
@@ -120,6 +119,13 @@ public class TimestampController {
         // フォーマットを適用
         String formattedFirstDay = firstDay.format(formatter);
         String formattedLastDay = lastDay.format(formatter);
+        
+        // 日付リストを作成
+        List<LocalDate> dateList = firstDay
+                .datesUntil(lastDay.plusDays(1))
+                .toList();
+
+        model.addAttribute("dateList", dateList);
 
         // Thymeleaf に渡す
         model.addAttribute("ym", ym);
@@ -131,15 +137,17 @@ public class TimestampController {
 
         System.out.println(userIds);
         // サービスを通じて日付ごとの打刻情報を取得
-        List<Object[]> timestamps = userService.getDailyTimestamps(userIds, firstDay, lastDay);
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-			String json = objectMapper.writeValueAsString(timestamps);
-			System.out.println(json);
-		} catch (JsonProcessingException e) {
+        //List<Object[]> timestamps = userService.getDailyTimestamps(userIds, firstDay, lastDay);
+        List<UserDailyViewDTO> timestamps = userService.getDailyTimestampsView(userIds, firstDay, lastDay);
+        System.out.println(timestamps);
+        //ObjectMapper objectMapper = new ObjectMapper();
+        //try {
+		//	String json = objectMapper.writeValueAsString(timestamps);
+		//	System.out.println(json);
+		//} catch (JsonProcessingException e) {
 			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
+		//	e.printStackTrace();
+		//}
         model.addAttribute("timestamps", timestamps);
 
 

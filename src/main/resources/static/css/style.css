@@ -71,3 +71,8 @@ main {
 .error-message{
 	color: red;
 }
+
+th, td {
+	border: 1px solid #333;
+}
+

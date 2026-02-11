@@ -20,9 +20,77 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
     <a th:href="@{'/users_daily_timestamps/' + ${ym.plusMonths(1)}}">翌月</a>
 		</div>
 		<table>
-			<tr th:each="timestamp : ${timestamps}">
-		        <td th:text="${timestamp}"></td>
-    		</tr>
+		   <thead>
+			       <tr>
+			           <th>氏名</th>
+					   <th>部署</th>
+
+			           <!-- 日付ヘッダ -->
+					   <th th:each="d : ${dateList}">
+					       <span th:text="${#temporals.format(d, 'dd（E）')}"></span>
+					   </th>
+			       </tr>
+			</thead>
+			<tbody>
+			     <!-- ユーザー単位 -->
+			     <tr th:each="ts : ${timestamps}">
+					<td th:text="${ts.name}"></td>
+			        <td th:text="${ts.departmentName}"></td>
+
+			         <!-- 日付単位 -->
+		             <td th:each="d : ${dateList}"
+		                 th:with="
+		                     dayList=${ts.dailyMap.get(d)},
+		                     inList=${dayList != null ? dayList.?[type == '1'] : null},
+		                     outList=${dayList != null ? dayList.?[type == '4'] : null}
+		                 "
+		                 th:classappend="${(dayList == null or #lists.isEmpty(dayList)) 
+		                                   and !d.isAfter(T(java.time.LocalDate).now())}
+		                                  ? 'no-punch'">
+		                 <!-- 出勤 -->
+		                 <div>
+		                     <!-- 打刻あり -->
+		                     <span th:if="${inList != null and !#lists.isEmpty(inList)}">
+		                         出：<span th:text="${#temporals.format(inList[0].time, 'HH:mm')}"></span>
+		                     </span>
+
+							 <!-- 未打刻：過去日 → 赤 -->
+							 <span th:if="${(inList == null or #lists.isEmpty(inList)) 
+							               and d.isBefore(T(java.time.LocalDate).now())}"
+							       style="color:red;">
+							     出：-
+							 </span>
+
+							 <!-- 未打刻：今日・未来 → 黒 -->
+							 <span th:if="${(inList == null or #lists.isEmpty(inList)) 
+							               and !d.isBefore(T(java.time.LocalDate).now())}">
+							     出：-
+							 </span>
+		                 </div>
+
+		                 <!-- 退勤 -->
+		                 <div>
+		                     <!-- 打刻あり -->
+		                     <span th:if="${outList != null and !#lists.isEmpty(outList)}">
+		                         退：<span th:text="${#temporals.format(outList[0].time, 'HH:mm')}"></span>
+		                     </span>
+
+							 <!-- 未打刻：過去日 → 赤 -->
+							 <span th:if="${(outList == null or #lists.isEmpty(outList)) 
+							               and d.isBefore(T(java.time.LocalDate).now())}"
+							       style="color:red;">
+							     退：-
+							 </span>
+
+							 <!-- 未打刻：今日・未来 → 黒 -->
+							 <span th:if="${(outList == null or #lists.isEmpty(outList)) 
+							               and !d.isBefore(T(java.time.LocalDate).now())}">
+							     退：-
+							 </span>
+		                 </div>
+		             </td>
+			     </tr>
+			 </tbody>
 		</table>
 	</div>
 </main>

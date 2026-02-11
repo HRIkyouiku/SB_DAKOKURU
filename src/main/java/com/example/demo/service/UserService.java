@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.demo.dto.UserDailyViewDTO;
 import com.example.demo.entity.User;
 
 public interface UserService {
@@ -14,4 +15,5 @@ public interface UserService {
 	User findByEmail(String email);
 	User findByEmployeeNo(Integer employeeNo);
 	List<Object[]> getDailyTimestamps(List<Long> userIds, LocalDate firstDay, LocalDate lastDay);
+	List<UserDailyViewDTO> getDailyTimestampsView(List<Long> userIds, LocalDate startDate, LocalDate endDate);
 }
