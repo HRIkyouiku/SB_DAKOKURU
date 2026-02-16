@@ -5,12 +5,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
 	<form action="" method="get">
 		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
-		<label>キーワード</label>
+		<label>名前</label>
 		<input type="text" name="keyword">
 		<label>部署</label>
-		<input type="text" name="department_id">
+		<input type="text" name="departmentName">
+		<!-- 
 		<label>権限グループ</label>
-		<input type="text" name="group_id">
+		<input type="text" name="group_id"> -->
 		<input type="submit" value="検索">
 	</form>
 	<div>

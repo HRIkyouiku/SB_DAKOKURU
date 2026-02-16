@@ -133,12 +133,19 @@ public class TimestampController {
         model.addAttribute("lastDay", formattedLastDay);
 
         // 検索キーワードからユーザーIDを取得
-        List<Long> userIds = nameService.searchUsers(form.getKeyword());
+        //List<Long> userIds = nameService.searchUsers(form.getKeyword());
+        String name = form.getKeyword();
+        if (name != null && name.isBlank()) {
+        	name = null;
+        }
+        String departmentName = form.getDepartmentName();
+        if (departmentName != null && departmentName.isBlank()) {
+            departmentName = null;
+        }
 
-        System.out.println(userIds);
         // サービスを通じて日付ごとの打刻情報を取得
         //List<Object[]> timestamps = userService.getDailyTimestamps(userIds, firstDay, lastDay);
-        List<UserDailyViewDTO> timestamps = userService.getDailyTimestampsView(userIds, firstDay, lastDay);
+        List<UserDailyViewDTO> timestamps = userService.getDailyTimestampsView(name, firstDay, lastDay, departmentName);
         System.out.println(timestamps);
         //ObjectMapper objectMapper = new ObjectMapper();
         //try {

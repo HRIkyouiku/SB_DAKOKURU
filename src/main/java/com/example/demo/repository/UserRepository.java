@@ -52,12 +52,18 @@ public interface UserRepository extends JpaRepository<User, Long> {
 			  ON u.id = t.user_id
 			 AND t.date BETWEEN :startDate AND :endDate
 			WHERE
-			    (:userIds IS NULL OR u.id IN (:userIds))
+			   (:name IS NULL OR :name = ''
+			   OR n.fn_jp LIKE CONCAT('%', :name, '%')
+			   OR n.ln_jp LIKE CONCAT('%', :name, '%'))
+			AND
+			    (:departmentName IS NULL OR :departmentName = ''
+			    OR d.name_jp LIKE CONCAT('%', :departmentName, '%'))
 			GROUP BY u.id, n.fn_jp, n.ln_jp, d.name_jp
 			""", nativeQuery = true)
 			List<Object[]> findDailyTimestamps(
-			    @Param("userIds") List<Long> userIds,
+			    @Param("name") String name,
 			    @Param("startDate") LocalDate startDate,
-			    @Param("endDate") LocalDate endDate
+			    @Param("endDate") LocalDate endDate,
+			    @Param("departmentName") String departmentName
 			);
 }

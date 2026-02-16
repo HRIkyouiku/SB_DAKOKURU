@@ -14,6 +14,6 @@ public interface UserService {
 	public void deleteById(Long userId);
 	User findByEmail(String email);
 	User findByEmployeeNo(Integer employeeNo);
-	List<Object[]> getDailyTimestamps(List<Long> userIds, LocalDate firstDay, LocalDate lastDay);
-	List<UserDailyViewDTO> getDailyTimestampsView(List<Long> userIds, LocalDate startDate, LocalDate endDate);
+	List<Object[]> getDailyTimestamps(String name, LocalDate firstDay, LocalDate lastDay, String departmentName);
+	List<UserDailyViewDTO> getDailyTimestampsView(String name, LocalDate startDate, LocalDate endDate, String departmentName);
 }

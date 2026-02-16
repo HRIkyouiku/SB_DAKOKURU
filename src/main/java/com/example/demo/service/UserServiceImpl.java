@@ -50,22 +50,21 @@ public class UserServiceImpl implements UserService {
 	}
 
     @Override
-    public List<Object[]> getDailyTimestamps(List<Long> userIds, LocalDate startDate, LocalDate endDate) {
-    	List<Long> param = (userIds == null || userIds.isEmpty()) ? null : userIds;
+    public List<Object[]> getDailyTimestamps(String name, LocalDate startDate, LocalDate endDate, String departmentName) {
         //if (userIds == null || userIds.isEmpty()) {
         //    return Collections.emptyList();
         //}
 
-        List<Object[]> results = userRepository.findDailyTimestamps(param, startDate, endDate);
+        List<Object[]> results = userRepository.findDailyTimestamps(name, startDate, endDate, departmentName);
 
         return results;
     }
     
     @Override
-    public List<UserDailyViewDTO> getDailyTimestampsView(List<Long> userIds, LocalDate startDate, LocalDate endDate
+    public List<UserDailyViewDTO> getDailyTimestampsView(String name, LocalDate startDate, LocalDate endDate, String departmentName
     ) {
 
-        List<Object[]> rows = getDailyTimestamps(userIds, startDate, endDate);
+        List<Object[]> rows = getDailyTimestamps(name, startDate, endDate, departmentName);
 
         List<UserDailyViewDTO> result = new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();

@@ -5,9 +5,9 @@ import lombok.Data;
 @Data
 public class UserTimestampForm {
 
-	private String keyword;
+	private String Keyword;
 
-	private Long department_id;
+	private String departmentName;
 
 	private Long group_id;
 }
