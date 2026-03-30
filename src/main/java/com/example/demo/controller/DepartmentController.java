@@ -22,16 +22,10 @@ public class DepartmentController {
     
     // 部署一覧画面
     @GetMapping("/department/index")
-    public String showDepartments(
-            @RequestParam(required = false) String keyword,
-            Model model) {
-        
-        // 部署一覧の取得（検索ワードがある場合は検索）
+    public String showDepartments(@RequestParam(required = false) String keyword, Model model) {
         List<Department> departments = departmentService.searchDepartments(keyword);
-        // モデルに登録
         model.addAttribute("departments", departments);
         model.addAttribute("keyword", keyword);
-        
         return "departments/index";
     }
     
@@ -44,19 +38,15 @@ public class DepartmentController {
     // 新規登録処理
     @PostMapping("/department/store")
     public String storeDepartment(Department department) {
-    	departmentService.saveDepartment(department);
-    	return "redirect:/department/index";
+        departmentService.saveDepartment(department);
+        return "redirect:/department/index";
     }
-    
     
     // 編集画面
     @GetMapping("/department/edit/{id}")
     public String showEditForm(@PathVariable("id") Long id, Model model) {
-        // 指定IDの部署を取得
         Department department = departmentService.findById(id);
-        // モデルに登録
         model.addAttribute("department", department);
-        // edit.html を返す
         return "departments/edit";
     }
     

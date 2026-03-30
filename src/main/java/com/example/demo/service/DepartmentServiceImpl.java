@@ -23,12 +23,10 @@ public class DepartmentServiceImpl implements DepartmentService {
     // 部署検索
     @Override
     public List<Department> searchDepartments(String keyword) {
-    if (keyword == null || keyword.isEmpty()) {
-        // 検索ワードがなければ全件取得
-    	return departmentRepository.findAll();
-    }
-    	// 部署であいまい検索
-    	return departmentRepository.findByNameJpContaining(keyword);
+        if (keyword == null || keyword.isEmpty()) {
+            return departmentRepository.findAll();
+        }
+        return departmentRepository.findByNameJpContaining(keyword);
     }
     
     // 部署の取得
@@ -54,6 +52,4 @@ public class DepartmentServiceImpl implements DepartmentService {
     public void deleteDepartment(Long id) {
         departmentRepository.deleteById(id);
     }
-
-    
 }
