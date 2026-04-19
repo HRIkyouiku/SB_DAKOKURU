@@ -25,4 +25,10 @@ public interface ValidationGroups {
 
     public interface GroupAuthorityUpdateGroup {
     }
+    
+    public interface DepartmentGroup {
+    }
+
+    public interface DepartmentUpdateGroup {
+    }
 }
