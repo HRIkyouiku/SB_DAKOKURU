@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Department;
+import com.example.demo.form.DepartmentForm;
 import com.example.demo.repository.DepartmentRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -46,6 +47,38 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Override
 	public List<Department> findByNameJpContainingOrNameEnContaining(String keyword, String keyworden) {
 		return departmentRepository.findByNameJpContainingOrNameEnContaining(keyword, keyworden);
+	}
+
+	@Override
+	public void createDepartment(Department createDepartment) {
+		departmentRepository.save(createDepartment);
+	}
+
+	
+	@Transactional
+	public DepartmentForm getEditDepartment(Long id) {
+		Optional<Department> departmentOpt = departmentRepository.findById(id);
+		Department entity = departmentOpt.get();
+		
+		DepartmentForm form = new DepartmentForm();
+		form.setId(id);
+		form.setNameJp(entity.getNameJp());
+		form.setNameEn(entity.getNameEn());
+		return form;
+	}
+	
+	@Transactional
+	public Department updateDepartment(DepartmentForm form) {
+		Department entity = new Department();
+		entity.setId(form.getId());
+		entity.setNameJp(form.getNameJp());
+		entity.setNameEn(form.getNameEn());
+		return departmentRepository.save(entity);
+	}
+	
+	@Transactional
+	public void deleteDepartment(Long id) {
+		departmentRepository.deleteById(id);
 	}
 
 }
