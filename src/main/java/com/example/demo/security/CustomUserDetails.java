@@ -1,13 +1,10 @@
 package com.example.demo.security;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.example.demo.entity.Timestamp;
 import com.example.demo.entity.User;
 
 public class CustomUserDetails implements UserDetails {
