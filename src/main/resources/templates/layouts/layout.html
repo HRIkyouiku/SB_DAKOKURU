@@ -22,7 +22,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                 <span id="slide-line"></span>
             </nav>
             <div class="user-info">
-                <span>ユーザー名</span>
+                <span th:text="${loggedInUser.name}">ユーザー名</span>
             </div>
         </div>
     </header>
