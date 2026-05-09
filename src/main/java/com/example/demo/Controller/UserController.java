@@ -39,7 +39,7 @@ public class UserController {
 		return "users/create";
 	}
 
-	@PostMapping("/user/store")
+	@PostMapping("/user/create")
 	public String store(@Validated @ModelAttribute("userForm") UserForm form,
 			BindingResult result,
 			RedirectAttributes ra) {
@@ -93,7 +93,7 @@ public class UserController {
 
 		return "redirect:/user/index";
 	}
-
+	
 	@GetMapping("/user/show/{userId}")
 	public String show(Model model,
 			@PathVariable("userId") Long userId) {
