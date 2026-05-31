@@ -13,9 +13,11 @@
 	<header>
 		<div class="navbar">
 			<div class="logo">
-				<img th:src="@{/images/DAKOKURU.jpg}" alt="DAKOKURU">
+				<a th:href="@{/timestamp/create}">
+					<img th:src="@{/images/DAKOKURU.jpg}" alt="DAKOKURU">
+				</a>
 			</div>
-			<nav id=navigation>
+			<nav id="navigation">
 				<ul>
 					<li class="current-item"><a th:href="@{/user/index}">【管理】ユーザー一覧</a></li>
 					<li><a
@@ -35,7 +37,7 @@
 	<main layout:fragment="content">
 		<!-- 各ページのコンテンツがここに入る -->
 	</main>
-	
+
 </body>
 
 </html>

@@ -4,36 +4,46 @@
 <head>
 	<meta charset="UTF-8">
 	<title layout:title-pattern="$CONTENT_TITLE - 打刻システム">新規部署登録</title>
-	<link rel="stylesheet" th:href="@{/css/department.css}">
+	<link rel="stylesheet" th:href="@{/css/department/common.css}">
+	<link rel="stylesheet" th:href="@{/css/department/department-create.css}">
 
 <body>
-	<form th:action="@{/department/create}" th:method="post" th:object="${departmentForm}">
+	<div class="container">
+		<form th:action="@{/department/create}" th:method="post" th:object="${departmentForm}">
+			<header>
+				<h2>新規部署登録</h2>
+			</header>
+			
+			<div class="field-area">
+				
+			<div th:if="${successMessage}" th:text="${successMessage}"></div>
 
-		<h2>新規部署登録</h2>
-
-		<div th:if="${successMessage}" th:text="${successMessage}"></div>
-
-		<div>
-			<label>作成する部署名</label>
-			<input type="text" th:field="*{nameJp}">
-			<div th:if="${#fields.hasErrors('nameJp')}" th:errors="*{nameJp}" class="error-message">
+			<div>
+				<label>作成する部署名</label>
+				<input type="text" th:field="*{nameJp}">
+				<div th:if="${#fields.hasErrors('nameJp')}" th:errors="*{nameJp}" class="error-message">
+				</div>
 			</div>
-		</div>
 
-		<div>
-			<label>部署名（英語）</label>
-			<input type="text" th:field="*{nameEn}">
-			<div th:if="${#fields.hasErrors('nameEn')}" th:errors="*{nameEn}" class="error-message">
+			<div>
+				<label>部署名（英語）</label>
+				<input type="text" th:field="*{nameEn}">
+				<div th:if="${#fields.hasErrors('nameEn')}" th:errors="*{nameEn}" class="error-message">
+				</div>
 			</div>
-		</div>
+			
+			</div>
+			
+			<div Class="action-area">
+				<input class="create-btn" type="submit" value="登録">
+			</div>
+			
 
-		<input class="create-btn" type="submit" value="登録">
+			<a class="back-btn" th:href="@{/department/index}">部署一覧へ戻る</a>
 
-		<a class=auth_link th:href="@{/department/index}">部署一覧へ戻る</a>
+		</form>
 
-	</form>
-
-
+	</div>
 </body>
 
 </html>

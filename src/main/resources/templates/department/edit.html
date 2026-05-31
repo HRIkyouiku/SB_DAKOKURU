@@ -4,53 +4,55 @@
 
 <head>
 	<title>Spring Security Example </title>
+	<link rel="stylesheet" th:href="@{/css/department/common.css}">
+	<link rel="stylesheet" th:href="@{/css/department/department-edit.css}">
 </head>
 
 <body>
-	<h1>部署編集・削除</h1>
+	<div class="container">
+		<header>
+			<h2>部署編集・削除</h2>
+		</header>
+	
 	<form th:action="@{/department/edit}" th:object="${departmentForm}" th:method="post">
 		<table>
 			<tr>
 				<td><input type="hidden" th:field="*{id}"/></td>
 			</tr>
 			<tr>
-				<td><label for="department">変更前</label></td>
-				<td><input type="text" name="oldnameJp" th:value="${department.nameJp}" /></td>
-				<td><input type="text" name="oldnameEn" th:value="${department.nameEn}" /></td>
+				<td><label>変更前</label></td>
+				<td><input type="text" name="oldnameJp" th:value="${department.nameJp}" class="readonly-field"/></td>
+				<td><input type="text" name="oldnameEn" th:value="${department.nameEn}" class="readonly-field"/></td>
 			</tr>
 
 			<tr>
 				<td><label for="department">変更後</label></td>
 				<td><input type="text" th:field="*{nameJp}"/></td>
-				<td th:if="${#fields.hasErrors('nameJp')}" th:errors="*{nameJp}" style="color:red;"></td>
+				<td th:if="${#fields.hasErrors('nameJp')}" th:errors="*{nameJp}" class="error-message"></td>
 			</tr>
 			<tr>
 				<td><label for="department">変更後（英語）</label></td>
 				<td><input type="text" th:field="*{nameEn}"></td>
-				<td th:if="${#fields.hasErrors('nameEn')}" th:errors="*{nameEn}" style="color:red;"></td>
+				<td th:if="${#fields.hasErrors('nameEn')}" th:errors="*{nameEn}" class="error-message"></td>
 			</tr>
-			<tr>
-				<td><button type="submit" onclick="return confirm('更新します。宜しいですか？')">変更</button></td>
+			</table>
+			
+			<div class="change-area">
+			<button class="update-btn" type="submit" onclick="return confirm('更新します。宜しいですか？')">変更</button>
 
-			</tr>
-			<tr>
 				<a th:href="@{/department/delete/{id}(id=${department.id})}"
-					onclick="return confirm('削除します。宜しいですか？')">削除</a>
+					onclick="return confirm('削除します。宜しいですか？')" class="delete-btn">削除</a>
 
 				<div th:if="${successMessage}">
 					<p th:text="${successMessage}"></p>
 				</div>
-
-				<div th:if="${errorMessage}">
-					<p th:text="${errorMessage}"></p>
-				</div>
-			</tr>
-
-			<div>
-				<a th:href="@{/department/index}">戻る</a>
 			</div>
-		</table>
+			<div>
+				<a th:href="@{/department/index}" class="back-btn">部署一覧へ戻る</a>
+			</div>
+		
 	</form>
+	</div>
 </body>
 
 </html>

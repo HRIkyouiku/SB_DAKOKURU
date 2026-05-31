@@ -6,6 +6,11 @@
 		打刻トップ
 		<link rel="stylesheet" th:href="@{/css/timestamp.css}">
 	</h2>
+	
+	<div class="datetime-area">
+		<div class="calendar"></div>
+		<div class="clock"></div>
+	</div>
 
 	<div class="main-card">
 		<form class="timestamp-form" method="post" th:action="@{/timestamp/store}" th:object="${timestampForm}">

@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -47,7 +48,7 @@ public class TimestampController {
 	@GetMapping("/timestamp/create")
 	public String timeline(Model model,
 			@AuthenticationPrincipal CustomUserDetails userDetails,
-			@PageableDefault(page = 0, size = 10) Pageable pageable) {
+			@PageableDefault(page = 0, size = 10, sort = {"date", "time"}, direction = Sort.Direction.DESC) Pageable pageable) {
 
 		if (!model.containsAttribute("timestampForm")) {
 			model.addAttribute("timestampForm", new TimestampForm());

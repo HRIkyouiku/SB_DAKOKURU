@@ -1,0 +1,78 @@
+@charset "UTF-8";
+
+body {
+	background-color: #f5f5f5;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+table td {
+	padding: 12px 10px;
+	vertical-align: top;
+}
+
+table label {
+	font-weight: bold;
+	white-space: nowrap;
+	color: #555;
+}
+
+input[type="text"] {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-sizing: border-box;
+}
+
+.readonly-field {
+	background-color: #f5f5f5;
+	color: #666;
+}
+
+.change-area {
+	display: flex;
+	justify-content: center;
+	gap: 15px;
+	margin-top: 30px;
+}
+
+.update-btn,
+.delete-btn {
+	height: 40px;
+	padding: 0 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 6px;
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+	border: none;
+	cursor: pointer;
+	box-sizing: border-box;
+	white-space: nowrap;
+}
+
+.update-btn {
+	background-color: #7acbe1;
+}
+
+.update-btn:hover {
+	background-color: #3292ad;
+}
+
+.delete-btn {
+	background-color: #fff;
+	color: #7acbe1;
+	border: 1px solid #7acbe1;
+}
+
+.delete-btn:hover {
+	background-color: #3292ad;
+	color: #fff;
+	border: none;
+}

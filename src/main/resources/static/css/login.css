@@ -12,27 +12,35 @@ body {
 form {
 	display: flex;
 	flex-direction: column;
-	width: 320px;
-	gap: 15px;
-	padding: 30px;
-	border: 1px solid #ccc;
-	border-radius: 10px;
+	width: 380px;
+	gap: 20px;
+	padding: 40px;
+	border: 1px solid #ddd;
+	border-radius: 12px;
 	background-color: #fff;
 	box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+	text-align: center;
+	margin: 0;
+	font-size: 28px;
+	color: #2a4073;
 }
 
 .title-logo {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin-bottom: 10px;
+	margin-bottom: 0;
 	gap: 10px;
 	font-size: 24px;
 	font-weight: bold;
 }
 
+
 .logo {
-	width: 150px;
+	width: 140px;
 	height: auto;
 }
 
@@ -40,7 +48,7 @@ form {
 	font-size: 22px;
 }
 
-.form_group {
+.form-group {
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
@@ -54,37 +62,54 @@ form {
 }
 
 .field input {
+	width: 100%;
 	padding: 10px;
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	font-size: 14px;
+	box-sizing: border-box;
+	margin-bottom: 10px;
+}
+
+.field input:focus {
+	outline: none;
+	border-color: #2a4073;
+	box-shadow: 0 0 0 3px rgba(42, 64, 115, 0.1);
 }
 
 .field label {
 	font-size: 13px;
 	margin-bottom: 5px;
 	color: #555;
+	font-weight: bold;
 }
 
 .error-message {
 	color: #d9534f;
+	background-color: #fdeaea;
+	border: 1px solid #f5c2c2;
+	padding: 10px;
+	border-radius: 5px;
+	font-size: 13px;
+	text-align: center;
 }
 
 .login-botton {
 	display: block;
-	margin: 0 auto;
+	margin: 15px 0 auto;
 	margin-top: 10px;
-	padding: 10px;
-	width: 60%;
-	background-color: #2a4073;
+	padding: 12px;
+	width: 100%;
+	background-color: #7acbe1;
 	color: #fff;
 	border: none;
-	border-radius: 5px;
+	border-radius: 6px;
 	cursor: pointer;
 	font-weight: bold;
 	transition: 0.2s;
+	font-size: 15px;
 }
 
 .login-botton:hover {
-	background-color: #1d2e54;	
+	background-color: #3292ad;	
 }

@@ -46,7 +46,7 @@ $(function() {
 
 	const today = `${year}/${month}/${date}/${daysOfWeek[day]} `;
 	console.log(today);
-	document.querySelector(".calender").textContent = today;
+	document.querySelector(".calendar").textContent = today;
 
 	function displayTime() {
 		const time = new Date();

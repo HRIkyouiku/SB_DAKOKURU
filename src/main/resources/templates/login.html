@@ -3,30 +3,34 @@
 
 <head>
 	<title>Spring Security Example </title>
-	<link th:href="@{/css/style.css}" rel="stylesheet">
+	<link th:href="@{/css/login.css}" rel="stylesheet">
 </head>
 
 <body>
-	<div class="navbar">
-		<div class="logo">
-			<img class="logo img" th:src="@{/images/DAKOKURU.jpg}" alt="ロゴ画像" />
-		</div>
-		<h1>Dakoku-Ru</h1>
-	</div>
+
 	<form th:action="@{/login}" method="post" th:object="${userForm}">
-		<div class="body">
+
+		<div class="title-logo">
+			<img class="logo" th:src="@{/images/DAKOKURU.jpg}" alt="ロゴ画像" />
+		</div>
+		<h1>DAKOKURU</h1>
+
+		<div class="form-group">
 			<div th:if="${param.error}" class="error-message">
 				社員番号とパスワードの組み合わせが正しくありません。
 			</div>
-			<div class="form-container">
+			<div class="field">
 				<div class="form-area">
-					<label> <input type="text" name="employee_no" placeholder="社員番号" /></label>
+					<label> 社員番号</label>
+					<input type="text" name="employee_no" placeholder="社員番号" />
+
+					<label> パスワード</label>
+					<input type="password" name="password" placeholder="パスワード" />
 				</div>
-				<div class="form-area">
-					<label><input type="password" name="password" placeholder="パスワード" /></label>
-				</div>
-				<div class="form-area">
-				<input type="submit" value="Log-In" />
+
+
+				<div>
+					<input type="submit" value="ログイン" class="login-botton" />
 				</div>
 			</div>
 		</div>
