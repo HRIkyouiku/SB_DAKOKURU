@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.entity.Department;
 import com.example.demo.form.DepartmentForm;
 import com.example.demo.form.ValidationGroups.DepartmentGroup;
+import com.example.demo.form.ValidationGroups.DepartmentUpdateGroup;
 import com.example.demo.service.DepartmentService;
 
 import lombok.RequiredArgsConstructor;
@@ -32,8 +33,16 @@ public class DepartmentController {
 	@PostMapping("/department/store")
     public String registerDepartment(
     		@Validated(DepartmentGroup.class)
-    		@ModelAttribute("DepartmentForm") DepartmentForm form,
-    		BindingResult result) {
+    		@ModelAttribute("DepartmentForm") DepartmentForm form,BindingResult result) {
+        	if (result.hasErrors()) {
+        		return "/department/create";
+        	}
+            if (departmentService.existsByNameJp(form.getName_jp())) {
+                result.rejectValue("name_jp", "duplicate", "部署名は既に存在しています。");
+            }
+            if (departmentService.existsByNameEn(form.getName_en())) {
+                result.rejectValue("name_en", "duplicate", "部署名（英語）は既に存在しています。");
+            }
         	if (result.hasErrors()) {
         		return "/department/create";
         	}
@@ -48,6 +57,11 @@ public class DepartmentController {
     public String departmentList(
             @RequestParam(value = "keyword", required = false) String keyword,
             Model model) {
+    		if (keyword != null && keyword.length() > 255) {
+    			model.addAttribute("errorMessage", "キーワードは255文字以内で入力してください。");
+    			model.addAttribute("departmentList", List.of());
+    			return "department/index";
+    		}
             List<Department> list;
             if (keyword == null || keyword.isEmpty()) {
                 list = departmentService.findAll();
@@ -56,6 +70,7 @@ public class DepartmentController {
             }
             model.addAttribute("departmentList", list);
             model.addAttribute("keyword", keyword);
+            model.addAttribute("count", list.size());
             return "/department/index";
         }
     
@@ -65,13 +80,38 @@ public class DepartmentController {
         Model model) {
     	Department department = departmentService.findDepartmentById(departmentId);
         model.addAttribute("department", department);
+        DepartmentForm form = new DepartmentForm();
+        form.setId(department.getId());
+        model.addAttribute("DepartmentForm", form);
         return "/department/edit";
     }
 
     @PostMapping("/department/update")
-    public String departmentUpdate(@ModelAttribute Department department) {
-        departmentService.update(department);
-        return "redirect:department/edit";
+    public String departmentUpdate(
+    		@Validated(DepartmentUpdateGroup.class)
+    	    @ModelAttribute("DepartmentForm") DepartmentForm form,BindingResult result,Model model) {
+    	    if (result.hasErrors()) {
+    	    	Department department = departmentService.findDepartmentById(form.getId());
+    	        model.addAttribute("department", department);
+    	        return "/department/edit";
+    	    }
+    	    if (departmentService.existsByNameJpExceptId(form.getName_jp(), form.getId())) {
+    	        result.rejectValue("name_jp", "duplicate", "部署名は既に存在しています。");
+    	    }
+    	    if (departmentService.existsByNameEnExceptId(form.getName_en(), form.getId())) {
+    	        result.rejectValue("name_en", "duplicate", "部署名（英語）は既に存在しています。");
+    	    }
+    	    if (result.hasErrors()) {
+    	    	Department department = departmentService.findDepartmentById(form.getId());
+    	        model.addAttribute("department", department);
+    	        return "/department/edit";
+    	    }
+    	    Department department = new Department();
+    	    department.setId(form.getId());
+    	    department.setNameJp(form.getName_jp());
+    	    department.setNameEn(form.getName_en());
+    	    departmentService.update(department);
+    	return "redirect:/department/edit/" + form.getId();
     }
     
     @PostMapping("/department/delete")

@@ -27,7 +27,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public List<Department> searchByNameJp(String keyword) {
-        return departmentRepository.findByNameJpContainingOrderByNameJpDesc(keyword);
+        return departmentRepository.findByNameJpContainingOrNameEnContainingOrderByNameJpDesc(keyword, keyword);
     }
     
     @Override
@@ -44,4 +44,25 @@ public class DepartmentServiceImpl implements DepartmentService {
     public void delete(Long id) {
         departmentRepository.deleteById(id);
     }
+    
+    @Override
+    public boolean existsByNameJp(String nameJp) {
+        return departmentRepository.existsByNameJp(nameJp);
+    }
+
+    @Override
+    public boolean existsByNameEn(String nameEn) {
+        return departmentRepository.existsByNameEn(nameEn);
+    }  
+    
+    @Override
+    public boolean existsByNameJpExceptId(String nameJp, Long id) {
+        return departmentRepository.existsByNameJpAndIdNot(nameJp, id);
+    }
+    
+    @Override
+    public boolean existsByNameEnExceptId(String nameEn, Long id) {
+        return departmentRepository.existsByNameEnAndIdNot(nameEn, id);
+    }
+
 }

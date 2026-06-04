@@ -10,5 +10,9 @@ import com.example.demo.entity.Department;
 @Repository
 public interface DepartmentRepository extends JpaRepository<Department, Long> {
     List<Department> findAllByOrderByNameJpDesc();
-    List<Department> findByNameJpContainingOrderByNameJpDesc(String keyword);
+    List<Department> findByNameJpContainingOrNameEnContainingOrderByNameJpDesc(String nameJp, String nameEn);
+    boolean existsByNameJp(String nameJp);
+    boolean existsByNameEn(String nameEn);
+    boolean existsByNameJpAndIdNot(String nameJp, Long id);
+    boolean existsByNameEnAndIdNot(String nameEn, Long id);
 }

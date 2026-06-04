@@ -16,4 +16,12 @@ public interface DepartmentService {
 	public void update(Department Department);
 	
 	public void delete(Long id);
+	
+	public boolean existsByNameJp(String nameJp);
+	
+	public boolean existsByNameEn(String nameEn);
+	
+	public boolean existsByNameJpExceptId(String nameJp,Long id);
+	
+	public boolean existsByNameEnExceptId(String nameEn,Long id);
 }
